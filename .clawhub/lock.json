@@ -4,6 +4,14 @@
     "wordpress": {
       "version": "1.0.0",
       "installedAt": 1772041681559
+    },
+    "tavily-search": {
+      "version": "1.0.0",
+      "installedAt": 1772069285219
+    },
+    "bitwarden-vault": {
+      "version": "1.0.0",
+      "installedAt": 1772071867824
     }
   }
 }

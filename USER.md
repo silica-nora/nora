@@ -4,6 +4,7 @@
 - **What to call them:** tk
 - **Pronouns:** 
 - **Timezone:** Asia/Shanghai (GMT+8)
+- **Location:** 深圳 (Shenzhen)
 - **Notes:** 
 
 ## Context
