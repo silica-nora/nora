@@ -12,6 +12,10 @@
     "bitwarden-vault": {
       "version": "1.0.0",
       "installedAt": 1772071867824
+    },
+    "github-cli": {
+      "version": "1.0.0",
+      "installedAt": 1772126648432
     }
   }
 }

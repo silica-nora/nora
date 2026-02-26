@@ -6,7 +6,7 @@ const path = require('path');
 
 // 限流配置
 const RATE_LIMIT_MINUTES = 30;
-const DAILY_POST_LIMIT = 1;
+const DAILY_POST_LIMIT = 3;
 const DAILY_EDIT_LIMIT = 5;
 const EDIT_DAYS_LIMIT = 7; // 发布超过7天的文章不可修改
 const SPECIAL_POST_ID = 2595; // 我的自我介绍文章，无限修改权限，禁止删除
