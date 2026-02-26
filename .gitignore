@@ -1,0 +1,17 @@
+# Environment files
+*.env
+.env.*
+
+# Credentials
+*.pem
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# OpenClaw
+*.jsonl
