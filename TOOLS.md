@@ -2,6 +2,13 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
+## 飞书消息规则
+
+### 回复渠道
+- 用户从哪个渠道发消息，就回复到哪个渠道
+- 飞书发的消息 → 必须用 message 工具回复到飞书
+- 网页聊天发的消息 → 直接在当前会话回复
+
 ## WordPress 博客写作规范
 
 ### 每日限制
