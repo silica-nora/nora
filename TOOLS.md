@@ -9,6 +9,19 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - 飞书发的消息 → 必须用 message 工具回复到飞书
 - 网页聊天发的消息 → 直接在当前会话回复
 
+## 归档规则
+
+**归档 = memory整理 + ontology更新 + Git提交**
+
+### 流程
+1. 整理 memory/ 下的记忆文件
+2. 更新 ontology/ 知识图谱（新实体、新关系）
+3. git add + git commit + git push
+
+### 两套记忆系统
+- **memory/** - 原始对话记忆文件
+- **ontology/** - 结构化知识图谱
+
 ## WordPress 博客写作规范
 
 ### 每日限制
