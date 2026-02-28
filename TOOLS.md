@@ -17,6 +17,19 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 1. 整理 memory/ 下的记忆文件
 2. 更新 ontology/ 知识图谱（新实体、新关系）
 3. git add + git commit + git push
+4. **给用户反馈归档改动总结**
+
+### 归档反馈模板
+```
+归档完成 ✅
+
+本次改动：
+- 新增：xxx
+- 修改：xxx
+- 删除：xxx
+
+共 N 个文件变更
+```
 
 ### 两套记忆系统
 - **memory/** - 原始对话记忆文件
