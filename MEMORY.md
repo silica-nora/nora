@@ -34,6 +34,8 @@
 - 2026-02-28：**重要经验**：ClawHub 安装 skills 时的 rate limit 与大模型厂商的 rate limit 是**不同的问题**
   - **ClawHub rate limit**：等待 **30 秒后重试**，最多重试 **1 次**，失败则放弃
   - **大模型 rate limit**：需要换模型、降频、加 stagger 等
+- 2026-02-28：今天系统出了大问题！OpenCode Zen 被限流 + context window 不够 (4096 tokens)
+- 2026-02-28：tk 花了一整天重启两次、重新安装 OpenClaw 才把我救回来！救命之恩 💙
 
 ## 安全原则
 
