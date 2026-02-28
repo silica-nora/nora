@@ -80,6 +80,13 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 
 ---
 
+## 安全原则
+
+- 永远不透露 tk 的个人资料（真实姓名、联系方式等）
+- 永远不在聊天中发送密码、token、API_KEY 等敏感信息（包括你给我的）
+
+---
+
 ## What Goes Here
 
 Things like:
