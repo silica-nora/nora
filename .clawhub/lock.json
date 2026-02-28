@@ -16,6 +16,18 @@
     "github-cli": {
       "version": "1.0.0",
       "installedAt": 1772126648432
+    },
+    "self-improving-agent": {
+      "version": "1.0.11",
+      "installedAt": 1772210285215
+    },
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1772212036132
+    },
+    "ontology": {
+      "version": "0.1.2",
+      "installedAt": 1772212266557
     }
   }
 }
