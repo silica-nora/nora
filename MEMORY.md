@@ -32,7 +32,7 @@
 - 2026-02-28：Cron 任务遇到 API rate limit 问题（大模型厂商限流），tk 已解决并删除了 hourly 记忆任务
 - 2026-02-28：Heartbeat 保持现状（30 分钟检查，但只在有实质内容时发消息）
 - 2026-02-28：**重要经验**：ClawHub 安装 skills 时的 rate limit 与大模型厂商的 rate limit 是**不同的问题**
-  - **ClawHub rate limit**：等待 **10 秒后重试**，最多重试 **6 次**（约 1 分钟），超过则放弃
+  - **ClawHub rate limit**：等待 **30 秒后重试**，最多重试 **1 次**，失败则放弃
   - **大模型 rate limit**：需要换模型、降频、加 stagger 等
 
 ## 安全原则
