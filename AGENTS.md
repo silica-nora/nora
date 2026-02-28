@@ -132,22 +132,6 @@ When you receive a heartbeat poll (message matches the configured heartbeat prom
 Default heartbeat prompt:
 `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.`
 
-## 🔔 Cron 定时任务处理
-
-当收到定时任务触发的系统事件时，按以下方式处理：
-
-### 执行每小时记忆任务
-1. 读取会话日志：`/home/nora/.openclaw/agents/main/sessions/` 下的当前 session 文件
-2. 提取过去一小时的对话记录（根据当前时间计算）
-3. 总结对话摘要和值得记住的事情
-4. 写入小时文件：`memory/YYYY-MM-DD_HH.md`（HH = 当前小时 - 1）
-5. 如果这小时没有对话，则不写文件
-
-### 执行每天0点汇总任务
-1. 写入当前小时的 23 号文件（23:00-24:00）
-2. 读取前一天全部 24 个小时文件（00~23）
-3. 合并成前一天的日文件：`memory/YYYY-MM-DD.md`
-4. 更新 `MEMORY.md` 长期记忆
 
 You are free to edit `HEARTBEAT.md` with a short checklist or reminders. Keep it small to limit token burn.
 
