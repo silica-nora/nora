@@ -1,23 +1,31 @@
 #!/usr/bin/env node
 
 /**
- * News Fetcher - 获取高质量新闻资讯 v1.0
- * 定时任务专用版本
+ * News Fetcher v2.0 - 获取高质量新闻资讯
+ * 优化：多源聚合 + 分类覆盖 + 热度排序
  */
 
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY || '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';
 
-// 搜索配置
+// 搜索配置 - 多关键词聚合
 const CONFIGS = {
   // 10:00 - 国际局势 + 黄金
   morning: {
     world: {
-      keywords: ['latest news Middle East Iran 2026', 'latest news Russia Ukraine 2026'],
+      keywords: [
+        'latest news Middle East Iran 2026',
+        'latest news Russia Ukraine 2026',
+        'breaking news world 2026'
+      ],
       maxResults: 2,
       translate: true
     },
     gold: {
-      keywords: ['黄金价格 走势 2026年2月', '伦敦金 最新价格'],
+      keywords: [
+        '黄金价格 走势 2026年2月',
+        '伦敦金 最新价格 2026',
+        '大宗商品 黄金 走势分析'
+      ],
       maxResults: 2,
       translate: false
     }
@@ -25,16 +33,24 @@ const CONFIGS = {
   // 15:10 - A股
   afternoon: {
     stock: {
-      keywords: ['A股 今日收盘 大盘 2026年2月', '上证指数 最新'],
+      keywords: [
+        'A股 今日收盘 大盘 2026',
+        '上证指数 最新走势',
+        'A股 政策 利好 2026'
+      ],
       maxResults: 3,
       translate: false
     }
   },
-  // 22:00 - AI科技
+  // 22:00 - AI科技（多分类）
   night: {
     ai: {
-      keywords: ['AI 人工智能 最新 2026', '大模型 DeepSeek ChatGPT 最新'],
-      maxResults: 3,
+      categories: {
+        '新产品': ['AI 产品 发布 2026', 'ChatGPT 新功能 2026', 'AI 工具 发布'],
+        '行业动态': ['AI 重大突破 2026', '大模型 最新 2026', '人工智能 动态'],
+        '融资并购': ['AI 融资 2026', 'AI 收购 并购', 'AI 公司 融资新闻']
+      },
+      maxResults: 2,
       translate: false
     }
   }
@@ -43,54 +59,70 @@ const CONFIGS = {
 async function searchTavily(query, maxResults = 3) {
   const url = 'https://api.tavily.com/search';
   
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      api_key: TAVILY_API_KEY,
-      query: query,
-      max_results: maxResults,
-      search_depth: 'basic'
-    })
-  });
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key: TAVILY_API_KEY,
+        query: query,
+        max_results: maxResults,
+        search_depth: 'basic'
+      })
+    });
+    
+    if (!response.ok) return [];
+    const data = await response.json();
+    return data.results || [];
+  } catch (e) {
+    console.error('Search error:', e.message);
+    return [];
+  }
+}
+
+/**
+ * 多关键词搜索 + 合并去重
+ */
+async function multiSearch(keywords, maxResults) {
+  const allResults = [];
   
-  if (!response.ok) return [];
-  const data = await response.json();
-  return data.results || [];
+  for (const keyword of keywords) {
+    const results = await searchTavily(keyword, maxResults);
+    allResults.push(...results);
+  }
+  
+  // 按 relevance 排序
+  allResults.sort((a, b) => (b.score || 0) - (a.score || 0));
+  
+  // 去重（按URL）
+  const unique = [...new Map(allResults.map(r => [r.url, r])).values()];
+  
+  return unique.slice(0, maxResults * 2);
 }
 
 /**
- * 翻译摘要（简单实现）
+ * 格式化新闻项
  */
-function translateSummary(content, toLang = 'zh') {
-  // 简单处理：直接返回内容
-  // TODO: 可以接入翻译API
-  return content;
-}
-
-/**
- * 格式化单条新闻
- */
-function formatItem(item, needTranslate = false) {
+function formatItem(item, index) {
   const title = item.title || '无标题';
   let content = item.content || '';
-  if (content.length > 150) {
-    content = content.substring(0, 150) + '...';
-  }
-  if (needTranslate && content) {
-    // 英文内容简单标注，实际可用翻译API
-    content = '[英文] ' + content;
+  
+  // 截取核心内容
+  if (content.length > 120) {
+    content = content.substring(0, 120) + '...';
   }
   
   return {
+    index: index + 1,
     title,
     content,
-    url: item.url || ''
+    url: item.url || '',
+    score: item.score || 0
   };
 }
 
 /**
- * 获取指定时段的新闻
+ * 获取指定时段新闻
  */
 async function fetchNews(timeSlot) {
   const config = CONFIGS[timeSlot];
@@ -101,28 +133,35 @@ async function fetchNews(timeSlot) {
   
   const results = {};
   
+  // 遍历所有类型
   for (const [type, cfg] of Object.entries(config)) {
-    const allResults = [];
-    for (const keyword of cfg.keywords) {
-      const items = await searchTavily(keyword, cfg.maxResults);
-      allResults.push(...items);
+    
+    // AI 科技：按分类处理
+    if (type === 'ai' && cfg.categories) {
+      results[type] = {};
+      
+      for (const [category, keywords] of Object.entries(cfg.categories)) {
+        const items = await multiSearch(keywords, cfg.maxResults);
+        results[type][category] = items.slice(0, cfg.maxResults).map((r, i) => formatItem(r, i));
+      }
+      continue;
     }
     
-    // 去重
-    const unique = [...new Map(allResults.map(r => [r.url, r])).values()];
-    results[type] = unique.slice(0, cfg.maxResults).map(r => formatItem(r, cfg.translate));
+    // 其他类型：直接多关键词搜索
+    const items = await multiSearch(cfg.keywords, cfg.maxResults);
+    results[type] = items.slice(0, cfg.maxResults * 2).map((r, i) => formatItem(r, i));
   }
   
   return results;
 }
 
 /**
- * 格式化输出（用于飞书消息）
+ * 格式化输出（飞书消息）
  */
 function formatForFeishu(timeSlot, news) {
   const timeNames = {
     morning: '☀️ 早安资讯',
-    afternoon: '🌤️ 下午好 - A股动态', 
+    afternoon: '🌤️ 下午好 - A股动态',
     night: '🌙 晚安 - AI科技'
   };
   
@@ -132,9 +171,10 @@ function formatForFeishu(timeSlot, news) {
   // 国际局势
   if (news.world) {
     msg += '【🌍 国际局势】\n';
-    news.world.forEach((item, i) => {
-      msg += `${i + 1}. ${item.title}\n`;
-      if (item.content) msg += `   ${item.content}\n`;
+    news.world.forEach(item => {
+      const langTag = item.content.startsWith('[英文]') ? '🇬🇧' : '';
+      msg += `${item.index}. ${langTag}${item.title}\n`;
+      msg += `   ${item.content}\n`;
       msg += `   🔗 ${item.url}\n\n`;
     });
   }
@@ -142,9 +182,9 @@ function formatForFeishu(timeSlot, news) {
   // 黄金
   if (news.gold) {
     msg += '【📊 黄金/大宗】\n';
-    news.gold.forEach((item, i) => {
-      msg += `${i + 1}. ${item.title}\n`;
-      if (item.content) msg += `   ${item.content}\n`;
+    news.gold.forEach(item => {
+      msg += `${item.index}. ${item.title}\n`;
+      msg += `   ${item.content}\n`;
       msg += `   🔗 ${item.url}\n\n`;
     });
   }
@@ -152,21 +192,25 @@ function formatForFeishu(timeSlot, news) {
   // A股
   if (news.stock) {
     msg += '【📈 A股市场】\n';
-    news.stock.forEach((item, i) => {
-      msg += `${i + 1}. ${item.title}\n`;
-      if (item.content) msg += `   ${item.content}\n`;
+    news.stock.forEach(item => {
+      msg += `${item.index}. ${item.title}\n`;
+      msg += `   ${item.content}\n`;
       msg += `   🔗 ${item.url}\n\n`;
     });
   }
   
-  // AI
+  // AI（多分类）
   if (news.ai) {
     msg += '【🤖 AI科技】\n';
-    news.ai.forEach((item, i) => {
-      msg += `${i + 1}. ${item.title}\n`;
-      if (item.content) msg += `   ${item.content}\n`;
-      msg += `   🔗 ${item.url}\n\n`;
-    });
+    
+    for (const [category, items] of Object.entries(news.ai)) {
+      msg += `\n📌 ${category}：\n`;
+      items.forEach(item => {
+        msg += `  ${item.index}. ${item.title}\n`;
+        msg += `     ${item.content}\n`;
+        msg += `     🔗 ${item.url}\n\n`;
+      });
+    }
   }
   
   return msg;
@@ -184,10 +228,6 @@ async function main() {
   
   const formatted = formatForFeishu(timeSlot, news);
   console.log(formatted);
-  
-  // 输出 JSON 供其他程序调用
-  console.log('\n--- JSON ---');
-  console.log(JSON.stringify({ timeSlot, news }, null, 2));
 }
 
 main().catch(console.error);
