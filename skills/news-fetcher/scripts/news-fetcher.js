@@ -13,18 +13,18 @@ const CONFIGS = {
   morning: {
     world: {
       keywords: [
-        'latest news Middle East Iran 2026',
-        'latest news Russia Ukraine 2026',
-        'breaking news world 2026'
+        '国际局势 最新消息 2026',
+        '中东伊朗 局势分析',
+        '俄乌战争 最新动态'
       ],
       maxResults: 2,
       translate: true
     },
     gold: {
       keywords: [
-        '黄金价格 走势 2026年2月',
-        '伦敦金 最新价格 2026',
-        '大宗商品 黄金 走势分析'
+        '黄金价格 今日 2026年3月 国内',
+        '上海金 Au9999 最新报价',
+        '黄金期货 收盘价 国内'
       ],
       maxResults: 2,
       translate: false
