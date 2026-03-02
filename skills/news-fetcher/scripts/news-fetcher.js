@@ -112,6 +112,10 @@ function formatItem(item, index) {
   const title = item.title || '无标题';
   let content = item.content || '';
   
+  // 尝试从内容中提取日期
+  const dateMatch = content.match(/(\d{4}-\d{2}-\d{2})/);
+  const dateStr = dateMatch ? dateMatch[1] : '';
+  
   // 截取核心内容作为摘要
   if (content.length > 120) {
     content = content.substring(0, 120) + '...';
@@ -121,6 +125,7 @@ function formatItem(item, index) {
     index: index + 1,
     title,
     content,
+    date: dateStr,  // 提取的日期
     url: item.url || '',
     score: item.score || 0
   };
@@ -206,7 +211,8 @@ function formatForFeishu(timeSlot, news) {
                         item.url.includes('cnn') || item.url.includes('reuters') ||
                         item.url.includes('atlantic');
       const langTag = isEnglish ? '🇬🇧 ' : '';
-      msg += `${item.index}. ${langTag}${item.title}\n`;
+      const dateTag = item.date ? ` [${item.date}]` : '';
+      msg += `${item.index}. ${langTag}${item.title}${dateTag}\n`;
       // 摘要（翻译为中文或直接使用）
       msg += `   📝 ${item.content || '暂无摘要'}\n`;
       // 来源
@@ -220,7 +226,8 @@ function formatForFeishu(timeSlot, news) {
   if (news.gold) {
     msg += '【📊 黄金/大宗】\n';
     news.gold.forEach(item => {
-      msg += `${item.index}. ${item.title}\n`;
+      const dateTag = item.date ? `[${item.date}]` : '';
+      msg += `${item.index}. ${item.title} ${dateTag}\n`;
       msg += `   📝 ${item.content || '暂无摘要'}\n`;
       const source = getSourceName(item.url);
       msg += `   📰 来源: ${source}\n`;
