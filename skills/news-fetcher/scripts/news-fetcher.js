@@ -25,11 +25,11 @@ const CONFIGS = {
       translate: true
     },
     gold: {
-      // 官方数据源
+      // 官方数据源 + 零售价
       keywords: [
-        '上海黄金交易所 Au9999 今日价格',
-        '伦敦金 XAU 实时行情 新浪财经',
-        '黄金价格 今日报价 2026'
+        '周大福 黄金价格 今日 2026',
+        '上海黄金交易所 Au9999 实时价格',
+        '伦敦金 XAU 实时行情'
       ],
       maxResults: 2,
       translate: false
