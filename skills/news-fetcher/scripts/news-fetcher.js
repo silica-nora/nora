@@ -12,10 +12,14 @@ const CONFIGS = {
   // 10:00 - 国际局势 + 黄金
   morning: {
     world: {
+      // 多源搜索，打破信息茧房
       keywords: [
+        // 中文源
         '国际局势 最新消息 2026',
-        '中东伊朗 局势分析',
-        '俄乌战争 最新动态'
+        // 英文源 - 不同视角
+        'Middle East Iran news 2026',
+        'Russia Ukraine war news 2026',
+        'US China relations news 2026'
       ],
       maxResults: 2,
       translate: true
