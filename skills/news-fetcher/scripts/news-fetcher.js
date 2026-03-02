@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * News Fetcher v2.0 - 获取高质量新闻资讯
- * 优化：多源聚合 + 分类覆盖 + 热度排序
+ * News Fetcher v2.1 - 获取高质量新闻资讯
+ * 优化：多源聚合 + 分类覆盖 + 热度排序 + 黄金固定数据源
  */
 
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY || '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';
@@ -14,9 +14,7 @@ const CONFIGS = {
     world: {
       // 多源搜索，打破信息茧房
       keywords: [
-        // 中文源
         '国际局势 最新消息 2026',
-        // 英文源 - 不同视角
         'Middle East Iran news 2026',
         'Russia Ukraine war news 2026',
         'US China relations news 2026'
@@ -25,14 +23,7 @@ const CONFIGS = {
       translate: true
     },
     gold: {
-      // 国内金价数据
-      keywords: [
-        '上海黄金交易所 Au9999 价格 今日',
-        '周大福 黄金价格 今日 2026',
-        '伦敦金 XAU 实时行情'
-      ],
-      maxResults: 2,
-      translate: false
+      useFixedSource: true
     }
   },
   // 15:10 - A股
@@ -60,6 +51,25 @@ const CONFIGS = {
     }
   }
 };
+
+// 黄金/大宗 - 固定数据源直链
+const GOLD_SOURCES = [
+  {
+    name: '上海黄金交易所 Au9999',
+    url: 'https://www.sge.com.cn/h5_cpfw/xhsph_xq?pro_id=793730879941324800&parent_cplx=0&cplx=7',
+    type: 'sge'
+  },
+  {
+    name: '伦敦金 XAU',
+    url: 'https://finance.sina.com.cn/forex/gold.shtml',
+    type: 'london'
+  },
+  {
+    name: '周大福金价',
+    url: 'https://www.cngold.org/cn/market/zhongguo_zhoudaifu.html',
+    type: 'zhoudaifu'
+  }
+];
 
 async function searchTavily(query, maxResults = 3) {
   const url = 'https://api.tavily.com/search';
@@ -104,16 +114,12 @@ async function multiSearch(keywords, maxResults) {
   
   // 筛选2天内的资讯
   const filtered = unique.filter(r => {
-    // 优先从内容提取日期
     const dateMatch = (r.content || '').match(/(\d{4}-\d{2}-\d{2})/) ||
                      (r.title || '').match(/(\d{4}-\d{2}-\d{2})/);
     let dateStr = dateMatch ? dateMatch[1] : null;
-    
-    // 如果内容没有，尝试从URL提取
     if (!dateStr) {
       dateStr = extractDateFromUrl(r.url);
     }
-    
     return isWithinDays(dateStr, 2);
   });
   
@@ -121,37 +127,10 @@ async function multiSearch(keywords, maxResults) {
 }
 
 /**
- * 格式化新闻项
- */
-function formatItem(item, index) {
-  const title = item.title || '无标题';
-  let content = item.content || '';
-  
-  // 尝试从内容中提取日期 (支持多种格式)
-  const dateMatch = content.match(/(\d{4}-\d{2}-\d{2})/) || 
-                   title.match(/(\d{4}-\d{2}-\d{2})/);
-  const dateStr = dateMatch ? dateMatch[1] : '';
-  
-  // 截取核心内容作为摘要
-  if (content.length > 120) {
-    content = content.substring(0, 120) + '...';
-  }
-  
-  return {
-    index: index + 1,
-    title,
-    content,
-    date: dateStr,  // 提取的日期
-    url: item.url || '',
-    score: item.score || 0
-  };
-}
-
-/**
  * 检查日期是否在N天内
  */
 function isWithinDays(dateStr, days = 2) {
-  if (!dateStr) return true;  // 没有日期的默认通过
+  if (!dateStr) return true;
   
   try {
     const newsDate = new Date(dateStr);
@@ -160,7 +139,7 @@ function isWithinDays(dateStr, days = 2) {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays <= days;
   } catch {
-    return true;  // 无法解析的默认通过
+    return true;
   }
 }
 
@@ -170,7 +149,6 @@ function isWithinDays(dateStr, days = 2) {
 function extractDateFromUrl(url) {
   if (!url) return null;
   
-  // 优先匹配标准日期格式: 2026-02-28 或 2026/02/28
   let match = url.match(/(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
   if (match) {
     const year = match[1];
@@ -179,7 +157,6 @@ function extractDateFromUrl(url) {
     return `${year}-${month}-${day}`;
   }
   
-  // 匹配英文月份格式: 2026/feb/24 或 2026/Feb/24
   const monthMap = {jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',
                    jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
   match = url.match(/(\d{4})[\/](jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[\/](\d{1,2})/i);
@@ -191,6 +168,77 @@ function extractDateFromUrl(url) {
   }
   
   return null;
+}
+
+/**
+ * 格式化新闻项
+ */
+function formatItem(item, index) {
+  const title = item.title || '无标题';
+  let content = item.content || '';
+  
+  const dateMatch = content.match(/(\d{4}-\d{2}-\d{2})/) || 
+                   title.match(/(\d{4}-\d{2}-\d{2})/);
+  const dateStr = dateMatch ? dateMatch[1] : '';
+  
+  if (content.length > 120) {
+    content = content.substring(0, 120) + '...';
+  }
+  
+  return {
+    index: index + 1,
+    title,
+    content,
+    date: dateStr,
+    url: item.url || '',
+    score: item.score || 0
+  };
+}
+
+/**
+ * 获取黄金价格 - 直接抓取固定来源
+ */
+async function fetchGoldPrices() {
+  const results = [];
+  const today = new Date().toISOString().split('T')[0];
+  
+  for (const source of GOLD_SOURCES) {
+    try {
+      const response = await fetch(source.url, { timeout: 10000 });
+      const html = await response.text();
+      
+      let price = '查询中...';
+      
+      if (source.type === 'sge') {
+        const match = html.match(/Au9999[\s\S]*?(\d+\.?\d*)/);
+        if (match) price = match[1] + ' 元/克';
+      } else if (source.type === 'zhoudaifu') {
+        const match = html.match(/(\d{3,4})\s*元\/克/);
+        if (match) price = match[1] + ' 元/克';
+      } else if (source.type === 'london') {
+        const match = html.match(/伦敦金.*?(\d{2,4}\.?\d*)\s*美元/);
+        if (match) price = '$' + match[1] + '/盎司';
+      }
+      
+      results.push({
+        title: source.name,
+        content: price,
+        date: today,
+        url: source.url,
+        source: source.name
+      });
+    } catch (e) {
+      results.push({
+        title: source.name,
+        content: '获取失败',
+        date: today,
+        url: source.url,
+        source: source.name
+      });
+    }
+  }
+  
+  return results;
 }
 
 /**
@@ -209,7 +257,7 @@ function getSourceName(url) {
   if (url.includes('aljazeera')) return 'Al Jazeera';
   if (url.includes('sge.com.cn')) return '上海黄金交易所';
   if (url.includes('163.com')) return '网易';
-  if (url.includes('sina.com.cn')) return '新浪';
+  if (url.includes('cngold')) return '金投网';
   try {
     const domain = new URL(url).hostname.replace('www.', '');
     return domain;
@@ -230,10 +278,13 @@ async function fetchNews(timeSlot) {
   
   const results = {};
   
-  // 遍历所有类型
   for (const [type, cfg] of Object.entries(config)) {
     
-    // AI 科技：按分类处理
+    if (type === 'gold' && cfg.useFixedSource) {
+      results[type] = await fetchGoldPrices();
+      continue;
+    }
+    
     if (type === 'ai' && cfg.categories) {
       results[type] = {};
       
@@ -244,7 +295,6 @@ async function fetchNews(timeSlot) {
       continue;
     }
     
-    // 其他类型：直接多关键词搜索
     const items = await multiSearch(cfg.keywords, cfg.maxResults);
     results[type] = items.slice(0, cfg.maxResults * 2).map((r, i) => formatItem(r, i));
   }
@@ -275,9 +325,7 @@ function formatForFeishu(timeSlot, news) {
       const langTag = isEnglish ? '🇬🇧 ' : '';
       const dateTag = item.date ? ` [${item.date}]` : '';
       msg += `${item.index}. ${langTag}${item.title}${dateTag}\n`;
-      // 摘要（翻译为中文或直接使用）
       msg += `   📝 ${item.content || '暂无摘要'}\n`;
-      // 来源
       const source = getSourceName(item.url);
       msg += `   📰 来源: ${source}\n`;
       msg += `   🔗 ${item.url}\n\n`;
@@ -287,12 +335,11 @@ function formatForFeishu(timeSlot, news) {
   // 黄金
   if (news.gold) {
     msg += '【📊 黄金/大宗】\n';
-    news.gold.forEach(item => {
+    news.gold.forEach((item, i) => {
       const dateTag = item.date ? `[${item.date}]` : '';
-      msg += `${item.index}. ${item.title} ${dateTag}\n`;
+      msg += `${i + 1}. ${item.title} ${dateTag}\n`;
       msg += `   📝 ${item.content || '暂无摘要'}\n`;
-      const source = getSourceName(item.url);
-      msg += `   📰 来源: ${source}\n`;
+      msg += `   📰 来源: ${item.source || getSourceName(item.url)}\n`;
       msg += `   🔗 ${item.url}\n\n`;
     });
   }
@@ -301,8 +348,11 @@ function formatForFeishu(timeSlot, news) {
   if (news.stock) {
     msg += '【📈 A股市场】\n';
     news.stock.forEach(item => {
-      msg += `${item.index}. ${item.title}\n`;
-      msg += `   ${item.content}\n`;
+      const dateTag = item.date ? ` [${item.date}]` : '';
+      msg += `${item.index}. ${item.title}${dateTag}\n`;
+      msg += `   📝 ${item.content || '暂无摘要'}\n`;
+      const source = getSourceName(item.url);
+      msg += `   📰 来源: ${source}\n`;
       msg += `   🔗 ${item.url}\n\n`;
     });
   }
@@ -314,8 +364,10 @@ function formatForFeishu(timeSlot, news) {
     for (const [category, items] of Object.entries(news.ai)) {
       msg += `\n📌 ${category}：\n`;
       items.forEach(item => {
-        msg += `  ${item.index}. ${item.title}\n`;
-        msg += `     ${item.content}\n`;
+        const dateTag = item.date ? ` [${item.date}]` : '';
+        msg += `  ${item.index}. ${item.title}${dateTag}\n`;
+        msg += `     📝 ${item.content}\n`;
+        msg += `     📰 来源: ${getSourceName(item.url)}\n`;
         msg += `     🔗 ${item.url}\n\n`;
       });
     }
