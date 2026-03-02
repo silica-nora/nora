@@ -25,10 +25,11 @@ const CONFIGS = {
       translate: true
     },
     gold: {
+      // 官方数据源
       keywords: [
-        '黄金价格 今日 2026年3月 国内',
-        '上海金 Au9999 最新报价',
-        '黄金期货 收盘价 国内'
+        '上海黄金交易所 Au9999 今日价格',
+        '伦敦金 XAU 实时行情 新浪财经',
+        '黄金价格 今日报价 2026'
       ],
       maxResults: 2,
       translate: false
@@ -111,7 +112,7 @@ function formatItem(item, index) {
   const title = item.title || '无标题';
   let content = item.content || '';
   
-  // 截取核心内容
+  // 截取核心内容作为摘要
   if (content.length > 120) {
     content = content.substring(0, 120) + '...';
   }
@@ -123,6 +124,31 @@ function formatItem(item, index) {
     url: item.url || '',
     score: item.score || 0
   };
+}
+
+/**
+ * 从URL提取来源名称
+ */
+function getSourceName(url) {
+  if (!url) return '未知';
+  if (url.includes('theguardian')) return 'The Guardian';
+  if (url.includes('bbc')) return 'BBC';
+  if (url.includes('cnn')) return 'CNN';
+  if (url.includes('reuters')) return 'Reuters';
+  if (url.includes('sina')) return '新浪财经';
+  if (url.includes('people.com.cn')) return '人民网';
+  if (url.includes('atlantic')) return 'Atlantic Council';
+  if (url.includes('nbcnews')) return 'NBC News';
+  if (url.includes('aljazeera')) return 'Al Jazeera';
+  if (url.includes('sge.com.cn')) return '上海黄金交易所';
+  if (url.includes('163.com')) return '网易';
+  if (url.includes('sina.com.cn')) return '新浪';
+  try {
+    const domain = new URL(url).hostname.replace('www.', '');
+    return domain;
+  } catch {
+    return '未知';
+  }
 }
 
 /**
@@ -176,9 +202,16 @@ function formatForFeishu(timeSlot, news) {
   if (news.world) {
     msg += '【🌍 国际局势】\n';
     news.world.forEach(item => {
-      const langTag = item.content.startsWith('[英文]') ? '🇬🇧' : '';
+      const isEnglish = item.url.includes('theguardian') || item.url.includes('bbc') || 
+                        item.url.includes('cnn') || item.url.includes('reuters') ||
+                        item.url.includes('atlantic');
+      const langTag = isEnglish ? '🇬🇧 ' : '';
       msg += `${item.index}. ${langTag}${item.title}\n`;
-      msg += `   ${item.content}\n`;
+      // 摘要（翻译为中文或直接使用）
+      msg += `   📝 ${item.content || '暂无摘要'}\n`;
+      // 来源
+      const source = getSourceName(item.url);
+      msg += `   📰 来源: ${source}\n`;
       msg += `   🔗 ${item.url}\n\n`;
     });
   }
@@ -188,7 +221,9 @@ function formatForFeishu(timeSlot, news) {
     msg += '【📊 黄金/大宗】\n';
     news.gold.forEach(item => {
       msg += `${item.index}. ${item.title}\n`;
-      msg += `   ${item.content}\n`;
+      msg += `   📝 ${item.content || '暂无摘要'}\n`;
+      const source = getSourceName(item.url);
+      msg += `   📰 来源: ${source}\n`;
       msg += `   🔗 ${item.url}\n\n`;
     });
   }
