@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * News Fetcher v2.1 - 获取高质量新闻资讯
- * 优化：多源聚合 + 分类覆盖 + 热度排序 + 黄金固定数据源
+ * News Fetcher v2.2 - 获取高质量新闻资讯
+ * 集成 crypto-gold-monitor 获取黄金价格
  */
 
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY || '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';
@@ -12,7 +12,6 @@ const CONFIGS = {
   // 10:00 - 国际局势 + 黄金
   morning: {
     world: {
-      // 多源搜索，打破信息茧房
       keywords: [
         '国际局势 最新消息 2026',
         'Middle East Iran news 2026',
@@ -52,25 +51,6 @@ const CONFIGS = {
   }
 };
 
-// 黄金/大宗 - 固定数据源直链
-const GOLD_SOURCES = [
-  {
-    name: '上海黄金交易所 Au9999',
-    url: 'https://www.sge.com.cn/h5_cpfw/xhsph_xq?pro_id=793730879941324800&parent_cplx=0&cplx=7',
-    type: 'sge'
-  },
-  {
-    name: '伦敦金 XAU',
-    url: 'https://finance.sina.com.cn/forex/gold.shtml',
-    type: 'london'
-  },
-  {
-    name: '周大福金价',
-    url: 'https://www.cngold.org/cn/market/zhongguo_zhoudaifu.html',
-    type: 'zhoudaifu'
-  }
-];
-
 async function searchTavily(query, maxResults = 3) {
   const url = 'https://api.tavily.com/search';
   
@@ -106,13 +86,10 @@ async function multiSearch(keywords, maxResults) {
     allResults.push(...results);
   }
   
-  // 按 relevance 排序
   allResults.sort((a, b) => (b.score || 0) - (a.score || 0));
   
-  // 去重（按URL）
   const unique = [...new Map(allResults.map(r => [r.url, r])).values()];
   
-  // 筛选2天内的资讯
   const filtered = unique.filter(r => {
     const dateMatch = (r.content || '').match(/(\d{4}-\d{2}-\d{2})/) ||
                      (r.title || '').match(/(\d{4}-\d{2}-\d{2})/);
@@ -131,7 +108,6 @@ async function multiSearch(keywords, maxResults) {
  */
 function isWithinDays(dateStr, days = 2) {
   if (!dateStr) return true;
-  
   try {
     const newsDate = new Date(dateStr);
     const now = new Date();
@@ -148,7 +124,6 @@ function isWithinDays(dateStr, days = 2) {
  */
 function extractDateFromUrl(url) {
   if (!url) return null;
-  
   let match = url.match(/(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
   if (match) {
     const year = match[1];
@@ -156,7 +131,6 @@ function extractDateFromUrl(url) {
     const day = match[3].padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  
   const monthMap = {jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',
                    jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
   match = url.match(/(\d{4})[\/](jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[\/](\d{1,2})/i);
@@ -166,7 +140,6 @@ function extractDateFromUrl(url) {
     const day = match[3].padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  
   return null;
 }
 
@@ -176,15 +149,11 @@ function extractDateFromUrl(url) {
 function formatItem(item, index) {
   const title = item.title || '无标题';
   let content = item.content || '';
-  
-  const dateMatch = content.match(/(\d{4}-\d{2}-\d{2})/) || 
-                   title.match(/(\d{4}-\d{2}-\d{2})/);
+  const dateMatch = content.match(/(\d{4}-\d{2}-\d{2})/) || title.match(/(\d{4}-\d{2}-\d{2})/);
   const dateStr = dateMatch ? dateMatch[1] : '';
-  
   if (content.length > 120) {
     content = content.substring(0, 120) + '...';
   }
-  
   return {
     index: index + 1,
     title,
@@ -196,46 +165,51 @@ function formatItem(item, index) {
 }
 
 /**
- * 获取黄金价格 - 直接抓取固定来源
+ * 获取黄金价格 - 调用 crypto-monitor 脚本
  */
 async function fetchGoldPrices() {
   const results = [];
   const today = new Date().toISOString().split('T')[0];
   
-  for (const source of GOLD_SOURCES) {
-    try {
-      const response = await fetch(source.url, { timeout: 10000 });
-      const html = await response.text();
-      
-      let price = '查询中...';
-      
-      if (source.type === 'sge') {
-        const match = html.match(/Au9999[\s\S]*?(\d+\.?\d*)/);
-        if (match) price = match[1] + ' 元/克';
-      } else if (source.type === 'zhoudaifu') {
-        const match = html.match(/(\d{3,4})\s*元\/克/);
-        if (match) price = match[1] + ' 元/克';
-      } else if (source.type === 'london') {
-        const match = html.match(/伦敦金.*?(\d{2,4}\.?\d*)\s*美元/);
-        if (match) price = '$' + match[1] + '/盎司';
-      }
-      
-      results.push({
-        title: source.name,
-        content: price,
-        date: today,
-        url: source.url,
-        source: source.name
-      });
-    } catch (e) {
-      results.push({
-        title: source.name,
-        content: '获取失败',
-        date: today,
-        url: source.url,
-        source: source.name
-      });
+  try {
+    const { execSync } = await import('child_process');
+    const output = execSync('bash ~/.openclaw/workspace/skills/news-fetcher/scripts/crypto-monitor.sh all', {
+      encoding: 'utf8',
+      timeout: 15000
+    });
+    
+    // 解析黄金价格 - 去掉 ANSI 颜色代码
+    const cleanOutput = output.replace(/\x1b\[[0-9;]*m/g, '');
+    // 匹配 Gold 价格行 (可能有emoji)
+    const goldLineMatch = cleanOutput.match(/[🥇🐻‍❄️]*Gold.*?\n.*?Price:.*?\$(\d+[\d.]*)\/oz.*?¥(\d+)/);
+    const goldChangeMatch = cleanOutput.match(/Gold.*?24h.*?([+-]?[\d.]+)%/);
+    
+    let price = '查询中...';
+    let change = '0';
+    
+    if (goldLineMatch) {
+      price = '$' + goldLineMatch[1] + '/oz ≈ ¥' + goldLineMatch[2] + '/oz';
     }
+    if (goldChangeMatch && goldChangeMatch[1] !== '--') {
+      change = goldChangeMatch[1];
+    }
+    
+    results.push({
+      title: '黄金 XAU/USD',
+      content: `${price} (24h: ${change}%)`,
+      date: today,
+      url: 'https://www.goldapi.io/',
+      source: 'GoldAPI.io / Yahoo Finance'
+    });
+    
+  } catch (e) {
+    results.push({
+      title: '黄金 XAU/USD',
+      content: '获取失败',
+      date: today,
+      url: 'https://www.goldapi.io/',
+      source: 'API Error'
+    });
   }
   
   return results;
@@ -287,7 +261,6 @@ async function fetchNews(timeSlot) {
     
     if (type === 'ai' && cfg.categories) {
       results[type] = {};
-      
       for (const [category, keywords] of Object.entries(cfg.categories)) {
         const items = await multiSearch(keywords, cfg.maxResults);
         results[type][category] = items.slice(0, cfg.maxResults).map((r, i) => formatItem(r, i));
@@ -339,7 +312,7 @@ function formatForFeishu(timeSlot, news) {
       const dateTag = item.date ? `[${item.date}]` : '';
       msg += `${i + 1}. ${item.title} ${dateTag}\n`;
       msg += `   📝 ${item.content || '暂无摘要'}\n`;
-      msg += `   📰 来源: ${item.source || getSourceName(item.url)}\n`;
+      msg += `   📰 来源: ${item.source || 'GoldAPI.io'}\n`;
       msg += `   🔗 ${item.url}\n\n`;
     });
   }
@@ -360,7 +333,6 @@ function formatForFeishu(timeSlot, news) {
   // AI（多分类）
   if (news.ai) {
     msg += '【🤖 AI科技】\n';
-    
     for (const [category, items] of Object.entries(news.ai)) {
       msg += `\n📌 ${category}：\n`;
       items.forEach(item => {
