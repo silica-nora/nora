@@ -102,7 +102,16 @@ async function multiSearch(keywords, maxResults) {
   // 去重（按URL）
   const unique = [...new Map(allResults.map(r => [r.url, r])).values()];
   
-  return unique.slice(0, maxResults * 2);
+  // 筛选2天内的资讯
+  const filtered = unique.filter(r => {
+    // 提取日期
+    const dateMatch = (r.content || '').match(/(\d{4}-\d{2}-\d{2})/) ||
+                     (r.title || '').match(/(\d{4}-\d{2}-\d{2})/);
+    const dateStr = dateMatch ? dateMatch[1] : null;
+    return isWithinDays(dateStr, 2);
+  });
+  
+  return filtered.slice(0, maxResults * 2);
 }
 
 /**
@@ -112,8 +121,9 @@ function formatItem(item, index) {
   const title = item.title || '无标题';
   let content = item.content || '';
   
-  // 尝试从内容中提取日期
-  const dateMatch = content.match(/(\d{4}-\d{2}-\d{2})/);
+  // 尝试从内容中提取日期 (支持多种格式)
+  const dateMatch = content.match(/(\d{4}-\d{2}-\d{2})/) || 
+                   title.match(/(\d{4}-\d{2}-\d{2})/);
   const dateStr = dateMatch ? dateMatch[1] : '';
   
   // 截取核心内容作为摘要
@@ -129,6 +139,23 @@ function formatItem(item, index) {
     url: item.url || '',
     score: item.score || 0
   };
+}
+
+/**
+ * 检查日期是否在N天内
+ */
+function isWithinDays(dateStr, days = 2) {
+  if (!dateStr) return true;  // 没有日期的默认通过
+  
+  try {
+    const newsDate = new Date(dateStr);
+    const now = new Date();
+    const diffTime = Math.abs(now - newsDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays <= days;
+  } catch {
+    return true;  // 无法解析的默认通过
+  }
 }
 
 /**
