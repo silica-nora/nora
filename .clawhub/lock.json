@@ -28,6 +28,10 @@
     "ontology": {
       "version": "0.1.2",
       "installedAt": 1772212266557
+    },
+    "crypto-gold-monitor": {
+      "version": "1.2.1",
+      "installedAt": 1772429237792
     }
   }
 }

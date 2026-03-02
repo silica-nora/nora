@@ -105,16 +105,9 @@ async function fetchMetalsPrices() {
     
     // 去掉 ANSI 颜色代码
     const text = output.replace(/\x1b\[[0-9;]*[a-zA-Z]/g, '').replace(/\x1b\[[0-9;]*m/g, '').replace(/\x0d/g, '');
-    const lines = text.split('\n');
     
     let goldUSD = '', goldCNY = '', silverUSD = '', silverCNY = '', rate = '6.87';
-    let goldLine = '', silverLine = '', rateLine = '';
     
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i].includes('Gold') && lines[i+1] && lines[i+1].includes('$')) goldLine = lines[i+1];
-      if (lines[i].includes('Silver') && lines[i+1] && lines[i+1].includes('$')) silverLine = lines[i+1];
-      if (lines[i].includes('Exchange')) rateLine = lines[i];
-    }
     
     if (goldLine) {
       const usdMatch = goldLine.match(/\$(\d+)/);
@@ -134,12 +127,10 @@ async function fetchMetalsPrices() {
     }
     
     if (goldUSD && goldCNY) {
-      const goldPerGram = (parseFloat(goldCNY) / 31.1035).toFixed(2);
-      results.push({ title: '🥇 黄金 XAU/USD', content: `$${goldUSD}/oz ≈ ¥${goldCNY}/oz (¥${goldPerGram}/克)`, date: today, url: 'https://www.goldapi.io/', source: 'GoldAPI.io / Yahoo Finance' });
+      results.push({ title: '🥇 黄金 XAU/USD', content: `$${goldUSD}/oz ≈ ¥${goldCNY}/oz`, date: today, url: 'https://www.goldapi.io/', source: 'GoldAPI.io / Yahoo Finance' });
     }
     if (silverUSD && silverCNY) {
-      const silverPerGram = (parseFloat(silverCNY) / 31.1035).toFixed(2);
-      results.push({ title: '🥈 白银 XAG/USD', content: `$${silverUSD}/oz ≈ ¥${silverCNY}/oz (¥${silverPerGram}/克)`, date: today, url: 'https://www.goldapi.io/', source: 'GoldAPI.io / Yahoo Finance' });
+      results.push({ title: '🥈 白银 XAG/USD', content: `$${silverUSD}/oz ≈ ¥${silverCNY}/oz`, date: today, url: 'https://www.goldapi.io/', source: 'GoldAPI.io / Yahoo Finance' });
     }
     results.push({ title: '💱 USD/CNY 汇率', content: `1 USD = ¥${rate}`, date: today, url: 'https://www.exchangerate-api.com/', source: 'Exchange Rate API' });
     
