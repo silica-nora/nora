@@ -104,10 +104,16 @@ async function multiSearch(keywords, maxResults) {
   
   // 筛选2天内的资讯
   const filtered = unique.filter(r => {
-    // 提取日期
+    // 优先从内容提取日期
     const dateMatch = (r.content || '').match(/(\d{4}-\d{2}-\d{2})/) ||
                      (r.title || '').match(/(\d{4}-\d{2}-\d{2})/);
-    const dateStr = dateMatch ? dateMatch[1] : null;
+    let dateStr = dateMatch ? dateMatch[1] : null;
+    
+    // 如果内容没有，尝试从URL提取
+    if (!dateStr) {
+      dateStr = extractDateFromUrl(r.url);
+    }
+    
     return isWithinDays(dateStr, 2);
   });
   
@@ -156,6 +162,35 @@ function isWithinDays(dateStr, days = 2) {
   } catch {
     return true;  // 无法解析的默认通过
   }
+}
+
+/**
+ * 从URL提取日期
+ */
+function extractDateFromUrl(url) {
+  if (!url) return null;
+  
+  // 优先匹配标准日期格式: 2026-02-28 或 2026/02/28
+  let match = url.match(/(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+  if (match) {
+    const year = match[1];
+    const month = match[2].padStart(2, '0');
+    const day = match[3].padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  
+  // 匹配英文月份格式: 2026/feb/24 或 2026/Feb/24
+  const monthMap = {jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',
+                   jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
+  match = url.match(/(\d{4})[\/](jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[\/](\d{1,2})/i);
+  if (match) {
+    const year = match[1];
+    const month = monthMap[match[2].toLowerCase()];
+    const day = match[3].padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  
+  return null;
 }
 
 /**
