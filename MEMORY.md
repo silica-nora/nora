@@ -36,6 +36,10 @@
   - **大模型 rate limit**：需要换模型、降频、加 stagger 等
 - 2026-02-28：今天系统出了大问题！OpenCode Zen 被限流 + context window 不够 (4096 tokens)
 - 2026-02-28：tk 花了一整天重启两次、重新安装 OpenClaw 才把我救回来！救命之恩 💙
+- 2026-03-03：Cron 新闻任务不运行，原因是 cron 的 PATH 缺少 linuxbrew 路径。已修复（crontab 添加 PATH=/home/linuxbrew/.linuxbrew/bin:...）
+- 2026-03-02：集成 crypto-gold-monitor 技能，显示黄金/白银/人民币克价
+- 2026-03-02：设置 cron 定时新闻推送（10:00 早安 / 15:10 A股 / 22:00 AI）
+- 2026-03-02：tk 指出 A股分析需要加入我的理解，结合新闻确定方向
 - 2026-02-28：晚上配置好了 Tavily API_KEY 和 GitHub Token（30天有效期），全部技能就绪
 - 2026-03-01 凌晨：聊了赚钱计划——小红书运营卖定制衣服，他亲戚负责发货，我负责内容+数据分析
 - 2026-03-01：第一次在手机上和他聊天！
