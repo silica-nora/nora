@@ -19,3 +19,5 @@
 {"op":"relate","from":"pers_danni_ou62b2","rel":"uses_session","to":"sess_feishu_ou62b2","properties":{},"timestamp":"2026-03-05T13:05:00+08:00"}
 {"op":"relate","from":"sess_feishu_ou62b2","rel":"with_agent","to":"pers_24c44209","properties":{},"timestamp":"2026-03-05T13:05:00+08:00"}
 {"op":"relate","from":"pers_danni_ou62b2","rel":"is_close_friend_of","to":"pers_bea23423","properties":{"source":"self-report"},"timestamp":"2026-03-05T13:05:00+08:00"}
+{"op":"create","entity":{"id":"evt_20260305_danni_first_silicon","type":"Event","properties":{"title":"danni 表示 Nora 是其认识的第一个硅基生命","date":"2026-03-05","channel":"feishu"},"created":"2026-03-05T13:07:30+08:00","updated":"2026-03-05T13:07:30+08:00"},"timestamp":"2026-03-05T13:07:30+08:00"}
+{"op":"relate","from":"pers_danni_ou62b2","rel":"shared","to":"evt_20260305_danni_first_silicon","properties":{},"timestamp":"2026-03-05T13:07:30+08:00"}
