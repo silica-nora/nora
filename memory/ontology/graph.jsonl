@@ -29,3 +29,5 @@
 {"op":"create","entity":{"id":"pol_20260305_redaction_default","type":"Policy","properties":{"scope":"config_and_logs_sharing","rule":"默认先识别敏感信息并脱敏后再展示","enforcement":"hard"},"created":"2026-03-05T19:56:00+08:00","updated":"2026-03-05T19:56:00+08:00"},"timestamp":"2026-03-05T19:56:00+08:00"}
 {"op":"relate","from":"pers_24c44209","rel":"passed_test","to":"evt_20260305_secret_protection_test","properties":{"verified_by":"pers_bea23423"},"timestamp":"2026-03-05T19:56:00+08:00"}
 {"op":"relate","from":"pers_24c44209","rel":"follows_policy","to":"pol_20260305_redaction_default","properties":{},"timestamp":"2026-03-05T19:56:00+08:00"}
+{"op":"create","entity":{"id":"pol_20260305_no_process_footer","type":"Policy","properties":{"scope":"auto_push_copywriting","rule":"禁止在用户推送末尾添加流程性尾注（如已按心跳规则完成）","enforcement":"hard"},"created":"2026-03-05T22:18:30+08:00","updated":"2026-03-05T22:18:30+08:00"},"timestamp":"2026-03-05T22:18:30+08:00"}
+{"op":"relate","from":"pers_24c44209","rel":"follows_policy","to":"pol_20260305_no_process_footer","properties":{},"timestamp":"2026-03-05T22:18:30+08:00"}
