@@ -16,6 +16,10 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - 禁止只查单一路径后下结论
 - 若两边结果冲突：明确标注冲突并给出证据行号
 
+### 推送文案规则（tk 新要求）
+- 自动推送结尾禁止出现类似“已按心跳规则完成XXX”这类系统化说明
+- 只保留对用户有价值的内容正文，不附加流程性尾注
+
 ## 归档规则
 
 **归档 = memory整理 + ontology更新 + Git提交**
