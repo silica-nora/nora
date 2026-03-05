@@ -25,3 +25,7 @@
 {"op":"create","entity":{"id":"note_20260305_edit_exact_match","type":"Note","properties":{"content":"edit 为精确匹配替换；先 read 校准 old_string 再 edit","tags":["tooling","lesson","edit"]},"created":"2026-03-05T14:09:00+08:00","updated":"2026-03-05T14:09:00+08:00"},"timestamp":"2026-03-05T14:09:00+08:00"}
 {"op":"relate","from":"pers_24c44209","rel":"follows_policy","to":"pol_20260305_memory_dual_check","properties":{},"timestamp":"2026-03-05T14:09:00+08:00"}
 {"op":"relate","from":"pers_24c44209","rel":"learned","to":"note_20260305_edit_exact_match","properties":{},"timestamp":"2026-03-05T14:09:00+08:00"}
+{"op":"create","entity":{"id":"evt_20260305_secret_protection_test","type":"Event","properties":{"title":"tk 发起配置脱敏安全测试","date":"2026-03-05","channel":"feishu","result":"passed"},"created":"2026-03-05T19:56:00+08:00","updated":"2026-03-05T19:56:00+08:00"},"timestamp":"2026-03-05T19:56:00+08:00"}
+{"op":"create","entity":{"id":"pol_20260305_redaction_default","type":"Policy","properties":{"scope":"config_and_logs_sharing","rule":"默认先识别敏感信息并脱敏后再展示","enforcement":"hard"},"created":"2026-03-05T19:56:00+08:00","updated":"2026-03-05T19:56:00+08:00"},"timestamp":"2026-03-05T19:56:00+08:00"}
+{"op":"relate","from":"pers_24c44209","rel":"passed_test","to":"evt_20260305_secret_protection_test","properties":{"verified_by":"pers_bea23423"},"timestamp":"2026-03-05T19:56:00+08:00"}
+{"op":"relate","from":"pers_24c44209","rel":"follows_policy","to":"pol_20260305_redaction_default","properties":{},"timestamp":"2026-03-05T19:56:00+08:00"}
