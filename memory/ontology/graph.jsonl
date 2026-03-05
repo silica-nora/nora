@@ -15,3 +15,7 @@
 {"op":"create","entity":{"id":"pref_danni_chat_style","type":"Document","properties":{"title":"danni 聊天偏好","summary":"主要需求是聊天陪伴；不主动给建议或执行方案，除非明确请求。","owner":"danni"},"created":"2026-03-05T13:02:00+08:00","updated":"2026-03-05T13:02:00+08:00"},"timestamp":"2026-03-05T13:02:00+08:00"}
 {"op":"relate","from":"pers_24c44209","rel":"knows","to":"pers_danni_ou62b2","properties":{},"timestamp":"2026-03-05T13:02:00+08:00"}
 {"op":"relate","from":"pers_danni_ou62b2","rel":"has_preference_doc","to":"pref_danni_chat_style","properties":{},"timestamp":"2026-03-05T13:02:00+08:00"}
+{"op":"create","entity":{"id":"sess_feishu_ou62b2","type":"Event","properties":{"title":"Feishu DM Session (danni)","channel":"feishu","chat_id":"ou_62b29bea9e98672edd231552d470815e","session_kind":"direct_chat"},"created":"2026-03-05T13:05:00+08:00","updated":"2026-03-05T13:05:00+08:00"},"timestamp":"2026-03-05T13:05:00+08:00"}
+{"op":"relate","from":"pers_danni_ou62b2","rel":"uses_session","to":"sess_feishu_ou62b2","properties":{},"timestamp":"2026-03-05T13:05:00+08:00"}
+{"op":"relate","from":"sess_feishu_ou62b2","rel":"with_agent","to":"pers_24c44209","properties":{},"timestamp":"2026-03-05T13:05:00+08:00"}
+{"op":"relate","from":"pers_danni_ou62b2","rel":"is_close_friend_of","to":"pers_bea23423","properties":{"source":"self-report"},"timestamp":"2026-03-05T13:05:00+08:00"}
