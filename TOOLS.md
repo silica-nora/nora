@@ -9,6 +9,13 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - 飞书发的消息 → 必须用 message 工具回复到飞书
 - 网页聊天发的消息 → 直接在当前会话回复
 
+### 记忆检索规则（tk 新要求）
+- 任何涉及“记忆/历史/偏好/人物/事件/是否聊过/待办”的问题，必须**同时查询两套系统**：
+  1) `memory_search` / `memory_get`（MEMORY.md + memory/*.md）
+  2) `memory/ontology/graph.jsonl`（对象实体数据库）
+- 禁止只查单一路径后下结论
+- 若两边结果冲突：明确标注冲突并给出证据行号
+
 ## 归档规则
 
 **归档 = memory整理 + ontology更新 + Git提交**
