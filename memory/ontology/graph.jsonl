@@ -11,3 +11,7 @@
 {"op": "relate", "from": "pers_bea23423", "rel": "authored", "to": "doc_2638_recap", "properties": {}, "timestamp": "2026-03-04T16:38:45.223806+00:00"}
 {"op": "relate", "from": "pers_bea23423", "rel": "led_fix", "to": "evt_20260304_incident_fix", "properties": {}, "timestamp": "2026-03-04T16:38:45.223806+00:00"}
 {"op": "relate", "from": "doc_2638_recap", "rel": "documents", "to": "evt_20260304_incident_fix", "properties": {}, "timestamp": "2026-03-04T16:38:45.223806+00:00"}
+{"op":"create","entity":{"id":"pers_danni_ou62b2","type":"Person","properties":{"name":"danni","channel":"feishu","open_id":"ou_62b29bea9e98672edd231552d470815e","role":"friend"},"created":"2026-03-05T13:02:00+08:00","updated":"2026-03-05T13:02:00+08:00"},"timestamp":"2026-03-05T13:02:00+08:00"}
+{"op":"create","entity":{"id":"pref_danni_chat_style","type":"Document","properties":{"title":"danni 聊天偏好","summary":"主要需求是聊天陪伴；不主动给建议或执行方案，除非明确请求。","owner":"danni"},"created":"2026-03-05T13:02:00+08:00","updated":"2026-03-05T13:02:00+08:00"},"timestamp":"2026-03-05T13:02:00+08:00"}
+{"op":"relate","from":"pers_24c44209","rel":"knows","to":"pers_danni_ou62b2","properties":{},"timestamp":"2026-03-05T13:02:00+08:00"}
+{"op":"relate","from":"pers_danni_ou62b2","rel":"has_preference_doc","to":"pref_danni_chat_style","properties":{},"timestamp":"2026-03-05T13:02:00+08:00"}
