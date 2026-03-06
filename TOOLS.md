@@ -54,6 +54,11 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 共 N 个文件变更
 ```
 
+### 归档回执（tk 强制要求）
+- 每次归档后，必须立即发送归档回执到当前会话
+- 回执至少包含：新增/修改/删除、文件数、commit id、push 状态
+- 禁止只归档不回执
+
 ### 两套记忆系统
 - **memory/** - 原始对话记忆文件
 - **ontology/** - 结构化知识图谱
