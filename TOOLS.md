@@ -26,6 +26,11 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - 若抓到超出 T/T-1 的内容：默认剔除，不进入结论
 - 若当日权威快讯不足：明确标注“样本不足/低置信度”，不强行给确定性判断
 
+### 搜索工具优先级（tk 新要求）
+- 默认优先使用 **Tavily skill**（`skills/tavily-search`），不使用 Brave web_search
+- 新闻查询优先参数：`--topic news --days 1`（必要时 `--days 2`）
+- 若 Tavily 临时不可用，再降级到 `web_fetch` 直抓取，并标注低置信度
+
 ## 归档规则
 
 **归档 = memory整理 + ontology更新 + Git提交**
