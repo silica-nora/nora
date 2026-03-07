@@ -30,3 +30,11 @@
   - 确认 /tmp/clawdbot 日志未检出 error/fail/warn 关键信号
 - 下一步：09:00 后恢复 A股工作时段流程，按 T/T-1 样本约束执行盘面分析
 
+- 时间：2026-03-08 04:31 (Asia/Shanghai)
+- 类型：复盘 / 优化
+- 动作：复查 heartbeat 执行路径，确认凌晨时段仅做低打扰巡检；将“无告警即静默”作为默认夜间策略
+- 产出：
+  - 再次确认 `SESSION-STATE.md`、近两日 memory、/tmp/news 日志均无待处理
+  - 再次确认 /tmp/clawdbot 日志未出现 error/fail/warn
+- 下一步：白天时段增加一次 OpenClaw 文档学习并沉淀到 `memory/working-buffer.md`
+
