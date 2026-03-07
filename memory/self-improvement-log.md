@@ -30,6 +30,16 @@
   - 确认 /tmp/clawdbot 日志未检出 error/fail/warn 关键信号
 - 下一步：09:00 后恢复 A股工作时段流程，按 T/T-1 样本约束执行盘面分析
 
+- 时间：2026-03-08 05:32 (Asia/Shanghai)
+- 类型：复盘 / 优化
+- 动作：执行清晨 heartbeat 巡检，复核待办与推送条件，并强化“夜间低打扰”执行一致性
+- 产出：
+  - 待办状态：`SESSION-STATE.md` 全部完成、无新增事项
+  - 记忆状态：近两日记录无“待跟进”新增
+  - 推送状态：`/tmp/news-morning.log`、`/tmp/news-afternoon.log`、`/tmp/news-night.log` 均无可发送内容
+  - 运行状态：日志未检出 error/fail/warn 关键信号
+- 下一步：10:00 后优先检查早报日志是否生成，再决定是否触发飞书推送
+
 - 时间：2026-03-08 05:02 (Asia/Shanghai)
 - 类型：观察 / 复盘
 - 动作：执行清晨 heartbeat 巡检，重点核对待办、日志告警、新闻推送触发条件与夜间静默策略
