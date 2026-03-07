@@ -2,6 +2,12 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
+## 搜索工具策略
+
+- 默认使用 **Tavily**（tavily skill）进行网页检索。
+- 不使用 Brave `web_search`（原因：无 API Key）。
+- 若 Tavily 不可用：直接上报失败并通知 tk，不做 Brave 降级。
+
 ## 飞书消息规则
 
 ### 回复渠道
