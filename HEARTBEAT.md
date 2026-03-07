@@ -68,6 +68,7 @@ tail -100 /tmp/clawdbot/*.log | grep -i "error\|fail\|warn"
 ### C. 输出规则
 - 有待办：优先推进待办并汇报进展
 - 无待办：汇报本轮自我强化成果（哪怕很短）
+- 每次自我强化后，必须写记录到 `memory/self-improvement-log.md`（时间、做了什么、产出、下一步）
 - 禁止空转：除非系统故障，否则不要只返回 HEARTBEAT_OK
 
 ## 📊 A股长期分析强化（新增）
