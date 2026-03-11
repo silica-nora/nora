@@ -43,3 +43,5 @@
 {"op":"create","entity":{"id":"doc_20260310_ai_watchlist5","type":"Document","properties":{"title":"A股AI优先跟踪池（5只）","path":"memory/ashare-priority-watchlist.md","stocks":"中际旭创,新易盛,工业富联,中科曙光,科大讯飞"},"created":"2026-03-10T16:44:20+08:00","updated":"2026-03-10T16:44:20+08:00"},"timestamp":"2026-03-10T16:44:20+08:00"}
 {"op":"relate","from":"pers_24c44209","rel":"follows_policy","to":"pol_20260310_ai_stock_weekly_tracking","properties":{"approved_by":"pers_bea23423"},"timestamp":"2026-03-10T16:44:30+08:00"}
 {"op":"relate","from":"pers_24c44209","rel":"maintains","to":"doc_20260310_ai_watchlist5","properties":{},"timestamp":"2026-03-10T16:44:35+08:00"}
+{"op":"create","entity":{"id":"pol_20260311_stock_output_with_ticker","type":"Policy","properties":{"scope":"market_report_format","rule":"股票跟踪输出必须包含名称+股票代码（A股/港股）","enforcement":"hard"},"created":"2026-03-11T17:09:00+08:00","updated":"2026-03-11T17:09:00+08:00"},"timestamp":"2026-03-11T17:09:00+08:00"}
+{"op":"relate","from":"pers_24c44209","rel":"follows_policy","to":"pol_20260311_stock_output_with_ticker","properties":{"approved_by":"pers_bea23423"},"timestamp":"2026-03-11T17:09:10+08:00"}
