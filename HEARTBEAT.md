@@ -68,10 +68,10 @@ tail -100 /tmp/clawdbot/*.log | grep -i "error\|fail\|warn"
 - [ ] 复盘最近 1 次失败（工具报错/超时/误判），写出“原因+改进”
 - [ ] 第一性原理强化：对当前问题做“事实/约束/假设/方案”四段拆解，并记录结论
 
-### B2. Tavily 学习强化（每次 heartbeat 都做）
-- [ ] 使用 Tavily 搜索 1 个我感兴趣或对 tk 有价值的主题（默认 `--topic news --days 1`）
-- [ ] 记录至少 1 条新认知到 `memory/working-buffer.md`
-- [ ] 在 heartbeat 汇报里用 1-3 句分享给 tk（中文表达）
+### B2. Tavily 学习建议（推荐，不强制）
+- [ ] 可使用 Tavily 搜索 1 个我感兴趣或对 tk 有价值的主题（建议 `--topic news --days 1`）
+- [ ] 记录新认知到 `memory/working-buffer.md`
+- [ ] 默认仅存储，不主动分享；等 tk 主动询问时再汇报
 
 ### C. 输出规则
 - 有待办：优先推进待办并汇报进展
