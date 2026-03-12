@@ -147,7 +147,7 @@ def large_files(cwd, threshold_mb=20):
 
 def _fmt_items(items):
     if not items:
-        return ["  - 无"]
+        return []
     return [f"  - {x}" for x in items]
 
 
@@ -177,12 +177,24 @@ def build_receipt(out, summary_text):
         f"改动摘要：{summary_text}",
         "",
         "变更概览",
-        "• 新增：",
-        *a_items,
-        "• 修改：",
-        *m_items,
-        "• 删除：",
-        *d_items,
+    ]
+
+    if a_items:
+        lines += ["• 新增：", *a_items]
+    else:
+        lines.append("• 新增：无")
+
+    if m_items:
+        lines += ["• 修改：", *m_items]
+    else:
+        lines.append("• 修改：无")
+
+    if d_items:
+        lines += ["• 删除：", *d_items]
+    else:
+        lines.append("• 删除：无")
+
+    lines += [
         "",
         "提交信息",
         f"• commit：{commit_id}",
