@@ -15,7 +15,10 @@ Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
 3. If script returns `needs_decision`/`blocked`, follow `next_action` and remediation.
 4. If script returns ready/success in dry-run, run archive:
    - `python3 {baseDir}/scripts/archive_runner.py --mode run --workdir /home/nora/.openclaw/workspace --scope <scope> --summary <summary>`
-5. Render receipt from JSON result.
+5. (Optional) tune thresholds when needed:
+   - `--max-file-mb 30`
+   - `--sensitive-pattern "(TOKEN|API_KEY|PRIVATE KEY|...)"`
+6. Render receipt from JSON result.
 
 ## Receipt (required)
 

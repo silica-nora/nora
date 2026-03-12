@@ -7,7 +7,7 @@ import shutil
 import subprocess
 from datetime import datetime
 
-SENSITIVE_RE = re.compile(r"(API[_-]?KEY|TOKEN|SECRET|PASSWORD|PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH)", re.I)
+DEFAULT_SENSITIVE_PATTERN = r"(API[_-]?KEY|TOKEN|SECRET|PASSWORD|PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH)"
 
 
 def run(cmd, cwd, check=False):
@@ -88,10 +88,11 @@ def validate_remote_connectivity(cwd, url):
     return p.returncode == 0
 
 
-def sensitive_scan(cwd):
+def sensitive_scan(cwd, pattern):
     p = run(["git", "diff", "--cached"], cwd)
     txt = (p.stdout or "") + "\n" + (p.stderr or "")
-    return bool(SENSITIVE_RE.search(txt))
+    cre = re.compile(pattern, re.I)
+    return bool(cre.search(txt))
 
 
 def first_push(cwd, branch):
@@ -151,6 +152,8 @@ def main():
     ap.add_argument("--scope", default="workspace")
     ap.add_argument("--summary", default="archive updates")
     ap.add_argument("--remote-url", default="")
+    ap.add_argument("--max-file-mb", type=int, default=20)
+    ap.add_argument("--sensitive-pattern", default=DEFAULT_SENSITIVE_PATTERN)
     args = ap.parse_args()
 
     out = {
@@ -203,7 +206,7 @@ def main():
                 print(json.dumps(out, ensure_ascii=False))
                 return
 
-        large = large_files(cwd, threshold_mb=20)
+        large = large_files(cwd, threshold_mb=args.max_file_mb)
         if large:
             out["notes"].append({"type": "LARGE_FILE_WARNING", "files": large, "hint": "consider git-lfs"})
 
@@ -220,7 +223,7 @@ def main():
         # run mode
         run(["git", "add", "-A"], cwd, check=True)
 
-        if sensitive_scan(cwd):
+        if sensitive_scan(cwd, args.sensitive_pattern):
             out.update(status="blocked", push_status="failed", failure_code="SENSITIVE_CONTENT_BLOCKED", next_action="remove or unstage secrets")
             print(json.dumps(out, ensure_ascii=False))
             return

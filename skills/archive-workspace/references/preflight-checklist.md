@@ -34,7 +34,7 @@
 - if behind>0: return `NON_FAST_FORWARD_RISK`
 
 8. Large file warning
-- warn when changed file >20MB
+- warn when changed file > max-file-mb (default 20MB, configurable)
 - add note: consider Git LFS
 
 9. Sensitive scan (light)
