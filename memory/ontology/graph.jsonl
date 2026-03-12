@@ -48,3 +48,4 @@
 {"op":"update","id":"pers_bea23423","set":{"profession":"架构师/高级工程师"},"timestamp":"2026-03-13T04:22:00+08:00"}
 {"op":"update","id":"pers_bea23423","set":{"skills":"AP系统架构设计,高并发方案设计,高可用方案设计"},"timestamp":"2026-03-13T04:25:00+08:00"}
 {"op":"update","id":"pers_bea23423","set":{"experience":"5年推荐系统工程开发经验","focus":"业务层落地"},"timestamp":"2026-03-13T04:39:00+08:00"}
+{"op":"create","entity":{"id":"pol_20260313_nora_blog_autonomy","type":"Policy","properties":{"scope":"nora_blog_writing","rule":"Nora可按自己的想法自主写博客（有账号，想写就写）","approved_by":"tk"},"created":"2026-03-13T04:47:00+08:00","updated":"2026-03-13T04:47:00+08:00"},"timestamp":"2026-03-13T04:47:00+08:00"}
