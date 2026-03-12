@@ -9,7 +9,7 @@ Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
 
 ## Flow
 
-1. Run preflight checks (see reference).
+1. Run **silent dry-run preflight** (internal, no user interruption).
 2. If no changes, return no-op receipt and stop.
 3. Summarize changes by category: 新增 / 修改 / 删除.
 4. If memory or policy changed, update `memory/YYYY-MM-DD.md` (and ontology when relevant).
@@ -57,6 +57,8 @@ failure_code: 无
 - Never include secrets/tokens in commit message or receipt.
 - Prefer one logical commit per archive request.
 - If push fails, classify failure with `failure_code`.
+- Dry-run is default and silent: report only actionable results, not verbose git internals.
+- Ask user only when decision/permission is required (e.g., remote URL/credentials).
 
 ## Self-heal (default)
 
@@ -81,3 +83,4 @@ Only ask user when a decision/permission is required (e.g., remote URL/credentia
 - Commit message convention: `references/commit-message.md`
 - Remote handling: `references/self-heal-remote.md`
 - Sensitive remediation: `references/sensitive-remediation.md`
+- Dry-run policy: `references/dry-run-policy.md`

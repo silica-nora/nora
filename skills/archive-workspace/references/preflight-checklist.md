@@ -1,5 +1,7 @@
 # Preflight Checklist (must run before archive)
 
+> Execute as silent dry-run. Only surface actionable blockers to user.
+
 1. Ensure git exists
 - `command -v git`
 
