@@ -31,7 +31,9 @@ Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
 ```text
 归档完成 ✅
 
-本次改动：
+改动摘要：<一句话，先说结果/价值>
+
+变更概览：
 - 新增：...
 - 修改：...
 - 删除：...
