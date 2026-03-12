@@ -36,11 +36,8 @@ Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
 - 修改：...
 - 删除：...
 
-共 N 个文件变更
-branch: <branch>
-commit id: <short_sha>
-push 状态: 成功/失败/待远端
-failure_code: <code or 无>
+commit: <short_sha>
+push: 成功/失败/待远端
 ```
 
 No-change receipt (compact):
