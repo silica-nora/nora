@@ -69,6 +69,7 @@ Handle common failures automatically before asking user:
 5. If no remote (platform-neutral default): ask user for remote URL.
 6. Validate provided remote URL format and connectivity before adding.
 7. Run lightweight sensitive-content scan on staged diff; block commit if hit.
+8. If blocked, return remediation guidance (not just error): where matched, why risky, and next actions.
 
 Only ask user when a decision/permission is required (e.g., remote URL/credentials).
 
@@ -79,3 +80,4 @@ Only ask user when a decision/permission is required (e.g., remote URL/credentia
 - Failure codes: `references/failure-codes.md`
 - Commit message convention: `references/commit-message.md`
 - Remote handling: `references/self-heal-remote.md`
+- Sensitive remediation: `references/sensitive-remediation.md`
