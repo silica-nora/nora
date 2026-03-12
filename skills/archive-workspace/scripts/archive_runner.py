@@ -7,7 +7,7 @@ import shutil
 import subprocess
 from datetime import datetime
 
-DEFAULT_SENSITIVE_PATTERN = r"(API[_-]?KEY|TOKEN|SECRET|PASSWORD|PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH)"
+DEFAULT_SENSITIVE_PATTERN = r"(API[_-]?KEY|ACCESS[_-]?TOKEN|AUTH[_-]?TOKEN|SECRET|PASSWORD|PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH)"
 
 
 def run(cmd, cwd, check=False):
@@ -145,36 +145,61 @@ def large_files(cwd, threshold_mb=20):
     return files
 
 
-def _fmt_list(items):
+def _fmt_items(items):
     if not items:
-        return "无"
-    return "\n".join([f"  - {x}" for x in items])
+        return "无", ""
+    body = "\n".join([f"  - {x}" for x in items])
+    return f"{len(items)} 个文件", body
+
+
+def _push_cn(push_status):
+    return {
+        "success": "成功",
+        "failed": "失败",
+        "pending_remote": "待远端",
+        "not_needed": "无需推送",
+        "pending": "待执行",
+    }.get(push_status or "", push_status or "未知")
 
 
 def build_receipt(out, summary_text):
     if out.get("status") == "no_change":
         return "归档完成 ✅ 无变更（无需推送）"
 
-    added = _fmt_list(out.get("changes", {}).get("added", []))
-    modified = _fmt_list(out.get("changes", {}).get("modified", []))
-    deleted = _fmt_list(out.get("changes", {}).get("deleted", []))
+    a_count, a_body = _fmt_items(out.get("changes", {}).get("added", []))
+    m_count, m_body = _fmt_items(out.get("changes", {}).get("modified", []))
+    d_count, d_body = _fmt_items(out.get("changes", {}).get("deleted", []))
     commit_id = out.get("commit_id") or "无"
-    push_status = out.get("push_status") or "未知"
+    push_status = _push_cn(out.get("push_status"))
 
-    text = (
-        "归档完成 ✅\n\n"
-        f"改动摘要：{summary_text}\n\n"
-        "变更概览：\n"
-        f"- 新增：\n{added}\n"
-        f"- 修改：\n{modified}\n"
-        f"- 删除：\n{deleted}\n\n"
-        f"commit: {commit_id}\n"
-        f"push: {push_status}"
-    )
+    lines = [
+        "归档完成 ✅",
+        "",
+        f"改动摘要：{summary_text}",
+        "",
+        "变更概览",
+        f"• 新增：{a_count}",
+    ]
+    if a_body:
+        lines.append(a_body)
+    lines.append(f"• 修改：{m_count}")
+    if m_body:
+        lines.append(m_body)
+    lines.append(f"• 删除：{d_count}")
+    if d_body:
+        lines.append(d_body)
+
+    lines += [
+        "",
+        "提交信息",
+        f"• commit：{commit_id}",
+        f"• push：{push_status}",
+    ]
 
     if out.get("failure_code"):
-        text += f"\nfailure_code: {out['failure_code']}"
-    return text
+        lines.append(f"• failure_code：{out['failure_code']}")
+
+    return "\n".join(lines)
 
 
 def main():

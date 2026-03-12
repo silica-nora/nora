@@ -34,13 +34,14 @@ Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
 
 改动摘要：<一句话，先说结果/价值>
 
-变更概览：
-- 新增：...
-- 修改：...
-- 删除：...
+变更概览
+• 新增：<无|N 个文件>
+• 修改：<无|N 个文件>
+• 删除：<无|N 个文件>
 
-commit: <short_sha>
-push: 成功/失败/待远端
+提交信息
+• commit：<short_sha>
+• push：<成功|失败|待远端>
 ```
 
 No-change receipt (compact):
