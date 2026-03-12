@@ -150,7 +150,13 @@ def large_files(cwd, threshold_mb=20):
 def _fmt_items_line(items):
     if not items:
         return "无"
-    return f"{len(items)} 个文件：" + "；".join(items)
+    return f"{len(items)} 个文件"
+
+
+def _fmt_children(items):
+    if not items:
+        return []
+    return [f"↳ {x}" for x in items]
 
 
 def _push_cn(push_status):
@@ -167,9 +173,13 @@ def build_receipt(out, summary_text):
     if out.get("status") == "no_change":
         return "归档完成 ✅ 无变更（无需推送）"
 
-    a_line = _fmt_items_line(out.get("changes", {}).get("added", []))
-    m_line = _fmt_items_line(out.get("changes", {}).get("modified", []))
-    d_line = _fmt_items_line(out.get("changes", {}).get("deleted", []))
+    added = out.get("changes", {}).get("added", [])
+    modified = out.get("changes", {}).get("modified", [])
+    deleted = out.get("changes", {}).get("deleted", [])
+
+    a_line = _fmt_items_line(added)
+    m_line = _fmt_items_line(modified)
+    d_line = _fmt_items_line(deleted)
     commit_id = out.get("commit_id") or "无"
     push_status = _push_cn(out.get("push_status"))
 
@@ -180,8 +190,11 @@ def build_receipt(out, summary_text):
         "",
         "变更概览",
         f"• 新增：{a_line}",
+        *(_fmt_children(added)),
         f"• 修改：{m_line}",
+        *(_fmt_children(modified)),
         f"• 删除：{d_line}",
+        *(_fmt_children(deleted)),
         "",
         "提交信息",
         f"• commit：{commit_id}",
