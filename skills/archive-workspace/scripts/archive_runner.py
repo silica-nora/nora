@@ -103,6 +103,47 @@ def normal_push(cwd):
     return run(["git", "push"], cwd)
 
 
+def upstream_exists(cwd):
+    p = run(["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"], cwd)
+    return p.returncode == 0
+
+
+def non_fast_forward_risk(cwd):
+    """Return True if local branch is behind upstream after fetch."""
+    run(["git", "fetch", "--quiet", "origin"], cwd)
+    p = run(["git", "rev-list", "--left-right", "--count", "HEAD...@{u}"], cwd)
+    if p.returncode != 0:
+        return False
+    txt = (p.stdout or "").strip()
+    if not txt:
+        return False
+    try:
+        ahead, behind = [int(x) for x in txt.split()[:2]]
+    except Exception:
+        return False
+    return behind > 0
+
+
+def large_files(cwd, threshold_mb=20):
+    threshold = threshold_mb * 1024 * 1024
+    p = run(["git", "status", "--porcelain"], cwd)
+    files = []
+    for ln in (p.stdout or "").splitlines():
+        if not ln.strip():
+            continue
+        path = ln[3:]
+        if "->" in path:
+            path = path.split("->", 1)[1].strip()
+        full = os.path.join(cwd, path)
+        if os.path.isfile(full):
+            try:
+                if os.path.getsize(full) > threshold:
+                    files.append(path)
+            except OSError:
+                pass
+    return files
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["dry-run", "run"], default="dry-run")
@@ -162,7 +203,16 @@ def main():
                 print(json.dumps(out, ensure_ascii=False))
                 return
 
+        large = large_files(cwd, threshold_mb=20)
+        if large:
+            out["notes"].append({"type": "LARGE_FILE_WARNING", "files": large, "hint": "consider git-lfs"})
+
         if args.mode == "dry-run":
+            # pre-check non-fast-forward risk when upstream exists
+            if has_remote and upstream_exists(cwd) and non_fast_forward_risk(cwd):
+                out.update(status="needs_decision", push_status="failed", failure_code="NON_FAST_FORWARD_RISK", next_action="pull/rebase before push")
+                print(json.dumps(out, ensure_ascii=False))
+                return
             out.update(status="success", push_status="pending", failure_code="")
             print(json.dumps(out, ensure_ascii=False))
             return
@@ -181,8 +231,13 @@ def main():
         out["commit_id"] = cid
 
         # push (set upstream if needed)
-        up = run(["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"], cwd)
-        p = first_push(cwd, br) if up.returncode != 0 else normal_push(cwd)
+        has_upstream = upstream_exists(cwd)
+        if has_upstream and non_fast_forward_risk(cwd):
+            out.update(status="needs_decision", push_status="failed", failure_code="NON_FAST_FORWARD_RISK", next_action="pull/rebase before push")
+            print(json.dumps(out, ensure_ascii=False))
+            return
+
+        p = first_push(cwd, br) if not has_upstream else normal_push(cwd)
 
         if p.returncode == 0:
             out.update(status="success", push_status="success", failure_code="")
@@ -193,6 +248,8 @@ def main():
                 code = "AUTH_FAILED"
             elif "not found" in err:
                 code = "REMOTE_NOT_FOUND"
+            elif "non-fast-forward" in err or "fetch first" in err or "rejected" in err:
+                code = "NON_FAST_FORWARD_RISK"
             out.update(status="failed", push_status="failed", failure_code=code, next_action="check credentials/remote")
 
         print(json.dumps(out, ensure_ascii=False))

@@ -28,7 +28,16 @@
   - format: starts with `https://` or `git@`
   - connectivity: `git ls-remote <url>`
 
-7. Sensitive scan (light)
+7. Conflict pre-check (when upstream exists)
+- `git fetch --quiet origin`
+- `git rev-list --left-right --count HEAD...@{u}`
+- if behind>0: return `NON_FAST_FORWARD_RISK`
+
+8. Large file warning
+- warn when changed file >20MB
+- add note: consider Git LFS
+
+9. Sensitive scan (light)
 - Scan staged content before commit:
   - `git diff --cached | grep -E "(API[_-]?KEY|TOKEN|SECRET|PASSWORD|PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH)"`
 - if matched: stop and report risk

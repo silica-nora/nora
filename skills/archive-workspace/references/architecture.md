@@ -44,7 +44,10 @@
 - 默认静默 dry-run，不向用户输出过程细节。
 - 仅在 `needs_decision/blocked/failed` 时输出人类可读行动建议。
 
+## 已落地扩展
+- 冲突预检：fetch + non-fast-forward 风险检测（返回 `NON_FAST_FORWARD_RISK`）
+- 大文件预警：>20MB 文件加入 `notes` 并提示考虑 Git LFS
+
 ## 后续扩展
-- 冲突预检（fetch + non-fast-forward 检测）
-- 大文件预警（LFS 建议）
 - 多 commit 拆分策略（memory 与业务分离）
+- 可配置阈值（大文件大小、敏感词规则）

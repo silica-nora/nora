@@ -6,6 +6,7 @@
 - NETWORK_ERROR: DNS/timeout/connection issues
 - DETACHED_HEAD: attempted push from detached HEAD
 - NO_REMOTE: no remote configured
+- NON_FAST_FORWARD_RISK: upstream ahead, push would be rejected
 - SENSITIVE_CONTENT_BLOCKED: sensitive pattern detected, commit blocked
 
 Receipt should include: `failure_code` + concise reason.
