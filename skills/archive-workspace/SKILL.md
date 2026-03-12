@@ -43,21 +43,10 @@ push 状态: 成功/失败/待远端
 failure_code: <code or 无>
 ```
 
-No-change receipt:
+No-change receipt (compact):
 
 ```text
-归档完成 ✅
-
-本次改动：
-- 新增：无
-- 修改：无
-- 删除：无
-
-共 0 个文件变更
-branch: <branch>
-commit id: 无
-push 状态: 无需推送（无变更）
-failure_code: 无
+归档完成 ✅ 无变更（无需推送）
 ```
 
 ## Rules
