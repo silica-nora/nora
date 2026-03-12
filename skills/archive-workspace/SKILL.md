@@ -36,6 +36,21 @@ push 状态: 成功/失败
 - Never include secrets/tokens in commit message or receipt.
 - Prefer one logical commit per archive request.
 
+## Self-heal (default)
+
+Handle common failures automatically before asking user:
+
+1. If git is missing: report actionable install hint and stop.
+2. If not a git repo: run `git init` in workspace.
+3. If user.name/user.email missing: set repo-local defaults.
+4. If no remote:
+   - Check GitHub capability first (`gh auth status`).
+   - If authorized, create repo and set remote automatically.
+   - If not authorized or creation fails, ask user to provide/create remote.
+
+Only ask user when a decision/permission is required.
+
 ## Reference
 
 - Receipt template details: `references/receipt-template.md`
+- Remote self-heal details: `references/self-heal-remote.md`
