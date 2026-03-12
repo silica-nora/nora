@@ -13,4 +13,8 @@ Thumbs.db
 # Logs
 *.log
 
+# Python cache
+__pycache__/
+*.pyc
+
 # OpenClaw
