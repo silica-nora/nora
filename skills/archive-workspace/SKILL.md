@@ -35,9 +35,9 @@ Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
 改动摘要：<一句话，先说结果/价值>
 
 变更概览
-• 新增：<无|N 个文件>
-• 修改：<无|N 个文件>
-• 删除：<无|N 个文件>
+• 新增：<无 或 N 个文件：file1；file2>
+• 修改：<无 或 N 个文件：file1；file2>
+• 删除：<无 或 N 个文件：file1；file2>
 
 提交信息
 • commit：<short_sha>

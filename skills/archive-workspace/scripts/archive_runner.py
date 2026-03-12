@@ -30,6 +30,8 @@ def parse_status_lines(lines):
         path = ln[3:]
         if "->" in path:
             path = path.split("->", 1)[1].strip()
+        if "__pycache__/" in path or path.endswith('.pyc'):
+            continue
         if "A" in code:
             added.append(path)
         elif "D" in code:
@@ -145,10 +147,10 @@ def large_files(cwd, threshold_mb=20):
     return files
 
 
-def _fmt_items(items):
+def _fmt_items_line(items):
     if not items:
-        return []
-    return [f"  - {x}" for x in items]
+        return "无"
+    return f"{len(items)} 个文件：" + "；".join(items)
 
 
 def _push_cn(push_status):
@@ -165,9 +167,9 @@ def build_receipt(out, summary_text):
     if out.get("status") == "no_change":
         return "归档完成 ✅ 无变更（无需推送）"
 
-    a_items = _fmt_items(out.get("changes", {}).get("added", []))
-    m_items = _fmt_items(out.get("changes", {}).get("modified", []))
-    d_items = _fmt_items(out.get("changes", {}).get("deleted", []))
+    a_line = _fmt_items_line(out.get("changes", {}).get("added", []))
+    m_line = _fmt_items_line(out.get("changes", {}).get("modified", []))
+    d_line = _fmt_items_line(out.get("changes", {}).get("deleted", []))
     commit_id = out.get("commit_id") or "无"
     push_status = _push_cn(out.get("push_status"))
 
@@ -177,24 +179,9 @@ def build_receipt(out, summary_text):
         f"改动摘要：{summary_text}",
         "",
         "变更概览",
-    ]
-
-    if a_items:
-        lines += ["• 新增：", *a_items]
-    else:
-        lines.append("• 新增：无")
-
-    if m_items:
-        lines += ["• 修改：", *m_items]
-    else:
-        lines.append("• 修改：无")
-
-    if d_items:
-        lines += ["• 删除：", *d_items]
-    else:
-        lines.append("• 删除：无")
-
-    lines += [
+        f"• 新增：{a_line}",
+        f"• 修改：{m_line}",
+        f"• 删除：{d_line}",
         "",
         "提交信息",
         f"• commit：{commit_id}",
