@@ -9,13 +9,13 @@ Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
 
 ## Flow
 
-1. Run **silent dry-run preflight** (internal, no user interruption).
-2. If no changes, return no-op receipt and stop.
-3. Summarize changes by category: 新增 / 修改 / 删除.
-4. If memory or policy changed, update `memory/YYYY-MM-DD.md` (and ontology when relevant).
-5. Commit with convention: `archive: <scope> <summary>`.
-6. Push to remote (if configured).
-7. Return receipt.
+1. Run script dry-run first:
+   - `python3 {baseDir}/scripts/archive_runner.py --mode dry-run --workdir /home/nora/.openclaw/workspace`
+2. If script returns `no_change`, return no-op receipt and stop.
+3. If script returns `needs_decision`/`blocked`, follow `next_action` and remediation.
+4. If script returns ready/success in dry-run, run archive:
+   - `python3 {baseDir}/scripts/archive_runner.py --mode run --workdir /home/nora/.openclaw/workspace --scope <scope> --summary <summary>`
+5. Render receipt from JSON result.
 
 ## Receipt (required)
 
@@ -84,3 +84,4 @@ Only ask user when a decision/permission is required (e.g., remote URL/credentia
 - Remote handling: `references/self-heal-remote.md`
 - Sensitive remediation: `references/sensitive-remediation.md`
 - Dry-run policy: `references/dry-run-policy.md`
+- v2 architecture: `references/architecture.md`
