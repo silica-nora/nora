@@ -45,32 +45,27 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - **硬规则**：若 Tavily 不可用，则本次搜索任务直接判定失败（不降级到其他搜索工具）
 - 任务失败后：第一时间通知 tk，由 tk 决定是否修复 Tavily 配置
 
-## 归档规则
+## 归档规则（核心：一句“归档”自动完成）
 
-**归档 = memory整理 + ontology更新 + Git提交**
+### 指令语义拆分
+- “归档” = **A. 记忆整理** + **B. archive-workspace skill 执行**
 
-### 流程
-1. 整理 memory/ 下的记忆文件
-2. 更新 ontology/ 知识图谱（新实体、新关系）
-3. git add + git commit + git push
-4. **给用户反馈归档改动总结**
+### A. 记忆整理（先做）
+1. 更新当日 `memory/YYYY-MM-DD.md`（记录本次关键决策/变更）
+2. 需要结构化落盘时，更新 `memory/ontology/graph.jsonl`
+3. 若无记忆增量，可跳过，不强行写入
 
-### 归档反馈模板
-```
-归档完成 ✅
+### B. 技能执行（后做）
+- 调用 `skills/archive-workspace` 的流程（脚本主流程 + 静默 dry-run）
+- 默认低打扰：仅在硬决策点打断（remote/权限/敏感拦截）
 
-本次改动：
-- 新增：xxx
-- 修改：xxx
-- 删除：xxx
-
-共 N 个文件变更
-```
-
-### 归档回执（tk 强制要求）
-- 每次归档后，必须立即发送归档回执到当前会话
-- 回执至少包含：新增/修改/删除、文件数、commit id、push 状态
-- 禁止只归档不回执
+### 归档回执规范（精简）
+- 无变更：`归档完成 ✅ 无变更（无需推送）`
+- 有变更：
+  - 新增 / 修改 / 删除
+  - commit
+  - push
+- 仅异常时补充：failure_code + 下一步建议
 
 ### 两套记忆系统
 - **memory/** - 原始对话记忆文件
