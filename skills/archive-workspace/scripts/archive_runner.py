@@ -156,7 +156,7 @@ def _push_cn(push_status):
     return {
         "success": "成功",
         "failed": "失败",
-        "pending_remote": "待远端",
+        "pending_remote": "待推送/上传",
         "not_needed": "无需推送",
         "pending": "待执行",
     }.get(push_status or "", push_status or "未知")

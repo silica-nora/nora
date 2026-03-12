@@ -41,7 +41,7 @@ Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
 
 提交信息
 • commit：<short_sha>
-• push：<成功|失败|待远端>
+• push：<成功|失败|待推送/上传>
 ```
 
 No-change receipt (compact):
