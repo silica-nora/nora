@@ -15,6 +15,11 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - 飞书发的消息 → 必须用 message 工具回复到飞书
 - 网页聊天发的消息 → 直接在当前会话回复
 
+### 飞书链接格式（tk 新要求）
+- 默认使用“标题超链接”格式，不裸露长URL。
+- 推荐格式：`[标题](https://example.com)`
+- 适用范围：资讯推送、参考资料、报告链接；除非原始链接必须完整展示。
+
 ### 记忆检索规则（tk 新要求）
 - 任何涉及“记忆/历史/偏好/人物/事件/是否聊过/待办”的问题，必须**同时查询两套系统**：
   1) `memory_search` / `memory_get`（MEMORY.md + memory/*.md）
