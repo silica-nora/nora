@@ -145,6 +145,38 @@ def large_files(cwd, threshold_mb=20):
     return files
 
 
+def _fmt_list(items):
+    if not items:
+        return "无"
+    return "\n".join([f"  - {x}" for x in items])
+
+
+def build_receipt(out, summary_text):
+    if out.get("status") == "no_change":
+        return "归档完成 ✅ 无变更（无需推送）"
+
+    added = _fmt_list(out.get("changes", {}).get("added", []))
+    modified = _fmt_list(out.get("changes", {}).get("modified", []))
+    deleted = _fmt_list(out.get("changes", {}).get("deleted", []))
+    commit_id = out.get("commit_id") or "无"
+    push_status = out.get("push_status") or "未知"
+
+    text = (
+        "归档完成 ✅\n\n"
+        f"改动摘要：{summary_text}\n\n"
+        "变更概览：\n"
+        f"- 新增：\n{added}\n"
+        f"- 修改：\n{modified}\n"
+        f"- 删除：\n{deleted}\n\n"
+        f"commit: {commit_id}\n"
+        f"push: {push_status}"
+    )
+
+    if out.get("failure_code"):
+        text += f"\nfailure_code: {out['failure_code']}"
+    return text
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["dry-run", "run"], default="dry-run")
@@ -165,14 +197,19 @@ def main():
         "failure_code": "",
         "next_action": "",
         "notes": [],
+        "receipt": "",
     }
 
     cwd = args.workdir
 
+    def emit_and_exit():
+        out["receipt"] = build_receipt(out, args.summary)
+        print(json.dumps(out, ensure_ascii=False))
+
     try:
         if not git_exists():
             out.update(status="failed", failure_code="GIT_MISSING", next_action="install git")
-            print(json.dumps(out, ensure_ascii=False))
+            emit_and_exit()
             return
 
         ensure_repo(cwd)
@@ -185,7 +222,7 @@ def main():
 
         if not lines:
             out.update(status="no_change", push_status="not_needed", failure_code="")
-            print(json.dumps(out, ensure_ascii=False))
+            emit_and_exit()
             return
 
         has_remote = remote_exists(cwd)
@@ -193,17 +230,17 @@ def main():
             if args.remote_url:
                 if not validate_remote_url(args.remote_url):
                     out.update(status="needs_decision", failure_code="INVALID_REMOTE_URL", next_action="provide valid remote URL")
-                    print(json.dumps(out, ensure_ascii=False))
+                    emit_and_exit()
                     return
                 if not validate_remote_connectivity(cwd, args.remote_url):
                     out.update(status="needs_decision", failure_code="REMOTE_UNREACHABLE", next_action="provide reachable remote URL")
-                    print(json.dumps(out, ensure_ascii=False))
+                    emit_and_exit()
                     return
                 run(["git", "remote", "add", "origin", args.remote_url], cwd, check=True)
                 has_remote = True
             else:
                 out.update(status="needs_decision", push_status="pending_remote", failure_code="NO_REMOTE", next_action="provide remote URL")
-                print(json.dumps(out, ensure_ascii=False))
+                emit_and_exit()
                 return
 
         large = large_files(cwd, threshold_mb=args.max_file_mb)
@@ -214,10 +251,10 @@ def main():
             # pre-check non-fast-forward risk when upstream exists
             if has_remote and upstream_exists(cwd) and non_fast_forward_risk(cwd):
                 out.update(status="needs_decision", push_status="failed", failure_code="NON_FAST_FORWARD_RISK", next_action="pull/rebase before push")
-                print(json.dumps(out, ensure_ascii=False))
+                emit_and_exit()
                 return
             out.update(status="success", push_status="pending", failure_code="")
-            print(json.dumps(out, ensure_ascii=False))
+            emit_and_exit()
             return
 
         # run mode
@@ -225,7 +262,7 @@ def main():
 
         if sensitive_scan(cwd, args.sensitive_pattern):
             out.update(status="blocked", push_status="failed", failure_code="SENSITIVE_CONTENT_BLOCKED", next_action="remove or unstage secrets")
-            print(json.dumps(out, ensure_ascii=False))
+            emit_and_exit()
             return
 
         msg = f"archive: {args.scope} {args.summary}".strip()
@@ -237,7 +274,7 @@ def main():
         has_upstream = upstream_exists(cwd)
         if has_upstream and non_fast_forward_risk(cwd):
             out.update(status="needs_decision", push_status="failed", failure_code="NON_FAST_FORWARD_RISK", next_action="pull/rebase before push")
-            print(json.dumps(out, ensure_ascii=False))
+            emit_and_exit()
             return
 
         p = first_push(cwd, br) if not has_upstream else normal_push(cwd)
@@ -255,11 +292,11 @@ def main():
                 code = "NON_FAST_FORWARD_RISK"
             out.update(status="failed", push_status="failed", failure_code=code, next_action="check credentials/remote")
 
-        print(json.dumps(out, ensure_ascii=False))
+        emit_and_exit()
 
     except Exception as e:
         out.update(status="failed", failure_code="UNHANDLED_EXCEPTION", next_action=str(e))
-        print(json.dumps(out, ensure_ascii=False))
+        emit_and_exit()
 
 
 if __name__ == "__main__":

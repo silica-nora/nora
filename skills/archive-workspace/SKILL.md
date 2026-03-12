@@ -25,6 +25,7 @@ Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
    - `--max-file-mb 30`
    - `--sensitive-pattern "(TOKEN|API_KEY|PRIVATE KEY|...)"`
 6. Render receipt from JSON result.
+   - Use `receipt` field verbatim to avoid formatting drift.
 
 ## Receipt (required)
 
