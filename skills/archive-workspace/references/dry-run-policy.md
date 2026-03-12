@@ -10,10 +10,12 @@ Purpose: run safety checks before archive without disturbing non-git users.
 
 ## When to surface to user
 
-Only surface when user decision/permission is required:
+Only surface when hard decision/permission is required:
 1. Missing remote URL (platform-neutral)
 2. Credential/auth failure
 3. Sensitive content blocked and needs remediation choice
+
+Everything else should stay silent and auto-resolve.
 
 ## User-facing style
 

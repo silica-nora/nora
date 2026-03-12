@@ -7,6 +7,12 @@ description: Archive and commit workspace changes with a consistent receipt. Use
 
 Execute a consistent archive flow in `/home/nora/.openclaw/workspace`.
 
+## Core Spec (must-follow)
+
+- One-command archive: user says "归档", system should finish end-to-end automatically.
+- Low interruption by default: do not ask user for intermediate confirmations.
+- Ask user only at hard decision gates that cannot be auto-resolved.
+
 ## Flow
 
 1. Run script dry-run first:
@@ -61,7 +67,11 @@ failure_code: 无
 - Prefer one logical commit per archive request.
 - If push fails, classify failure with `failure_code`.
 - Dry-run is default and silent: report only actionable results, not verbose git internals.
-- Ask user only when decision/permission is required (e.g., remote URL/credentials).
+- Treat low interruption as primary design constraint.
+- Ask user only at hard decision gates:
+  1) no remote URL and cannot infer safely
+  2) credential/permission is required
+  3) sensitive-content blocked and remediation choice is needed
 
 ## Self-heal (default)
 
