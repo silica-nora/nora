@@ -1,13 +1,12 @@
-# Remote Self-heal Decision Tree
+# Remote Handling (Platform-neutral)
 
 1. Check remote:
    - `git remote -v`
-2. If missing remote, check GitHub auth:
-   - `gh auth status`
-3. If auth OK:
-   - create repo (prefer private default): `gh repo create <name> --private --source . --remote origin --push`
-   - if already created locally, set remote and push: `git remote add origin <url> && git push -u origin <branch>`
-4. If auth not OK:
-   - ask user to either (a) login gh, or (b) create repo and give remote URL.
+2. If missing remote:
+   - Ask user to provide remote URL (supports GitHub/GitLab/Gitee/self-hosted).
+3. Only if user explicitly requests GitHub auto-create:
+   - check `gh auth status`
+   - create repo and set remote automatically
 
-Receipt should include which branch was pushed and whether remote was auto-created.
+Receipt should include branch and push result.
+If no remote provided, receipt should clearly state: "已本地提交，待远端地址".

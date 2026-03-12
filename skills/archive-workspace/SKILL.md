@@ -43,10 +43,9 @@ Handle common failures automatically before asking user:
 1. If git is missing: report actionable install hint and stop.
 2. If not a git repo: run `git init` in workspace.
 3. If user.name/user.email missing: set repo-local defaults.
-4. If no remote:
-   - Check GitHub capability first (`gh auth status`).
-   - If authorized, create repo and set remote automatically.
-   - If not authorized or creation fails, ask user to provide/create remote.
+4. If no remote (platform-neutral default):
+   - Ask user to provide remote URL (GitHub/GitLab/Gitee/self-hosted all supported).
+   - Do not auto-create a GitHub repo unless user explicitly asks for GitHub auto-create.
 
 Only ask user when a decision/permission is required.
 
