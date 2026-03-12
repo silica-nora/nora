@@ -46,3 +46,4 @@
 {"op":"create","entity":{"id":"pol_20260311_stock_output_with_ticker","type":"Policy","properties":{"scope":"market_report_format","rule":"股票跟踪输出必须包含名称+股票代码（A股/港股）","enforcement":"hard"},"created":"2026-03-11T17:09:00+08:00","updated":"2026-03-11T17:09:00+08:00"},"timestamp":"2026-03-11T17:09:00+08:00"}
 {"op":"relate","from":"pers_24c44209","rel":"follows_policy","to":"pol_20260311_stock_output_with_ticker","properties":{"approved_by":"pers_bea23423"},"timestamp":"2026-03-11T17:09:10+08:00"}
 {"op":"update","id":"pers_bea23423","set":{"profession":"架构师/高级工程师"},"timestamp":"2026-03-13T04:22:00+08:00"}
+{"op":"update","id":"pers_bea23423","set":{"skills":"AP系统架构设计,高并发方案设计,高可用方案设计"},"timestamp":"2026-03-13T04:25:00+08:00"}
