@@ -7,6 +7,7 @@
 - 草稿：`memory/ashare-7day-phase-review-draft.md`
 - 证据填表：`memory/ashare-7day-evidence-capture-template.md`
 - 定稿骨架：`memory/ashare-7day-phase-review-v1-skeleton.md`
+- 来源索引：`memory/ashare-7day-source-index.md`
 
 ## 执行顺序（30-45分钟）
 1. 先填 `evidence-capture-template`：D1~D7 各补 1 组“事实/推断/反证+行号”。
