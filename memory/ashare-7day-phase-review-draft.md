@@ -39,6 +39,7 @@
 3. 生成 v1.0 结论页：命中点 3 条、偏差点 3 条、下周调整项 3 条（均需可追溯证据）。
 
 > 执行模板：`memory/ashare-7day-evidence-capture-template.md`
+> 定稿骨架：`memory/ashare-7day-phase-review-v1-skeleton.md`
 
 ## 八、阶段结论（预填版）
 ### 有效方法（暂定）
