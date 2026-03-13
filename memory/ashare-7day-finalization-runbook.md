@@ -20,3 +20,4 @@
 - D1~D7 全覆盖且可追溯
 - AI优先池5只至少2个交易日动作变化齐全
 - 3/3/3 结论均有证据锚点
+- 通过证据质量门：`memory/ashare-7day-evidence-quality-gates.md`
