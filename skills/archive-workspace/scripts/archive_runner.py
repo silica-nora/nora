@@ -150,8 +150,8 @@ def large_files(cwd, threshold_mb=20):
 def _fmt_children(items):
     if not items:
         return []
-    # Feishu-safe pseudo-nesting: avoid whitespace-dependent markdown nesting
-    return [f"↳ - {x}" for x in items]
+    # Feishu-safe pseudo-nesting: parent uses '-', child uses '◦' to preserve visual hierarchy
+    return [f"  ◦ {x}" for x in items]
 
 
 def _push_cn(push_status):
@@ -178,23 +178,24 @@ def build_receipt(out, summary_text):
     lines = [
         "归档完成 ✅",
         "",
-        f"改动摘要：{summary_text}",
+        "改动摘要：",
+        f"1. {summary_text}",
         "",
         "变更概览",
     ]
 
     if added:
-        lines += ["• 新增：", *(_fmt_children(added))]
+        lines += ["• 新增：  ", *(_fmt_children(added))]
     else:
         lines += ["• 新增：无"]
 
     if modified:
-        lines += ["• 修改：", *(_fmt_children(modified))]
+        lines += [f"• 修改：{len(modified)}个文件  ", *(_fmt_children(modified))]
     else:
         lines += ["• 修改：无"]
 
     if deleted:
-        lines += ["• 删除：", *(_fmt_children(deleted))]
+        lines += ["• 删除：  ", *(_fmt_children(deleted))]
     else:
         lines += ["• 删除：无"]
 
