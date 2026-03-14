@@ -1,6 +1,7 @@
 # A股7天复盘 09:00 前交接清单（白天定稿启动）
 
 ## 开始前（5分钟）
+- [ ] 先执行 `memory/ashare-0900-trigger-checklist.md`（避免与盘前流程冲突）
 - [ ] 打开 `memory/ashare-7day-finalization-runbook.md`
 - [ ] 打开 `memory/ashare-7day-source-index.md`
 - [ ] 打开 `memory/ashare-7day-evidence-capture-template.md`
