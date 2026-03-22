@@ -3242,3 +3242,9 @@
 - 新增认知1：官方建议先读 `https://docs.openclaw.ai/llms.txt` 获取完整文档索引，再按需深挖页面，可降低盲搜成本。
 - 新增认知2：Gateway 是会话与路由的单一事实源（single source of truth），多渠道接入应优先围绕 Gateway 状态排障。
 - 新增认知3：快速上手路径可标准化为三步：Getting Started → onboard 向导 → Control UI，适合写成固定巡检/排障流程。
+
+## 2026-03-23 04:49｜失败复盘小优化（python 命令缺失）
+- 事实：凌晨heartbeat写日志时使用 `python` 失败（/bin/bash: python: command not found），切换 `python3` 成功。
+- 约束：当前主机不保证存在 `python` 软链；但 `python3` 可用。
+- 修正：工作流脚本默认统一改为 `python3`；若需跨机兼容，先用 `command -v python3 || command -v python` 做探测。
+- 预防：后续 heartbeat 的文件落盘脚本不再直接调用 `python`。
