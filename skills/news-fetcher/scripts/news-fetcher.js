@@ -1,11 +1,20 @@
 #!/usr/bin/env node
 
 /**
- * News Fetcher v2.3 - 获取高质量新闻资讯
+ * News Fetcher v2.4 - 获取高质量新闻资讯（含源可达性探测）
  * 集成 crypto-gold-monitor 获取黄金/白银/汇率
  */
 
-const TAVILY_API_KEY = process.env.TAVILY_API_KEY || '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';
+const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
+
+const BLOCKED_DOMAINS = [
+  'zhihu.com',
+  'youtube.com',
+  'youtu.be',
+  'finance.yahoo.com',
+  'hk.finance.yahoo.com'
+];
+
 
 const CONFIGS = {
   morning: {
@@ -35,6 +44,10 @@ const CONFIGS = {
 
 async function searchTavily(query, maxResults = 3) {
   const url = 'https://api.tavily.com/search';
+  if (!TAVILY_API_KEY) {
+    console.error('Missing TAVILY_API_KEY');
+    return [];
+  }
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -50,21 +63,59 @@ async function searchTavily(query, maxResults = 3) {
   }
 }
 
+function isBlockedDomain(url) {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    return BLOCKED_DOMAINS.some(d => hostname === d || hostname.endsWith(`.${d}`));
+  } catch {
+    return true;
+  }
+}
+
+async function probeUrl(url) {
+  try {
+    const ctrl = new AbortController();
+    const timeout = setTimeout(() => ctrl.abort(), 6000);
+    const resp = await fetch(url, {
+      method: 'GET',
+      redirect: 'follow',
+      signal: ctrl.signal,
+      headers: { 'User-Agent': 'Mozilla/5.0 (NewsFetcher/2.4)' }
+    });
+    clearTimeout(timeout);
+    return { ok: resp.ok, status: resp.status };
+  } catch {
+    return { ok: false, status: 0 };
+  }
+}
+
 async function multiSearch(keywords, maxResults) {
   const allResults = [];
   for (const keyword of keywords) {
-    const results = await searchTavily(keyword, maxResults);
+    const results = await searchTavily(keyword, Math.max(maxResults * 2, 6));
     allResults.push(...results);
   }
+
   allResults.sort((a, b) => (b.score || 0) - (a.score || 0));
   const unique = [...new Map(allResults.map(r => [r.url, r])).values()];
-  const filtered = unique.filter(r => {
+
+  const dateFiltered = unique.filter(r => {
+    if (!r?.url || isBlockedDomain(r.url)) return false;
     const dateMatch = (r.content || '').match(/(\d{4}-\d{2}-\d{2})/) || (r.title || '').match(/(\d{4}-\d{2}-\d{2})/);
     let dateStr = dateMatch ? dateMatch[1] : null;
     if (!dateStr) dateStr = extractDateFromUrl(r.url);
     return isWithinDays(dateStr, 2);
   });
-  return filtered.slice(0, maxResults * 2);
+
+  const finalResults = [];
+  for (const item of dateFiltered) {
+    if (finalResults.length >= maxResults * 2) break;
+    const probe = await probeUrl(item.url);
+    if (!probe.ok) continue;
+    finalResults.push(item);
+  }
+
+  return finalResults;
 }
 
 function isWithinDays(dateStr, days = 2) {
