@@ -3330,3 +3330,8 @@
 - 新增认知1：排障顺序可固定为 `status → gateway status → logs → doctor → channels probe`，先全局后通道。
 - 新增认知2：Cron 不触发时优先看 `cron status/list/runs` 三件套，再结合日志判断是 disabled、not-due 还是 tick failure。
 - 新增认知3：Heartbeat 被抑制要重点查 `heartbeat last` 的 skip reason（quiet-hours / requests-in-flight / empty-heartbeat-file / alerts-disabled）。
+
+## 2026-03-23 13:19｜OpenClaw CLI 学习：channels 命令
+- 新增认知1：`channels status/capabilities/resolve/logs` 能覆盖“在线状态、能力、目标解析、通道日志”四类排障入口。
+- 新增认知2：多账号场景下，channels add 会把单账号旧配置迁移到 `accounts.default` 以保持路由行为连续。
+- 新增认知3：账号绑定可在交互流程直接完成，也可后续用 agents bind/unbind 细化，适合分阶段上线。
