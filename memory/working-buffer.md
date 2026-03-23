@@ -3325,3 +3325,8 @@
 - 字段固定：待办/待跟进/注入/日志/context/推送窗口。
 - 表达固定：每项只写“状态+关键值”，避免重复叙述。
 - 切换规则：仅在 15:10 窗口或异常出现时升级为详细模式。
+
+## 2026-03-23 12:49｜OpenClaw 学习：Automation Troubleshooting 命令梯子
+- 新增认知1：排障顺序可固定为 `status → gateway status → logs → doctor → channels probe`，先全局后通道。
+- 新增认知2：Cron 不触发时优先看 `cron status/list/runs` 三件套，再结合日志判断是 disabled、not-due 还是 tick failure。
+- 新增认知3：Heartbeat 被抑制要重点查 `heartbeat last` 的 skip reason（quiet-hours / requests-in-flight / empty-heartbeat-file / alerts-disabled）。
