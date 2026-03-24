@@ -3421,3 +3421,8 @@
 1) 需要“精确时刻触发”（如 10:00 准点）优先用 Cron。
 2) 需要“批量巡检 + 低打扰”优先用 Heartbeat。
 3) 同类周期任务优先汇总到 Heartbeat，精确提醒单独用 Cron，避免重复轮询。
+
+## [2026-03-24 11:50 CST] Heartbeat 学习：openclaw cron（CLI）
+- `cron add` 默认 `--announce` 对外投递；若只做内部执行需显式 `--no-deliver`。
+- 一次性任务（`--at`）默认成功后删除；要保留需 `--keep-after-run`。
+- 周期任务失败采用指数退避（30s→1m→5m→15m→60m），成功后恢复正常节奏。
