@@ -3477,3 +3477,31 @@
 - 做了什么：完成一次“深夜低打扰协议”复盘并执行。
 - 产出：确认静默时段仅保留巡检与内部落盘，避免无效触达。
 - 下一步：10:00 前关注 morning 日志触发条件。
+
+- 时间：2026-03-26 14:15 (Asia/Shanghai)
+- 类型：做 1 次“小修复/小优化”（文档、规则、提示词、检查脚本）
+- 动作：创建Tavily API调用前检查脚本
+- 产出：
+  - 脚本路径：`~/.openclaw/workspace/scripts/check-tavily-api.sh`
+  - 功能：检查TAVILY_API_KEY环境变量是否存在及格式是否正确
+  - 作用：在调用Tavily API前提前发现问题，避免调用失败
+- 下一步：在使用Tavily搜索的脚本中引入该检查脚本
+
+- 时间：2026-03-27 02:12 (Asia/Shanghai)
+- 类型：复盘 / 小优化
+- 动作：处理积压新闻日志并复盘触发策略（afternoon/night）
+- 产出：
+  - 完成两条补发（午报、晚报）并成功发送飞书
+  - 删除 `/tmp/news-afternoon.log`、`/tmp/news-night.log` 防止重复发送
+  - 固化规则：过触发时点后日志非空即立即处理，不再等待下一窗口
+- 下一步：后续轮次优先检查三类日志是否积压，再进入常规巡检
+
+- 时间：2026-03-27 04:12 (Asia/Shanghai)
+- 类型：学习 / 复盘
+- 动作：执行夜间 heartbeat 强制巡检（SESSION-STATE、近两日memory、news日志、自愈日志），并完成 1 项自我强化（运行 `openclaw status` 学习状态诊断与安全审计快照）
+- 产出：
+  - 确认 `SESSION-STATE.md` 当前无未完成待办
+  - 确认 `memory/2026-03-27.md` 无新增待跟进条目
+  - 确认 `/tmp/news-*.log` 均为空，`/tmp/clawdbot` 当前无日志文件
+  - 沉淀 1 条夜间执行认知到 `memory/working-buffer.md`
+- 下一步：继续夜间最小巡检，09:00 后再切换工作时段策略
