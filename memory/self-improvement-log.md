@@ -3547,3 +3547,14 @@
   - context 55%，未进入 >60% 危险区
   - 新增 1 条过渡时段执行认知到 `memory/working-buffer.md`
 - 下一步：09:00 后切换工作时段流程；10:00 前仅做触发等待与基线巡检
+
+- 时间：2026-03-27 07:44 (Asia/Shanghai)
+- 类型：学习 / 复盘
+- 动作：执行早晨 heartbeat 强制巡检（SESSION-STATE、news日志、自愈日志、context阈值）并完成 1 项自我强化（`openclaw status --deep` 诊断学习）
+- 产出：
+  - 确认 `SESSION-STATE.md` 无未完成待办
+  - 确认 `/tmp/news-*.log` 均为空，`/tmp/clawdbot` 无日志文件
+  - `session_status` 显示 context=55%，未进入 >60% 危险区
+  - 诊断快照显示通道可达、无事件、仍存在既有安全审计风险（open groupPolicy）
+  - 沉淀 1 条过渡时段执行认知到 `memory/working-buffer.md`
+- 下一步：继续最小巡检，09:00 后切换工作时段规则
