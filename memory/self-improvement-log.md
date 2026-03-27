@@ -3610,3 +3610,13 @@
   - 确认 `/tmp/news-*.log` 均为空，`/tmp/clawdbot` 当前无日志文件
   - 新增 1 条“索引优先、按需抓页”的文档学习认知到 `memory/working-buffer.md`
 - 下一步：10:00 后按规则检查 morning 日志触发条件，命中再执行推送闭环
+
+- 时间：2026-03-27 10:16 (Asia/Shanghai)
+- 类型：学习 / 执行复盘
+- 动作：执行 heartbeat 强制巡检后，在10:00窗口完成 morning 日志的“全文筛选+48h去重+中文解读+发送后删日志”闭环
+- 产出：
+  - 已发送飞书早报（messageId: om_x100b536adefc4538b392b17e6a3b0e3）
+  - 已删除 `/tmp/news-morning.log`，避免重复推送
+  - 已将可发送条目写入 `memory/news-push-history.tsv`
+  - 沉淀 1 条窗口执行认知到 `memory/working-buffer.md`
+- 下一步：15:10 检查 `/tmp/news-afternoon.log`，命中则按同规则执行
