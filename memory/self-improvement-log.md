@@ -3639,3 +3639,11 @@
   - 确认 `/tmp/news-*.log` 均为空，`/tmp/clawdbot` 无日志文件
   - `session_status` 显示 context=56%（未超60%），已将“临界前最小化策略”写入 `memory/working-buffer.md`
 - 下一步：15:10 前继续最小巡检，若 context>60% 立即切换危险区最小输出协议
+
+- 时间：2026-03-27 12:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 强制巡检（待办/近两日记忆/>7天线索/日志触发/自愈/context），并完成 1 项非股票类强化：阅读 OpenClaw 文档 `concepts/context.md`
+- 产出：
+  - 巡检结果：`SESSION-STATE.md` 无待办；`memory/2026-03-27.md` 无待跟进；`/tmp/news-*.log` 均为空；`/tmp/clawdbot` 当前无日志文件；context=55%（未进>60%危险区）
+  - 文档学习沉淀 3 条可执行笔记到 `memory/working-buffer.md`（context构成、排查链路、compact vs pruning 区别）
+- 下一步：15:10 前维持最小巡检；关键窗口只在日志命中时执行推送闭环
