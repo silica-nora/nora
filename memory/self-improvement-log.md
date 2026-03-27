@@ -3663,3 +3663,11 @@
   - 巡检结果：`SESSION-STATE.md` 无待办；`memory/2026-03-27.md` 无待跟进；`/tmp/news-*.log` 均为空；`/tmp/clawdbot` 无日志文件；context=57%（未进>60%危险区）
   - 文档学习沉淀 3 条可执行重试策略笔记到 `memory/working-buffer.md`
 - 下一步：15:10 前继续最小巡检；仅在 `/tmp/news-afternoon.log` 命中时执行推送闭环
+
+- 时间：2026-03-27 14:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 强制巡检（待办/近两日记忆/>7天线索/news日志/自愈日志/context），并完成 1 项非股票类强化：阅读 OpenClaw 文档 `concepts/compaction.md`
+- 产出：
+  - 巡检结果：`SESSION-STATE.md` 无待办；`memory/2026-03-27.md` 无待跟进；`/tmp/news-*.log` 均为空；`/tmp/clawdbot` 当前无日志文件；context=58%
+  - 文档学习沉淀 3 条执行笔记到 `memory/working-buffer.md`（compaction 持久化、/compact 手动触发、危险区前组合策略）
+- 下一步：15:10 前继续最小巡检；仅在日志命中时执行午报推送闭环
