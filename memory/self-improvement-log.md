@@ -3600,3 +3600,13 @@
   - context 56%，未进入 >60% 危险区
   - 已将本轮新增认知写入 `memory/working-buffer.md`
 - 下一步：10:00 后按规则检查 morning 日志；仅在日志命中时执行推送闭环
+
+- 时间：2026-03-27 09:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 强制巡检（待办/近两日记忆/news日志/自愈日志）后，完成 1 项非股票类自我强化：阅读 OpenClaw `llms.txt` 文档索引并提炼可复用执行策略
+- 产出：
+  - 确认 `SESSION-STATE.md` 无未完成待办
+  - 确认 `memory/2026-03-27.md` 无待跟进新增
+  - 确认 `/tmp/news-*.log` 均为空，`/tmp/clawdbot` 当前无日志文件
+  - 新增 1 条“索引优先、按需抓页”的文档学习认知到 `memory/working-buffer.md`
+- 下一步：10:00 后按规则检查 morning 日志触发条件，命中再执行推送闭环
