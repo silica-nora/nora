@@ -3680,3 +3680,12 @@
   - 旧日期样本已剔除；可访问来源仅占位数据，已按“样本不足低置信度”输出
   - 已删除 `/tmp/news-afternoon.log`，避免重复发送
 - 下一步：22:00 前维持最小巡检，命中 night 日志再执行晚报闭环
+
+- 时间：2026-03-27 15:46 (Asia/Shanghai)
+- 类型：学习 / 风险控制
+- 动作：执行 heartbeat 强制巡检（待办/近两日memory/>7天线索/news日志/自愈日志/context），并完成 1 项非股票类强化：阅读 OpenClaw 文档 `concepts/session-pruning.md`
+- 产出：
+  - 巡检结果：无待办、无待跟进、`/tmp/news-*.log` 均为空、`/tmp/clawdbot` 无日志文件
+  - context=62%（进入 >60% 危险区），已切换最小化输出策略
+  - 文档学习沉淀 3 条执行笔记到 `memory/working-buffer.md`（pruning边界、危险区组合策略、TTL联动）
+- 下一步：22:00 前仅保留最小巡检与触发检查，必要时执行 `/compact` 降压
