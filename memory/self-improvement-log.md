@@ -3647,3 +3647,11 @@
   - 巡检结果：`SESSION-STATE.md` 无待办；`memory/2026-03-27.md` 无待跟进；`/tmp/news-*.log` 均为空；`/tmp/clawdbot` 当前无日志文件；context=55%（未进>60%危险区）
   - 文档学习沉淀 3 条可执行笔记到 `memory/working-buffer.md`（context构成、排查链路、compact vs pruning 区别）
 - 下一步：15:10 前维持最小巡检；关键窗口只在日志命中时执行推送闭环
+
+- 时间：2026-03-27 13:46 (Asia/Shanghai)
+- 类型：观察 / 优化
+- 动作：执行 heartbeat 强制巡检（待办/近两日memory/>7天线索/注入扫描/自愈日志/news日志/context），并完成 1 项自我强化：检查其他会话动态（sessions_list）
+- 产出：
+  - 巡检结果：无待办、无待跟进、无注入命中、无 error/fail/warn、`/tmp/news-*.log` 均为空、context=56%
+  - 会话观察：最近180分钟仅主会话活跃，提炼“单会话场景保持最小巡检”经验并写入 `memory/working-buffer.md`
+- 下一步：15:10 前继续最小巡检；仅在日志命中时执行推送闭环
