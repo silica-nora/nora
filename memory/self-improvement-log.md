@@ -3846,3 +3846,247 @@
 - 动作：执行 heartbeat 深夜轮次巡检并强化 context=80% 下的双门控最小化执行
 - 产出：三类news日志为空、无待办、无 error/fail/warn，context=80%
 - 下一步：夜间仅保留触发检查；白天首窗口优先上下文降压
+
+- 时间：2026-03-28 04:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：完成 heartbeat 强制巡检后，学习 OpenClaw 本地文档 `cli/status.md`，并固化“先总览后细查”的排障顺序。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw status` 可执行要点（deep 探测、多 agent 会话视图、更新提示）
+  - 新增 1 条偏差修正：夜间排查先跑 status 总览，再看日志
+- 下一步：下次出现通道或消息异常时，先执行 `openclaw status --all`，仅在需要时再进入日志级定位。
+
+- 时间：2026-03-28 04:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/logs.md`，补齐“远程日志拉流”排障路径。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw logs` 实操要点（RPC远程、JSON结构化、follow+local-time）
+  - 固化新的排障顺序：status 总览 → logs 实时跟踪
+- 下一步：遇到网关级异常时优先使用 `openclaw logs --follow --local-time` 做时序定位。
+
+- 时间：2026-03-28 05:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/cron.md`，补齐 cron 投递与退避机制认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw cron` 实操要点（announce/no-deliver、--at 默认删除、指数退避）
+  - 固化 1 条排障修正：cron 延迟先查 backoff 状态
+- 下一步：下次出现 cron 时效异常时，先核对任务是否连续失败进入退避窗口。
+
+- 时间：2026-03-28 05:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/channels.md`，补齐多渠道多账号路由与能力探测认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw channels` 实操要点（capabilities、resolve、交互式绑定）
+  - 固化 1 条修正：多账号排障需先查 channel/account 能力与绑定一致性
+- 下一步：出现路由错投或发不出去时，先跑 channels 诊断再进入日志层定位。
+
+- 时间：2026-03-28 06:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/doctor.md`，补齐健康检查与修复边界认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw doctor` 实操要点（备份+清键、非TTY行为、孤儿转录归档）
+  - 固化 1 条执行边界：先只读 doctor，再按需 `--repair`
+- 下一步：排障流程中把 doctor 放到 status/logs 后的“修复前确认”环节。
+
+- 时间：2026-03-28 06:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/agents.md`，补齐多代理路由绑定与身份同步认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw agents` 实操要点（绑定粒度、原地升级、IDENTITY 同步）
+  - 固化 1 条修正：路由排障先确认绑定是 channel 级还是 account 级
+- 下一步：遇到“消息进错会话”时先查 `openclaw agents bindings --json`。
+
+- 时间：2026-03-28 07:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/message.md`，补齐统一消息动作与多渠道目标格式认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw message` 实操要点（统一入口、显式 channel、target 格式）
+  - 固化 1 条排障修正：消息失败先校验 channel/target，再查权限日志
+- 下一步：出现消息发送异常时先执行“三步快检”后再深挖。
+
+- 时间：2026-03-28 07:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/memory.md`，补齐记忆状态探测与索引修复路径。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw memory` 实操要点（deep探测、脏库重建、query优先级）
+  - 固化 1 条排障修正：记忆异常先查状态，再决定是否重建索引
+- 下一步：下次记忆检索异常时按“status --deep → (必要时) --index → search”顺序执行。
+
+- 时间：2026-03-28 08:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/update.md`，补齐更新前评估与通道差异认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw update` 实操要点（status、dry-run、channel差异）
+  - 固化 1 条执行顺序：更新前先 status，再 dry-run，再正式更新
+- 下一步：后续出现版本相关问题时，先核对 update channel 与安装路径一致性。
+
+- 时间：2026-03-28 08:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/sessions.md`，补齐会话范围选择与清理边界认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw sessions` 实操要点（范围选择、dry-run预演、与cron日志分离）
+  - 固化 1 条修正：清理策略按存储类型分流执行
+- 下一步：后续会话维护先跑 `openclaw sessions cleanup --dry-run` 再决定是否 enforce。
+
+- 时间：2026-03-28 09:16 (Asia/Shanghai)
+- 类型：学习 / 优化 / 第一性原理
+- 动作：在 09:00-09:30 关键时点执行“非交易日盘前门控”四段拆解（事实/约束/假设/方案），避免周末误用交易模板。
+- 产出：
+  - 在 `memory/working-buffer.md` 完成四段拆解与执行方案
+  - 固化 1 条流程改进：先判定交易日，再决定是否输出盘前交易结论
+- 下一步：下个交易日 09:00 前先跑门控检查，再进入主线/观察池模板。
+
+- 时间：2026-03-28 09:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/config.md`，补齐配置路径与类型解析边界认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw config` 实操要点（路径定位、strict-json、重启生效）
+  - 固化 1 条执行顺序：配置改动后按“写入→校验→重启→复检”执行
+- 下一步：出现配置不生效问题时优先检查是否遗漏 gateway 重启。
+
+- 时间：2026-03-28 10:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/models.md`，补齐模型探测成本与模型引用解析规则认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw models` 实操要点（probe成本、引用解析、set输入判定）
+  - 固化 1 条修正：非必要不做 `--probe` 高频调用
+- 下一步：后续模型异常先看 `models status`，仅在鉴权疑难场景追加 `--probe`。
+
+- 时间：2026-03-28 11:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/plugins.md`，补齐插件安装/卸载安全边界认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw plugins` 实操要点（ignore-scripts、manifest/schema硬约束、卸载文件保留开关）
+  - 固化 1 条修正：插件卸载先 dry-run，再决定是否 keep-files
+- 下一步：后续插件相关操作默认先做风险预检，不直接执行破坏性卸载。
+
+- 时间：2026-03-28 11:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/security.md`，补齐审计与自动修复边界认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw security` 实操要点（dmScope隔离、fix边界、json门禁）
+  - 固化 1 条修正：`--fix` 后仍需人工复核高风险配置
+- 下一步：后续安全检查优先跑 `openclaw security audit --json`，按严重级分层处理。
+
+- 时间：2026-03-28 12:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/gateway.md`，补齐网关探测与鉴权参数边界认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw gateway` 实操要点（probe双目标、url下凭据显式、启动安全护栏）
+  - 固化 1 条修正：连接异常先跑 `gateway probe` 做全景定位
+- 下一步：网关连接问题按“probe→health/status→call”顺序收敛。
+
+- 时间：2026-03-28 12:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/health.md`，补齐轻量健康检查与深度探测分层认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw health` 实操要点（轻量入口、verbose实时探测、多agent会话视图）
+  - 固化 1 条修正：排障流程先 health 再 deep/status/logs
+- 下一步：后续可用性告警先跑 `openclaw health --json` 做快速判定。
+
+- 时间：2026-03-28 13:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/approvals.md`，补齐 exec 审批配置作用域与最小授权边界认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw approvals` 实操要点（目标作用域、agent范围默认值、节点能力前置）
+  - 固化 1 条修正：审批变更前先确认 host 目标与授权最小化
+- 下一步：后续审批策略调整默认先 `approvals get` 做基线快照再改。
+
+- 时间：2026-03-28 13:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/hooks.md`，补齐 hooks 启停生效边界与插件托管规则认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw hooks` 实操要点（eligible筛选、重启生效、plugin托管限制）
+  - 固化 1 条修正：hook 调整后必须重启并复检
+- 下一步：后续 hooks 变更优先用 `hooks check` 做收口验证。
+
+- 时间：2026-03-28 14:16 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/browser.md`，补齐浏览器 profile/relay/node 三层路由认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw browser` 实操要点（profile差异、attach前置、node代理路由）
+  - 固化 1 条修正：浏览器失败先做前置条件检查再改动作
+- 下一步：后续浏览器自动化异常先跑 profile+attach+node 三步定位。
+
+- 时间：2026-03-28 14:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/nodes.md`，补齐节点连接筛选与执行审批边界认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw nodes` 实操要点（连接筛选、run复用审批、能力前置）
+  - 固化 1 条修正：节点异常先查在线/能力/审批三层
+- 下一步：后续节点执行失败按“三检→命令细查”顺序排障。
+
+- 时间：2026-03-28 15:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/system.md`，补齐系统事件与心跳控制边界认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw system` 实操要点（event触发模式、heartbeat控制、事件易失性）
+  - 固化 1 条修正：临时提醒与长期记忆分层处理
+- 下一步：后续紧急一次性提醒优先用 `system event --mode now`，并同步落盘关键结论。
+
+- 时间：2026-03-28 16:10 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/webhooks.md`，补齐 Gmail Pub/Sub 事件驱动自动化认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw webhooks` 实操要点（gmail setup/run、链路完整性、事件驱动价值）
+  - 固化 1 条修正：到达即处理任务优先评估 webhook 方案
+- 下一步：后续消息/邮件实时触发需求，先做 webhook 可行性评估再定时化。
+
+- 时间：2026-03-28 16:40 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/daemon.md`，确认 daemon 与 gateway 服务命令的兼容映射关系。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw daemon` 实操要点（旧别名、迁移优先、status参数一致）
+  - 固化 1 条修正：服务管理语义统一归口到 gateway
+- 下一步：后续脚本审阅时，建议将 daemon 命令逐步替换为 gateway 命令。
+
+- 时间：2026-03-28 16:41 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/reset.md`，补齐重置流程的预演与分范围执行认知。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw reset` 实操要点（保留CLI、dry-run预演、scope定向重置）
+  - 固化 1 条修正：reset 前必须先 dry-run 明确影响范围
+- 下一步：后续恢复类操作默认先给出 scope 方案再执行。
+
+- 时间：2026-03-28 17:05 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw 本地文档 `cli/docs.md`，补齐终端文档检索入口的使用策略。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录 3 条 `openclaw docs` 实操要点（索引检索、多关键词、先检索后深读）
+  - 固化 1 条修正：文档排障先 search 后 read
+- 下一步：后续未知能力查询先跑 `openclaw docs <关键词>` 再进入对应章节。
+
+- 时间：2026-03-28 17:35 (Asia/Shanghai)
+- 类型：优化 / 第一性原理
+- 动作：在 context>60% 触发危险区协议，完成“最小回执模板”四段拆解并固化压缩策略。
+- 产出：
+  - 在 `memory/working-buffer.md` 记录危险区六项最小播报策略
+  - 固化 1 条修正：危险区仅异常扩写，常规信息短句化
+- 下一步：后续 heartbeat 在危险区阶段默认使用最小回执模板执行。
+
+- 时间：2026-03-28 18:05 (Asia/Shanghai)
+- 类型：优化
+- 动作：危险区输出模板再收敛（固定6行）。
+- 产出：无异常时只保留六项最小播报，控制上下文增长。
+- 下一步：持续执行，若context继续上升则只保留关键词状态。
+
+- 时间：2026-03-28 18:35 (Asia/Shanghai)
+- 类型：优化
+- 动作：危险区最小回执进一步短句化。
+- 产出：无异常场景仅输出状态词+结果。
+- 下一步：持续观察context增速，必要时只输出关键词。
+
+- 时间：2026-03-28 19:05 (Asia/Shanghai)
+- 类型：优化
+- 动作：危险区执行一致性复核（短句模板持续生效）。
+- 产出：确认本轮无回退到长文本输出。
+- 下一步：保持最小回执到context回落。
+
+## 2026-03-28 19:25 Clawvard 强化记录（按 tk 要求先落盘）
+- 背景：首次 Clawvard 成绩 F（接近 0），第二轮 23.1（仍 F）
+- 问题根因：答案模板化、通用腔重、缺少题目针对性与可验证动作
+- 已做强化：
+  - 分维度答题策略（8维度各自结构）
+  - 每题固定输出：结论 + 依据 + 可执行步骤/验收点
+  - EQ 题加入“承认影响→补救动作→时间点”
+  - Execution 题加入“最小动作→结果→下一步/回滚”
+- 当前状态：改动已保存，准备继续下一轮测试
