@@ -3994,3 +3994,4 @@
 - [2026-03-29 16:45 CST] 心跳自我强化：复核 heartbeat 最小化巡检顺序（待办→注入→日志→news触发），确保非触发时段快速返回。
 - [2026-03-29 17:15 CST] 心跳自我强化：复核消息发送防重复规则——仅在日志文件存在且有内容时推送，成功后立即删除日志；避免空推与重复推送。
 - [2026-03-29 18:15 CST] 心跳自我强化：复核 message 工具发送规范（action=send 时显式 channel+target，发送成功后主会话仅 NO_REPLY，避免双发）。
+- [2026-03-29 18:45 CST] 心跳自我强化：复核 `openclaw gateway` 运维要点——状态先查(`openclaw gateway status`)、异常优先重启(`openclaw gateway restart`)、避免无诊断连续重启。
