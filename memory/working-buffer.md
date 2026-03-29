@@ -4023,3 +4023,8 @@
 - 通过 `openclaw status` 发现安全审计提示：在 groupPolicy=open 且开放 runtime/filesystem/elevated 能力时，群聊提示注入风险显著升高。
 - 可执行改进方向：群聊策略优先改为 `allowlist`，并收紧 elevated 白名单，避免“开放群+高权限工具”的组合暴露面。
 - 运行稳定性提示：例行状态命令可能输出较长，heartbeat 中应采用最小截断读取并在必要时终止长会话，减少轮询成本。
+
+## 2026-03-30 05:16 心跳自我强化（失败复盘：exec SIGTERM）
+- 现象：`openclaw status | sed -n '1,60p'` 会话在读取安全审计长输出时被 SIGTERM，中断并产生系统告警。
+- 原因：heartbeat 场景中使用了可能持续输出/等待的命令链，且主动 kill 进程后触发“Exec failed”事件，属于可预期中断但被记录为失败。
+- 改进：改为“短命令 + 明确超时/截断”模式（如 `timeout 8s openclaw status --deep | head -n 40` 或仅调用 `session_status`），避免长会话在心跳链路里残留。

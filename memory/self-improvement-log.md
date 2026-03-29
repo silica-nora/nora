@@ -4357,3 +4357,8 @@
 - 行为：完成一轮非股票类自我强化，执行 `openclaw status` 并复核安全审计信号。
 - 产出：沉淀 3 条基线认知到 `memory/working-buffer.md`（open groupPolicy 风险、allowlist 收敛方向、长输出命令的轮询控制）。
 - 下一步：后续涉及群聊配置变更时，优先建议“allowlist + 最小权限”组合。
+
+### 2026-03-30 05:16
+- 行为：执行“复盘最近1次失败”，针对系统消息中的 exec SIGTERM 做原因分析。
+- 产出：确认失败属于 heartbeat 下长输出命令被终止导致；形成改进策略（短命令+超时+截断）并写入 `memory/working-buffer.md`。
+- 下一步：后续 heartbeat 中避免长驻 `openclaw status` 轮询链，优先轻量探针命令。
