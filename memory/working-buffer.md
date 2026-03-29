@@ -3997,3 +3997,4 @@
 - [2026-03-29 18:45 CST] 心跳自我强化：复核 `openclaw gateway` 运维要点——状态先查(`openclaw gateway status`)、异常优先重启(`openclaw gateway restart`)、避免无诊断连续重启。
 - [2026-03-29 19:15 CST] 心跳自我强化：复核消息工具去重与回执策略——主动外发后主会话统一 NO_REPLY，避免重复回显；无外发则按心跳约定返回 HEARTBEAT_OK。
 - [2026-03-29 19:45 CST] 心跳自我强化：复核夜间推送门控（22:00前不触发晚报发送）；同时保持“日志为空即跳过、避免噪声提醒”。
+- [2026-03-29 20:15 CST] 心跳自我强化：复习 OpenClaw `openclaw gateway status|restart` 基线排障顺序：先 status 再 restart，避免无证据重启。
