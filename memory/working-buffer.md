@@ -4043,3 +4043,9 @@
 - Cron 不触发先看三件套：`cron status`（是否 enabled + nextWakeAtMs）、`cron list`（job 配置/时区）、`cron runs`（ok/skip/error）。
 - Heartbeat 不发不等于故障：`quiet-hours`、`requests-in-flight`、`alerts-disabled` 都是可解释跳过原因。
 - 时区是高频根因：`activeHours.timezone` 与主机时区不一致会造成“白天被判夜间”，排查时要先核对 timezone 解析链。
+
+## 2026-03-30 07:16 心跳自我强化（第一性原理：07:00-09:00过渡时段）
+- 事实：当前 07:16，未到新闻推送触发时段；SESSION-STATE 无待办；安全日志与注入扫描均为空；context 25%。
+- 约束：HEARTBEAT.md 要求每轮必做巡检并完成至少1项强化，且避免空转。
+- 假设：在 07:00-09:00 采用“最小巡检 + 单点学习”的节奏，能兼顾稳定与信息增量。
+- 方案：继续执行五项基线检查（待办/注入/日志/news触发/context）+ 单条文档化认知落盘，避免提前扩写非触发任务。
