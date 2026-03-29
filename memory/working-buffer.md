@@ -4038,3 +4038,8 @@
 - 通过 `sessions_list` 复核最近会话：当前仅主会话活跃，无子会话积压或异常并发。
 - 可复用经验：heartbeat 场景下默认单会话执行更稳，避免无必要地扩展到子会话导致上下文与调度复杂度上升。
 - 执行准则：仅在“明确需要并行复杂任务”时再启用子会话，常规巡检保持主会话轻量闭环。
+
+## 2026-03-30 06:46 心跳自我强化（Automation Troubleshooting 学习）
+- Cron 不触发先看三件套：`cron status`（是否 enabled + nextWakeAtMs）、`cron list`（job 配置/时区）、`cron runs`（ok/skip/error）。
+- Heartbeat 不发不等于故障：`quiet-hours`、`requests-in-flight`、`alerts-disabled` 都是可解释跳过原因。
+- 时区是高频根因：`activeHours.timezone` 与主机时区不一致会造成“白天被判夜间”，排查时要先核对 timezone 解析链。
