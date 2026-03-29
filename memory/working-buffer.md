@@ -4007,3 +4007,8 @@
 - [2026-03-30 01:15 CST] 心跳自我强化：复核夜间静默策略（23:00-08:00无紧急事项仅内部巡检与落盘，不主动打扰）。
 - [2026-03-30 01:45 CST] 心跳自我强化：复核夜间静默策略（23:00-08:00 非紧急不主动打扰），仅保留异常告警输出。
 - [2026-03-30 03:45 CST] 心跳自我强化：复核 process(poll, timeout) 长等待策略，避免高频轮询导致无效负载。
+
+## 2026-03-30 04:15 心跳自我强化（OpenClaw Gateway Troubleshooting）
+- 诊断顺序优先用“命令梯子”：`openclaw status -> openclaw gateway status -> openclaw logs --follow -> openclaw doctor -> openclaw channels status --probe`，避免一上来重启导致误判。
+- 如果“有连接但没回复”，优先查路由/策略而不是连通性：重点看 pairing、group mention gating、allowlist 命中。
+- Cron/Heartbeat 异常先看调度状态：`openclaw cron status/list/runs` + `openclaw system heartbeat last`；很多“没推送”是 quiet-hours 或 scheduler disabled，不是模型故障。
