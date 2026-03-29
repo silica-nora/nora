@@ -4028,3 +4028,8 @@
 - 现象：`openclaw status | sed -n '1,60p'` 会话在读取安全审计长输出时被 SIGTERM，中断并产生系统告警。
 - 原因：heartbeat 场景中使用了可能持续输出/等待的命令链，且主动 kill 进程后触发“Exec failed”事件，属于可预期中断但被记录为失败。
 - 改进：改为“短命令 + 明确超时/截断”模式（如 `timeout 8s openclaw status --deep | head -n 40` 或仅调用 `session_status`），避免长会话在心跳链路里残留。
+
+## 2026-03-30 05:46 心跳自我强化（小优化：心跳命令防卡模板）
+- 建议在 heartbeat 里固定使用轻量探针：`session_status` + 定向日志 grep，避免整段 `openclaw status` 长输出。
+- 若必须调用可能长输出命令，统一包裹 `timeout`（如 5-8 秒）并 `head` 截断，降低 SIGTERM/阻塞概率。
+- 实操优先级：先检查“是否需要该命令”，不需要就不执行（减少无效 token 与进程开销）。
