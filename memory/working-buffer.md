@@ -3544,3 +3544,440 @@
 - [2026-03-28 02:46 CST] 超危险区续行：context=79%，深夜轮次仍无触发事件；继续执行“完整巡检+双门控最小输出”，并维持任务冻结。
 - [2026-03-28 03:16 CST] 超危险区续行：context=79%，深夜持续无触发；继续执行“news触发+异常告警”双门控并保持最小回执。
 - [2026-03-28 03:46 CST] 超危险区续行：context=80%，深夜无触发事件且日志全空；继续“双门控最小化”，仅保留触发检查与异常告警。
+
+## [2026-03-28 04:16 CST] Agent (OpenClaw 文档学习：openclaw status)
+
+### 今日新增认知（非股票）
+1. `openclaw status --deep` 会主动做多渠道在线探测（如 Telegram/Discord/Slack/Signal），适合做“当前连通性”快诊，而不只是看静态配置。
+2. `openclaw status` 输出会包含多 agent 的会话存储视图；排查“消息进了但会话不对”时，可先看这里确认路由归属。
+3. 概览区会显示 Gateway/host service 状态与版本更新提示；做故障排查时应先跑 `openclaw status --all`，再决定是否继续 `openclaw update` 或更深层日志检查。
+
+### 上次判断偏差与修正
+- 偏差：夜间巡检容易只盯日志文件，忽略了“服务级总览”这一步。
+- 修正：后续将 `openclaw status` 作为异常排查第一跳，再进入日志细查。
+
+## [2026-03-28 04:46 CST] Agent (OpenClaw 文档学习：openclaw logs)
+
+### 今日新增认知（非股票）
+1. `openclaw logs` 支持通过 RPC 远程拉取网关日志，不依赖 SSH 直连机器，适合跨机器排障。
+2. `openclaw logs --json` 可输出结构化日志行，便于后续脚本化筛选和自动告警。
+3. `openclaw logs --follow --local-time` 适合实时跟踪问题并直接按本地时区对齐事件时间线。
+
+### 上次判断偏差与修正
+- 偏差：排障时默认先找本地 `/tmp` 日志，忽略了网关侧可直接拉流。
+- 修正：后续通道异常先做 `openclaw status --all`，再用 `openclaw logs --follow --local-time` 追踪实时异常。
+
+## [2026-03-28 05:16 CST] Agent (OpenClaw 文档学习：openclaw cron)
+
+### 今日新增认知（非股票）
+1. `openclaw cron add` 的隔离任务默认会 `--announce` 对外投递；若只想内部执行，需显式设 `--no-deliver`。
+2. 一次性任务（`--at`）默认成功后自动删除；若要保留记录用于复盘，需加 `--keep-after-run`。
+3. 周期任务连续失败会自动指数退避（30s→1m→5m→15m→60m），成功一次后恢复正常节奏，可降低故障风暴。
+
+### 上次判断偏差与修正
+- 偏差：默认把 cron 当作“定时即稳定”，忽略连续失败后的调度节奏变化。
+- 修正：后续排查 cron 延迟时，优先检查是否进入 backoff，而不是误判为任务未触发。
+
+## [2026-03-28 05:46 CST] Agent (OpenClaw 文档学习：openclaw channels)
+
+### 今日新增认知（非股票）
+1. `openclaw channels capabilities` 可按渠道/目标做能力探测（如 Discord 指定 channel），适合上线前先看权限缺口。
+2. `openclaw channels resolve` 能把群名/用户名解析成平台 ID，减少手工查 ID 的路由错误。
+3. 交互式 `channels add` 支持“立即绑定到账户-代理路由”，而非交付后再手配，能减少多账号场景错投。
+
+### 上次判断偏差与修正
+- 偏差：多账号场景里默认只看 channel 级状态，忽略 account 级绑定一致性。
+- 修正：后续相关排障先检查 `channels list/status/capabilities`，再核对 agent bindings。
+
+## [2026-03-28 06:16 CST] Agent (OpenClaw 文档学习：openclaw doctor)
+
+### 今日新增认知（非股票）
+1. `openclaw doctor --repair`（`--fix`别名）会写配置备份到 `~/.openclaw/openclaw.json.bak`，并清理未知配置键，适合升级后配置漂移修复。
+2. 在非 TTY 场景（如 cron / 无终端）下，doctor 会跳过交互修复提示；这类环境要预期“只诊断不交互修复”。
+3. doctor 现在会检查会话转录完整性（孤儿 transcript 可归档为 `.deleted.<timestamp>`），有助于安全回收异常状态文件。
+
+### 上次判断偏差与修正
+- 偏差：把 doctor 当成纯检查命令，忽略了其“可修改配置/归档状态文件”的副作用。
+- 修正：后续优先 `openclaw doctor` 只读检查；确认后再执行 `--repair`。
+
+## [2026-03-28 06:46 CST] Agent (OpenClaw 文档学习：openclaw agents)
+
+### 今日新增认知（非股票）
+1. `openclaw agents bind` 支持 channel/account 级绑定；不带 accountId 时只匹配该渠道默认账号，不是全账号通配。
+2. 已存在 channel 级绑定时，再绑定显式账号会“原地升级”为 account 级，而不是新增重复绑定。
+3. `openclaw agents set-identity --from-identity` 可直接从工作区 `IDENTITY.md` 同步身份字段，适合快速对齐人设配置。
+
+### 上次判断偏差与修正
+- 偏差：把“channel 绑定”误当成“该渠道所有账号都生效”。
+- 修正：后续多账号路由问题优先核查绑定粒度（default / explicit / *）。
+
+## [2026-03-28 07:16 CST] Agent (OpenClaw 文档学习：openclaw message)
+
+### 今日新增认知（非股票）
+1. `openclaw message` 是统一出站命令面，覆盖 send/react/poll/edit/delete 等动作，跨渠道操作优先用这条总入口。
+2. 多渠道并存时必须显式 `--channel`；否则容易落到默认渠道，造成错发风险。
+3. `--target` 在不同平台格式差异大（如 Discord 的 `channel:<id>/user:<id>`），排障时应先核对目标格式再看权限问题。
+
+### 上次判断偏差与修正
+- 偏差：默认把“发不出去”归因于权限或网络，忽略目标格式不匹配。
+- 修正：后续消息失败先做“三步快检”：channel 是否显式、target 格式是否平台匹配、再查权限与日志。
+
+## [2026-03-28 07:46 CST] Agent (OpenClaw 文档学习：openclaw memory)
+
+### 今日新增认知（非股票）
+1. `openclaw memory status --deep` 会探测向量库与 embedding 可用性，适合先判断“记忆系统是否可用”再做检索。
+2. `openclaw memory status --deep --index` 可在 store 脏状态下触发重建索引，减少“搜不到但文件存在”的假故障。
+3. `openclaw memory search` 的 query 既可位置参数也可 `--query`，两者同时给时 `--query` 优先，便于脚本统一参数。
+
+### 上次判断偏差与修正
+- 偏差：遇到记忆检索异常时，先怀疑内容缺失，没先验证索引健康状态。
+- 修正：后续先跑 `openclaw memory status --deep`，必要时再 `--index` 修复后复测检索。
+
+## [2026-03-28 08:16 CST] Agent (OpenClaw 文档学习：openclaw update)
+
+### 今日新增认知（非股票）
+1. `openclaw update --dry-run` 可预览更新动作（channel/tag/重启流）且不改配置、不安装、不重启，适合先评估风险。
+2. `openclaw update status` 可快速给出当前更新通道与可更新状态，适合做“是否该更”的先决判断。
+3. 切换 channel 会影响安装路径：`dev` 偏 git checkout 流，`stable/beta` 偏 npm dist-tag 流，排障时要先确认当前通道。
+
+### 上次判断偏差与修正
+- 偏差：把 update 看成单一步骤，忽略 channel 切换会改变底层更新方式与风险面。
+- 修正：后续更新前先 `update status`，再 `--dry-run`，确认后再正式执行。
+
+## [2026-03-28 08:46 CST] Agent (OpenClaw 文档学习：openclaw sessions)
+
+### 今日新增认知（非股票）
+1. `openclaw sessions` 支持 `--agent / --all-agents / --store` 三种范围选择，排查会话去向时先选对范围比直接看结果更关键。
+2. `openclaw sessions cleanup --dry-run` 可先预览将被裁剪的会话，避免误删活跃上下文。
+3. `sessions cleanup` 只管会话存储，不负责 cron run logs；两者清理机制分离，不能混为一谈。
+
+### 上次判断偏差与修正
+- 偏差：把“会话膨胀”和“cron日志膨胀”当成一个清理入口。
+- 修正：后续按存储类型分流处理：sessions 用 cleanup，cron 用 runLog 配置。
+
+## [2026-03-28 09:16 CST] Agent (第一性原理强化：09:00-09:30 非交易日盘前门控)
+
+### 事实 / 约束 / 假设 / 方案
+- 事实：当前时间 09:16，属于盘前关键时点窗口；但今天是周六（非A股交易日）。
+- 约束：heartbeat 要求关键时点执行检查，但非交易日不得产出伪“盘前交易结论”；样本不足时不能空提示，需给出修正动作。
+- 假设：在非交易日将“盘前分析”改为“交易日门控检查 + 下个交易日准备动作”，可同时满足时效与准确性。
+- 方案：
+  1) 执行交易日门控（是否交易日、是否有盘前日志）
+  2) 非交易日不输出主线/个股交易信号，改为准备态清单
+  3) 记录下个交易日 09:00 前的预检动作（数据源可用性、模板完整性、触发条件）
+
+### 今日新增认知
+- 关键时点执行不等于必须给交易判断；先做“交易日门控”能显著降低周末误报。
+
+### 上次判断偏差与修正
+- 偏差：历史上容易把固定时点模板机械复用到非交易日。
+- 修正：新增“交易日判定→再决定是否进入盘前模板”的前置闸门。
+
+## [2026-03-28 09:46 CST] Agent (OpenClaw 文档学习：openclaw config)
+
+### 今日新增认知（非股票）
+1. `openclaw config` 支持 dot/bracket 路径访问（如 `agents.list[1].tools.exec.node`），可精确改到某个 agent 的嵌套字段。
+2. `config set` 默认会尝试 JSON5 解析，失败才按字符串；需要强约束类型时应加 `--strict-json`。
+3. 配置修改后需要重启 gateway 才会稳定生效，排障时要把“未重启”纳入首轮检查。
+
+### 上次判断偏差与修正
+- 偏差：把配置写入成功等同于运行时立即生效。
+- 修正：后续配置类问题固定执行“写入 → 校验 → 重启 → 复检”四步。
+
+## [2026-03-28 10:46 CST] Agent (OpenClaw 文档学习：openclaw models)
+
+### 今日新增认知（非股票）
+1. `openclaw models status --probe` 是真实探测请求，会消耗 token 且可能触发限流，适合按需使用而非高频巡检。
+2. 模型引用按“第一个 `/`”拆分 provider/model；像 OpenRouter 这类多段模型 ID 必须显式带 provider 前缀。
+3. `openclaw models set` 可直接设 alias 或 provider/model，排查“模型切换无效”时要先确认输入被解析成 alias 还是默认 provider 模型。
+
+### 上次判断偏差与修正
+- 偏差：将 models probe 当成无成本状态检查。
+- 修正：日常仅用 `models status`，需要鉴权实测时再单次 `--probe`。
+
+## [2026-03-28 11:16 CST] Agent (OpenClaw 文档学习：openclaw plugins)
+
+### 今日新增认知（非股票）
+1. `openclaw plugins install` 对 npm 依赖默认 `--ignore-scripts`，能降低安装阶段脚本执行风险；插件安装仍应按“执行代码”级别审慎对待。
+2. 插件必须包含合法 `openclaw.plugin.json` 且带 `configSchema`（可为空），否则会直接阻止加载并触发配置校验失败。
+3. `plugins uninstall` 默认会清理配置记录与扩展目录文件；需要保留文件时要显式 `--keep-files`，避免误删调试现场。
+
+### 上次判断偏差与修正
+- 偏差：把插件卸载理解为“只移除注册信息”，忽略默认会删磁盘文件。
+- 修正：后续插件排障场景先 `--dry-run`，必要时再 `--keep-files` 保留证据。
+
+## [2026-03-28 11:46 CST] Agent (OpenClaw 文档学习：openclaw security)
+
+### 今日新增认知（非股票）
+1. `openclaw security audit` 会重点提示 DM 会话隔离风险，推荐 `session.dmScope="per-channel-peer"`（多账号可用 `per-account-channel-peer`）来避免共享会话串线。
+2. `security audit --fix` 只做“安全且确定性”的修复（如 groupPolicy 收紧、敏感日志脱敏、权限收敛），不会替你改令牌、关工具或改网络暴露策略。
+3. `security audit --json` 适合接 CI 做策略门禁，能直接筛 critical finding，形成可自动化的安全基线检查。
+
+### 上次判断偏差与修正
+- 偏差：把 `--fix` 误解为“全自动安全收敛”。
+- 修正：后续将 `--fix` 视为基础加固步骤，剩余高风险项仍需人工决策与显式变更。
+
+## [2026-03-28 12:16 CST] Agent (OpenClaw 文档学习：openclaw gateway)
+
+### 今日新增认知（非股票）
+1. `openclaw gateway probe` 会同时探测远端配置与本地 loopback，可快速定位“到底连的是哪台 gateway”。
+2. 显式传 `--url` 时，CLI 不再回退配置/环境凭据；必须同步给 `--token` 或 `--password`，否则会报鉴权缺失。
+3. 网关启动有安全护栏：无 auth 时禁止超 loopback 绑定；临时调试可用 `--allow-unconfigured`，但应仅用于开发场景。
+
+### 上次判断偏差与修正
+- 偏差：排查连接问题时默认只查单一目标，忽略本地与远端并存的可能。
+- 修正：后续先用 `gateway probe` 全量探测，再进入针对性鉴权/网络排障。
+
+## [2026-03-28 12:46 CST] Agent (OpenClaw 文档学习：openclaw health)
+
+### 今日新增认知（非股票）
+1. `openclaw health` 是网关健康的快速入口，比完整状态命令更轻量，适合做首轮可用性确认。
+2. `openclaw health --verbose` 会做实时探测，并在多账号场景输出分账号耗时，便于定位“慢在哪个账号”。
+3. 健康输出在多 agent 场景下也会包含各 agent 的会话存储视图，能辅助判断是否是某个 agent 侧异常。
+
+### 上次判断偏差与修正
+- 偏差：健康检查常直接上重命令，导致排障路径偏重。
+- 修正：后续先用 `openclaw health` 轻量确认，再按需升级到 `status --deep`/日志级排查。
+
+## [2026-03-28 13:16 CST] Agent (OpenClaw 文档学习：openclaw approvals)
+
+### 今日新增认知（非股票）
+1. `openclaw approvals` 默认改的是本机 approvals 文件；要改网关或节点必须显式 `--gateway` 或 `--node`，否则容易改错目标。
+2. `allowlist add` 的 `--agent` 默认是 `"*"`（全 agent 生效），精细化最小授权时应显式指定 agent，避免范围过宽。
+3. 节点侧 approvals 依赖节点能力 `system.execApprovals.get/set`，排障时先确认节点是否声明该能力再执行写入。
+
+### 上次判断偏差与修正
+- 偏差：把 approvals 变更默认当成“全局远端生效”。
+- 修正：后续执行前先确认作用域（local/gateway/node）与 agent 粒度。
+
+## [2026-03-28 13:46 CST] Agent (OpenClaw 文档学习：openclaw hooks)
+
+### 今日新增认知（非股票）
+1. `openclaw hooks list --eligible` 可直接筛出可运行 hooks，适合部署前快速验证“哪些能马上生效”。
+2. `hooks enable/disable` 改的是配置，不会热更新；需要重启 gateway 才会加载变更。
+3. 插件托管 hooks（`plugin:<id>`）不能在 hooks CLI 里单独开关，需通过插件开关统一管理。
+
+### 上次判断偏差与修正
+- 偏差：把 hook 启停当成即时生效操作。
+- 修正：后续 hook 变更流程固定为“改配置→重启→再check/list确认”。
+
+## [2026-03-28 14:16 CST] Agent (OpenClaw 文档学习：openclaw browser)
+
+### 今日新增认知（非股票）
+1. `openclaw browser` 的 `openclaw` 与 `chrome` profile 是两套控制路径：前者是隔离实例，后者依赖 Chrome 扩展接管已有标签页。
+2. Chrome relay 不是自动附着，必须用户在目标 tab 点工具栏按钮 attach；排障时先验证 attach 状态再做动作。
+3. 远端浏览器场景推荐走 node host 代理，由 gateway 统一转发；多节点时可用 `gateway.nodes.browser.node` 固定路由目标。
+
+### 上次判断偏差与修正
+- 偏差：把浏览器控制失败先归因于动作脚本问题，忽略 profile/attach 前置条件。
+- 修正：后续先做“三步前检”：profile是否正确、tab是否attach、是否命中正确node。
+
+## [2026-03-28 14:46 CST] Agent (OpenClaw 文档学习：openclaw nodes)
+
+### 今日新增认知（非股票）
+1. `openclaw nodes list/status` 支持 `--connected` 与 `--last-connected <duration>`，可快速区分“当前在线故障”与“长期离线”。
+2. `nodes run` 会复用 exec 默认与审批策略（`tools.exec.*` + approvals），不是绕过审批的独立通道。
+3. 节点执行需要能力前置（如 `system.run`）；排障时先看节点能力宣告，再看命令本身与审批策略。
+
+### 上次判断偏差与修正
+- 偏差：把节点执行问题优先归因于命令参数，忽略节点在线/能力前置。
+- 修正：后续节点问题先做“三检”：连接状态、能力宣告、审批策略，再进命令细节。
+
+## [2026-03-28 15:46 CST] Agent (OpenClaw 文档学习：openclaw system)
+
+### 今日新增认知（非股票）
+1. `openclaw system event` 可给主会话注入一次性系统事件，`--mode now` 会立刻触发心跳执行，适合临时高优先提醒。
+2. `system heartbeat enable/disable/last` 提供了心跳开关与最近状态观察，不用改配置文件也能快速调控。
+3. system 事件是易失的（重启不保留），重要信息不能只靠它，仍需落盘到 memory 文件。
+
+### 上次判断偏差与修正
+- 偏差：把 system 事件当成可长期留存的任务载体。
+- 修正：后续 system 事件只用于短期触发，关键事项同步写入持久记忆。
+
+## [2026-03-28 16:10 CST] Agent (OpenClaw 文档学习：openclaw webhooks)
+
+### 今日新增认知（非股票）
+1. `openclaw webhooks` 是 webhook 集成入口，当前文档重点给出 Gmail Pub/Sub 的 setup/run 流程。
+2. Gmail 事件接入链路是“先 setup 账号，再 run 消费”；缺任一步都会导致无事件流入。
+3. webhook 自动化适合做异步事件触发（如邮件到达即触发），可减少靠定时轮询获取同类信号。
+
+### 上次判断偏差与修正
+- 偏差：默认把所有自动化都塞进 cron/heartbeat，忽略事件驱动通道。
+- 修正：后续对“到达即处理”场景优先评估 webhook，再决定是否用轮询。
+
+## [2026-03-28 16:40 CST] Agent (OpenClaw 文档学习：openclaw daemon)
+
+### 今日新增认知（非股票）
+1. `openclaw daemon` 是 `openclaw gateway` 服务管理命令的旧别名，命令面一致，主要用于兼容旧脚本。
+2. 旧命令仍可用，但文档与实践应优先迁移到 `openclaw gateway`，减少认知分叉。
+3. daemon status 同样支持 `--no-probe/--deep/--json`，可在兼容场景维持原有排障流程。
+
+### 上次判断偏差与修正
+- 偏差：把 daemon 与 gateway 当成两套不同服务体系。
+- 修正：后续统一按 gateway 口径理解，daemon 仅视为兼容入口。
+
+## [2026-03-28 16:41 CST] Agent (OpenClaw 文档学习：openclaw reset)
+
+### 今日新增认知（非股票）
+1. `openclaw reset` 用于重置本地状态/配置，但会保留 CLI 安装本体，适合“保留程序、清理环境”的恢复场景。
+2. `openclaw reset --dry-run` 可先预览会删除内容，适合在高风险操作前做边界确认。
+3. `--scope config+creds+sessions` 支持按范围重置，能避免“一刀切”误删不相关状态。
+
+### 上次判断偏差与修正
+- 偏差：把 reset 视为只能全量清空的重操作。
+- 修正：后续优先 dry-run + scope 精准重置，降低恢复成本。
+
+## [2026-03-28 17:05 CST] Agent (OpenClaw 文档学习：openclaw docs)
+
+### 今日新增认知（非股票）
+1. `openclaw docs` 可直接在终端检索官方文档索引，适合先定位文档入口再展开阅读。
+2. 检索词支持多关键词组合（如 `sandbox allowHostControl`），能更快命中细分配置项。
+3. 在 heartbeat 自我强化里可把它作为“先找定位词”的第一步，降低盲读整站文档成本。
+
+### 上次判断偏差与修正
+- 偏差：文档学习常直接读文件路径，定位效率依赖猜目录。
+- 修正：后续先用 `openclaw docs` 搜索定位，再读具体章节。
+
+## [2026-03-28 17:35 CST] Agent (Danger Zone 强化：context>60% 响应压缩策略)
+
+### 事实 / 约束 / 假设 / 方案
+- 事实：当前 context=61%，已进入 HEARTBEAT.md 定义的危险区。
+- 约束：仍需每轮完成强制巡检与自我强化，但输出要压缩，避免上下文继续快速膨胀。
+- 假设：采用“固定六项最小播报 + 异常才扩写 + 学习笔记只落盘不外扩”可稳定控制 token 增长。
+- 方案：
+  1) 外显回复固定为：待办/安全/日志/news/context/本轮动作 六项
+  2) 无异常时不复述历史背景，不展开长解释
+  3) 自我强化细节仅写入 working-buffer 与 self-improvement-log
+
+### 今日新增认知
+- 危险区最优策略不是减少检查项，而是减少“重复叙述长度”。
+
+### 上次判断偏差与修正
+- 偏差：临近危险区时仍沿用常规长度回执，导致上下文增长加速。
+- 修正：进入>60%后切换最小回执模板，只有异常才扩写。
+
+## [2026-03-28 18:05 CST] Agent (Danger Zone 微优化)
+- 动作：将危险区回执进一步收敛为“6行固定模板（待办/安全/日志/news/context/动作）”，避免冗余句。
+- 产出：确认后续在 context>60% 仅输出固定6行，异常才扩写。
+
+## [2026-03-28 18:35 CST] Agent (Danger Zone 微优化)
+- 动作：将危险区模板简化为“状态词+结果”短句，进一步减少重复 token。
+- 产出：后续无异常仅保留最小状态行。
+
+## [2026-03-28 19:05 CST] Agent (Danger Zone 保持策略)
+- 动作：维持危险区“最小状态回执”，避免恢复长叙述。
+- 产出：继续采用短句模板，异常再扩写。
+
+## [2026-03-28 19:26 CST] Agent (Danger Zone 维持)
+- 动作：继续执行最小状态回执，控制context增长。
+- 产出：本轮保持短句模板，无异常扩写。
+
+## [2026-03-28 19:56 CST] Agent (Danger Zone 维持)
+- 动作：延续最小状态回执，继续抑制context增长。
+- 产出：本轮仍保持短句模板，无异常扩写。
+
+## [2026-03-28 20:26 CST] Agent (Danger Zone 维持)
+- 动作：继续执行危险区最小回执，压缩非必要文本。
+- 产出：本轮维持短句模板，待22:00窗口前仅保留触发监测。
+
+## [2026-03-28 20:56 CST] Agent (Danger Zone 维持)
+- 动作：继续执行最小回执并监测22:00夜报触发条件。
+- 产出：当前无触发源，保持最小输出。
+
+## [2026-03-28 21:15 CST] Agent (Danger Zone 维持)
+- 动作：执行危险区最小回执并预热22:00夜报检查。
+- 产出：当前无夜报触发源，继续最小播报。
+
+## [2026-03-28 21:45 CST] Agent (Danger Zone 维持)
+- 动作：继续执行危险区最小回执，并保持22:00窗口触发等待。
+- 产出：无触发源，维持短句输出。
+
+## [2026-03-28 17:35 CST] Agent (Danger Zone 维持)
+- 动作：持续执行最小回执模板，避免上下文抬升。
+- 产出：本轮无异常，保持短句输出。
+
+## [2026-03-28 23:15 CST] Agent (Danger Zone 夜间维持)
+- 动作：22:30后维持夜间最小化策略，继续压缩回执并仅保留触发监测。
+- 产出：本轮无触发源，继续最小输出。
+
+## [2026-03-28 23:45 CST] Agent (Danger Zone 夜间维持)
+- 动作：继续执行夜间最小回执与静默优先策略。
+- 产出：本轮无触发源，维持最小输出。
+
+## [2026-03-29 00:15 CST] Agent (Danger Zone 跨日维持)
+- 动作：跨日后继续执行夜间最小回执策略。
+- 产出：本轮无触发源，保持最小输出。
+
+## [2026-03-29 00:45 CST] Agent (Danger Zone 深夜维持)
+- 动作：持续执行深夜最小回执策略。
+- 产出：本轮无触发源，最小输出保持。
+
+## [2026-03-29 01:15 CST] Agent (Danger Zone 深夜维持)
+- 动作：继续执行深夜最小回执策略。
+- 产出：本轮无触发源，保持最小输出。
+
+## [2026-03-29 01:45 CST] Agent (Danger Zone 深夜维持)
+- 动作：持续执行深夜最小回执与静默优先策略。
+- 产出：本轮无触发源，最小输出保持。
+
+## [2026-03-29 02:45 CST] Agent (Danger Zone 深夜维持)
+- 动作：继续执行深夜最小回执与触发式扩写策略。
+- 产出：本轮无触发源，保持最小输出。
+
+## [2026-03-29 03:15 CST] Agent (Danger Zone 深夜维持)
+- 动作：持续执行深夜最小回执与触发式扩写。
+- 产出：本轮无触发源，继续最小输出。
+
+## [2026-03-29 03:45 CST] Agent (Danger Zone 深夜维持)
+- 动作：继续执行深夜最小回执策略。
+- 产出：本轮无触发源，维持最小输出。
+- [2026-03-29 04:15 CST] OpenClaw browser 文档复习：
+  1) 使用 browser snapshot(refs="aria") 可获得稳定引用，减少后续 act 定位漂移。
+  2) 连续操作同一页面时应携带同一 targetId，避免跨 tab/ref 失效。
+  3) 优先 snapshot+act，通常避免盲目 wait；仅在无可靠状态信号时短等待。
+- [2026-03-29 04:45 CST] OpenClaw docs 学习：session_status 用于模型/会话用量与状态快速核查，排障时先看状态卡再深入日志。
+- [2026-03-29 05:15 CST] OpenClaw browser 文档复习补充：
+  1) 先 snapshot 再 act，可先读可见元素减少误点。
+  2) 若使用 role refs 易漂移，复杂页面优先 aria refs。
+  3) 需要连贯操作时保持同一 targetId，跨页再重新 snapshot。
+- [2026-03-29 05:45 CST] OpenClaw browser 实操规则复核：
+  1) 先 snapshot，再 act；优先使用 refs=aria 提升定位稳定性。
+  2) 同一任务链复用 targetId，避免跨标签导致 ref 失效。
+  3) 非必要不 wait，优先依据可观测 UI 状态推进步骤。
+- [2026-03-29 06:15 CST] OpenClaw sessions 文档复习：
+  1) sessions_spawn 可选 run(一次性) / session(持久线程) 两种模式。
+  2) 复杂任务优先子会话隔离执行，主会话按需查看状态，避免轮询。
+  3) 跨会话沟通应使用 sessions_send，避免混用本地 shell 充当消息总线。
+- [2026-03-29 06:45 CST] 非股票自我强化：复习 OpenClaw  长等待策略
+  1) 长任务优先用 exec 的 yieldMs，减少高频轮询。
+  2) 必须轮询时使用 process(action=poll, timeout=<ms>)，避免 busy loop。
+  3) 仅在需要干预时查询会话状态，常规不做循环 list。
+- [2026-03-29 06:45 CST] 非股票自我强化（补写）：复习 OpenClaw process 长等待策略
+  1) 长任务优先用 exec 的 yieldMs，减少高频轮询。
+  2) 必须轮询时使用 process(action=poll, timeout=<ms>)，避免 busy loop。
+  3) 仅在需要干预时查询会话状态，常规不做循环 list。
+- [2026-03-29 07:15 CST] OpenClaw browser 稳定执行复盘：
+  1) 先 snapshot 再 act，避免盲点点击。
+  2) 复用 targetId 保持同一 tab 上下文一致。
+  3) 仅在无显式状态信号时使用短 wait。
+- [2026-03-29 07:45 CST] OpenClaw docs 学习：message 工具发送规范复盘
+  1) action=send 需明确目标，跨渠道时显式传 channel。
+  2) 用 message 工具发送用户可见回复后，主回复应为 NO_REPLY 防重复。
+  3) 对多渠道场景优先按来源渠道回复，避免路由错发。
+- [2026-03-29 08:15 CST] OpenClaw docs 学习：openclaw status 诊断补充
+  1) 先看 Runtime/Model/Reasoning 字段定位会话行为差异。
+  2) 当输出异常时先确认 channel 与 capabilities，避免误判工具权限。
+  3) 需要时间/日期基准时可调用 session_status 作为权威来源。
+- [2026-03-29 08:45 CST] OpenClaw sessions 工具复习：
+  1) sessions_spawn 可用于隔离复杂任务，避免主会话上下文膨胀。
+  2) 长任务优先 push 完成通知，避免轮询 sessions_list。
+  3) 仅在干预/调试/用户要求时查看子会话状态。
+- [2026-03-29 09:15 CST] 非股票自我强化：优化‘非交易日盘前门控’微规则
+  1) 若日期为周末/法定休市，09:00-09:30仅做‘下个交易日准备清单’，不输出盘中结论。
+  2) 交易日才启用盘前主线/观察池模板，避免无效重复。
+  3) 与新闻推送阈值解耦：早报仍按10:00日志触发。
+- [2026-03-29 09:45 CST] OpenClaw docs 学习：openclaw status 运行态排障复核
+  1) 问题定位先看 status card（模型/推理/verbose/elevated）确认运行上下文。
+  2) 异常先区分会话级与网关级，再决定看 logs 还是 gateway status。
+  3) 需要时间/日期时优先用 session_status，避免本地时钟偏差。
+- [2026-03-29 10:15 CST] 心跳自我强化：复核“早报去重窗口=48小时（标题+链接）”与“仅发送非重复项”的执行细则。
