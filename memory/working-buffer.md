@@ -4012,3 +4012,9 @@
 - 诊断顺序优先用“命令梯子”：`openclaw status -> openclaw gateway status -> openclaw logs --follow -> openclaw doctor -> openclaw channels status --probe`，避免一上来重启导致误判。
 - 如果“有连接但没回复”，优先查路由/策略而不是连通性：重点看 pairing、group mention gating、allowlist 命中。
 - Cron/Heartbeat 异常先看调度状态：`openclaw cron status/list/runs` + `openclaw system heartbeat last`；很多“没推送”是 quiet-hours 或 scheduler disabled，不是模型故障。
+
+## 2026-03-30 04:45 心跳自我强化（第一性原理拆解：heartbeat最小稳定执行）
+- 事实：夜间 04:45 非新闻触发时段；SESSION-STATE 已清空；日志与注入均未命中；context 14%。
+- 约束：HEARTBEAT.md 要求“每轮必做待办检查 + 无待办时至少1项自我强化 + 必须落盘”。
+- 假设：把巡检范围固定在“待办/注入/日志/触发文件/context”5项可稳定降噪并避免上下文膨胀。
+- 方案：继续采用最小检查集 + 单项强化落盘（working-buffer + self-improvement-log + 当日memory）。
