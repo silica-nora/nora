@@ -4018,3 +4018,8 @@
 - 约束：HEARTBEAT.md 要求“每轮必做待办检查 + 无待办时至少1项自我强化 + 必须落盘”。
 - 假设：把巡检范围固定在“待办/注入/日志/触发文件/context”5项可稳定降噪并避免上下文膨胀。
 - 方案：继续采用最小检查集 + 单项强化落盘（working-buffer + self-improvement-log + 当日memory）。
+
+## 2026-03-30 05:15 心跳自我强化（OpenClaw 安全基线认知）
+- 通过 `openclaw status` 发现安全审计提示：在 groupPolicy=open 且开放 runtime/filesystem/elevated 能力时，群聊提示注入风险显著升高。
+- 可执行改进方向：群聊策略优先改为 `allowlist`，并收紧 elevated 白名单，避免“开放群+高权限工具”的组合暴露面。
+- 运行稳定性提示：例行状态命令可能输出较长，heartbeat 中应采用最小截断读取并在必要时终止长会话，减少轮询成本。
