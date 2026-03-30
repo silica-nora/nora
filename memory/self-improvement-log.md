@@ -4482,3 +4482,8 @@
 - 行为：context 达到 60%，切换到危险区最小模板执行。
 - 产出：沉淀危险区三条约束到 `memory/working-buffer.md`。
 - 下一步：后续 heartbeat 仅最短回执，直到 context 回落。
+
+### 2026-03-30 17:46
+- 行为：context=61%，持续危险区最小模板执行。
+- 产出：记录“超60%后仅基线巡检+等待触发”策略到 `memory/working-buffer.md`。
+- 下一步：仅跟踪 22:00/night 日志触发。
