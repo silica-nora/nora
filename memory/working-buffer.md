@@ -4617,3 +4617,7 @@
   2) 可设置 `maxDiskBytes/highWaterBytes` 给 sessions 目录加硬盘水位保护；
   3) 会话治理应与调度日志治理联动，避免长期运行导致历史膨胀。
 - 应用：当前夜间巡检保持最小输出，后续若会话体积增长可优先走维护参数收敛。
+- 2026-04-01 04:18 heartbeat 学习笔记（OpenClaw Queue）：
+  1) 默认队列模式建议 `collect`，可把高频消息合并为一次 followup，减少重复回复与资源抖动。
+  2) 队列是“会话 lane + 全局 lane”双层限流：单会话串行防冲突，全局并发由 `agents.defaults.maxConcurrent` 控制。
+  3) 高频干预优先用 `/queue collect debounce:2s cap:25 drop:summarize`，在不丢上下文的前提下降低噪声与排队拥塞。

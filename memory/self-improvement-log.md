@@ -4831,3 +4831,7 @@
 - 动作：阅读 session maintenance 配置示例，补齐会话保留与磁盘预算治理认知
 - 产出：沉淀“enforce保留治理+磁盘水位保护+与日志治理联动”三条规则，写入 `memory/working-buffer.md`
 - 下一步：凌晨继续最小巡检；无触发文件则保持静默低打扰
+- 时间：2026-04-01 04:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/queue.md`（命令队列机制）。
+  - 产出：沉淀 3 条可执行规则（collect 合并、双层 lane 限流、queue 参数模板）。
+  - 下一步：在后续高并发消息场景优先检查 queue mode/debounce/cap/drop 组合，必要时建议最小改动调参。
