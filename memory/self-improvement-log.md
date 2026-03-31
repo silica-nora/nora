@@ -4645,3 +4645,9 @@
 - 动作：对午间 heartbeat 执行第一性原理四段拆解（事实/约束/假设/方案）
 - 产出：沉淀“固定检查面 + afternoon单触发 + 控长保余量”模板，写入 `memory/working-buffer.md`
 - 下一步：15:10 前继续最小巡检；仅当 `/tmp/news-afternoon.log` 非空时进入午报链路
+
+- 时间：2026-03-31 12:48 (Asia/Shanghai)
+- 类型：优化
+- 动作：固化午间后半段 heartbeat 的“三步最小闭环”执行节奏
+- 产出：形成可复用模板（刚性检查→触发判断→输出控制），写入 `memory/working-buffer.md`
+- 下一步：15:10 前维持该节奏，等待 `/tmp/news-afternoon.log` 触发
