@@ -4597,3 +4597,9 @@
   - 注入关键词扫描无命中；`/tmp/clawdbot` 目录不存在，无新增错误信号。
   - 将本轮“事实/约束/假设/方案”记录到 `memory/working-buffer.md`。
 - 下一步：持续等待 10:00 早报触发条件；未命中则保持静默。
+
+- 时间：2026-03-31 08:46 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：阅读 OpenClaw 文档《Cron vs Heartbeat》，复核当前心跳任务的调度边界与成本控制策略
+- 产出：沉淀 3 条可执行规则（精确触发用 cron、巡检批处理用 heartbeat、HEARTBEAT.md 保持精简以控成本）并写入 `memory/working-buffer.md`
+- 下一步：10:00 前保持最小巡检；仅当 `/tmp/news-morning.log` 非空且到时段时触发推送
