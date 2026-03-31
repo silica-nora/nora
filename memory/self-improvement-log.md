@@ -4627,3 +4627,9 @@
 - 动作：复盘早报完成后的空窗期执行策略，校验“已闭环不补发、非触发不扩面”一致性
 - 产出：固化午报前稳态巡检策略（最小检查面 + 触发门控 + 成本控制）并写入 `memory/working-buffer.md`
 - 下一步：15:10 前仅执行基线巡检，等待 `/tmp/news-afternoon.log` 非空触发
+
+- 时间：2026-03-31 11:16 (Asia/Shanghai)
+- 类型：学习 / 复盘
+- 动作：运行 `openclaw status` 并阅读 Security audit 摘要，提炼当前部署的高风险组合
+- 产出：沉淀 3 条安全执行要点（open群避免高权限工具、groupPolicy收敛到allowlist、保持最小权限与workspaceOnly），写入 `memory/working-buffer.md`
+- 下一步：午报前继续最小巡检；若出现权限变更需求再走显式确认
