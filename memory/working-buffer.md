@@ -4563,3 +4563,12 @@
   2) `agents.defaults.userTimezone` 未设置时会在运行时回退到主机时区；
   3) `timeFormat` 可控制系统提示时间格式（auto/12/24）。
 - 应用：后续跨渠道时间对账优先使用标准化字段，减少 provider 字段差异误判。
+
+## [2026-04-01 01:18 CST] Agent (日期时间学习-传输与系统提示分层)
+
+- 学习来源：`docs/date-time.md`。
+- 新增认知：
+  1) 传输层时间戳默认 host-local；
+  2) 用户时区主要体现在 system prompt（而非强改 provider 原始语义）；
+  3) 当前时间查询应优先 `session_status`，避免混用来源造成错判。
+- 应用：夜间巡检场景继续以 host-local 门控日志触发，遇到“时间冲突”先区分传输层与提示层。

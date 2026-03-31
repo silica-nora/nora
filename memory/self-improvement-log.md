@@ -4795,3 +4795,9 @@
 - 动作：继续阅读 `concepts/timezone.md`，补齐工具时间字段与系统时区回退机制认知
 - 产出：沉淀“标准化时间字段优先 + userTimezone回退 + timeFormat可控”三条规则，写入 `memory/working-buffer.md`
 - 下一步：凌晨继续最小巡检，除非有触发文件或异常日志
+
+- 时间：2026-04-01 01:18 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 `date-time.md`，复核 OpenClaw 的“传输时间 vs 系统提示时间”分层机制
+- 产出：沉淀“host-local传输、userTimezone提示层、当前时间用session_status”三条规则并写入 `memory/working-buffer.md`
+- 下一步：凌晨继续最小巡检，保持低打扰
