@@ -4520,3 +4520,12 @@
   3) 保留4条新增资讯并推送飞书；
   4) 写入 `news-push-history.tsv` 后删除 night 日志防重。
 - 结果：完成晚报推送（messageId: om_x100b5389cf7dacb0b22dba319bbe55a）。
+
+## [2026-03-31 22:48 CST] Agent (cron示例学习-隔离任务投递参数)
+
+- 学习来源：`docs/automation/cron-jobs.md` CLI 示例段。
+- 新增认知：
+  1) 隔离cron可直接按 `channel + to` 精准投递（含 Telegram topic 目标）；
+  2) 高强度任务可按 job 级别覆写 `model/thinking`；
+  3) recurring minute 任务可配 `--stagger` 降低同刻负载峰值。
+- 应用：当前继续heartbeat巡检；若后续要做定向夜报，可考虑隔离cron直投频道。
