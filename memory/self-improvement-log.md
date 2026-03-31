@@ -4639,3 +4639,9 @@
 - 动作：复核午报前末段执行策略，明确 afternoon 单文件门控与非触发不扩面
 - 产出：形成“15:10前最小巡检 + 触发后再处理”的稳定节奏并写入 `memory/working-buffer.md`
 - 下一步：15:10 检查 `/tmp/news-afternoon.log` 是否非空，命中再执行去重与中文解读
+
+- 时间：2026-03-31 12:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：对午间 heartbeat 执行第一性原理四段拆解（事实/约束/假设/方案）
+- 产出：沉淀“固定检查面 + afternoon单触发 + 控长保余量”模板，写入 `memory/working-buffer.md`
+- 下一步：15:10 前继续最小巡检；仅当 `/tmp/news-afternoon.log` 非空时进入午报链路
