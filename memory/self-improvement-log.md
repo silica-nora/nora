@@ -4693,3 +4693,9 @@
 - 动作：阅读 OpenClaw `gateway/heartbeat.md`，复核 heartbeat 投递与 ACK 行为边界
 - 产出：沉淀 3 条配置认知（target:none 默认、HEARTBEAT_OK 折叠条件、activeHours 抑制夜间打扰）并写入 `memory/working-buffer.md`
 - 下一步：继续最小巡检，等待 22:00 night 日志触发
+
+- 时间：2026-03-31 16:48 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读《Automation troubleshooting》，提炼 cron/heartbeat 故障定位顺序
+- 产出：形成“基础诊断梯子 + 调度下钻 + delivery误判排除”三条排障规则，并写入 `memory/working-buffer.md`
+- 下一步：继续最小巡检，若后续出现未触发争议先按该梯子自查

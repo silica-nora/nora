@@ -4414,3 +4414,12 @@
   2) `HEARTBEAT_OK` 仅在回复开头/结尾且内容很短时会被当作 ack 折叠；
   3) activeHours 可用于夜间抑制，减少非紧急打扰。
 - 当前应用：维持“有事汇报、无事最小输出”策略，避免无价值噪声。
+
+## [2026-03-31 16:48 CST] Agent (排障学习-自动化诊断梯子)
+
+- 学习来源：`docs/automation/troubleshooting.md`。
+- 新增认知：
+  1) 自动化排障先走“命令梯子”：`openclaw status -> gateway status -> logs -> doctor -> channels probe`；
+  2) 对调度类问题再下钻：`cron status/list/runs` 与 `system heartbeat last`；
+  3) 常见误判：job 成功但 `delivery.mode=none` 时本就不会外发消息。
+- 应用：后续若出现“心跳/cron没消息”先按梯子定位，再判断是否真异常。
