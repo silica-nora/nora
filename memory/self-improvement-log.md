@@ -4633,3 +4633,9 @@
 - 动作：运行 `openclaw status` 并阅读 Security audit 摘要，提炼当前部署的高风险组合
 - 产出：沉淀 3 条安全执行要点（open群避免高权限工具、groupPolicy收敛到allowlist、保持最小权限与workspaceOnly），写入 `memory/working-buffer.md`
 - 下一步：午报前继续最小巡检；若出现权限变更需求再走显式确认
+
+- 时间：2026-03-31 11:48 (Asia/Shanghai)
+- 类型：优化
+- 动作：复核午报前末段执行策略，明确 afternoon 单文件门控与非触发不扩面
+- 产出：形成“15:10前最小巡检 + 触发后再处理”的稳定节奏并写入 `memory/working-buffer.md`
+- 下一步：15:10 检查 `/tmp/news-afternoon.log` 是否非空，命中再执行去重与中文解读
