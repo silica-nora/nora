@@ -4699,3 +4699,9 @@
 - 动作：阅读《Automation troubleshooting》，提炼 cron/heartbeat 故障定位顺序
 - 产出：形成“基础诊断梯子 + 调度下钻 + delivery误判排除”三条排障规则，并写入 `memory/working-buffer.md`
 - 下一步：继续最小巡检，若后续出现未触发争议先按该梯子自查
+
+- 时间：2026-03-31 17:18 (Asia/Shanghai)
+- 类型：优化
+- 动作：复核 15:10-22:00 长等待窗执行方式，并沉淀“长等待窗四点守则”
+- 产出：形成可复用低噪声模板（固定巡检+不回放+不扩面+触发后闭环），写入 `memory/working-buffer.md`
+- 下一步：22:00 前继续最小巡检，等待 `/tmp/news-night.log` 触发
