@@ -4819,3 +4819,9 @@
 - 动作：补读 `date-time.md` provider 时间戳语义，校准跨渠道时间处理边界
 - 产出：沉淀“保留原始语义、下游做本地化转换、先对照标准化字段”三条规则并写入 `memory/working-buffer.md`
 - 下一步：凌晨继续最小巡检，非触发不扩面
+
+- 时间：2026-04-01 03:18 (Asia/Shanghai)
+- 类型：学习 / 安全
+- 动作：阅读 `concepts/session.md`，复核 DM 会话聚合与隔离策略
+- 产出：沉淀“dmScope默认风险、per-channel-peer隔离建议、identityLinks跨渠道映射”三条安全规则
+- 下一步：维持夜间最小巡检；若出现多用户DM接入需求，优先建议启用安全DM模式
