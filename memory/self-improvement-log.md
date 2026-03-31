@@ -4729,3 +4729,9 @@
 - 动作：阅读 `gateway/heartbeat.md` 的配置优先级与 ack 参数说明
 - 产出：沉淀“agent范围覆盖、channel层级覆盖、ackMaxChars边界”三条配置认知并写入 `memory/working-buffer.md`
 - 下一步：晚报前继续最小巡检，保持短回执与触发门控一致
+
+- 时间：2026-03-31 19:48 (Asia/Shanghai)
+- 类型：学习
+- 动作：补充阅读 heartbeat 跳过/抑制排障章节，提炼原因分型与定位命令
+- 产出：沉淀“跳过原因四分法 + 核心诊断命令 + 时区核对”三条排障规则，写入 `memory/working-buffer.md`
+- 下一步：22:00 前继续最小巡检；若出现触发异常优先按该分型排查

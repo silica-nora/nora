@@ -4468,3 +4468,12 @@
   2) channel 级别可继续覆盖 heartbeat 可见性（defaults -> channel -> account）；
   3) `ackMaxChars` 控制 HEARTBEAT_OK 后可保留的最大文本长度，影响“折叠为ack”行为。
 - 应用：继续保持“短回执 + 明确触发条件”以匹配 ack 机制并降低噪声。
+
+## [2026-03-31 19:48 CST] Agent (排障学习-heartbeat跳过原因定位)
+
+- 学习来源：`docs/automation/troubleshooting.md`（Heartbeat suppressed/skipped）。
+- 新增认知：
+  1) heartbeat 无消息要先区分 `quiet-hours / requests-in-flight / empty-heartbeat-file / alerts-disabled`；
+  2) 诊断命令优先：`openclaw system heartbeat last` + `config get agents.defaults.heartbeat` + `channels status --probe`；
+  3) 时区错配会直接影响 activeHours 判断，需要核对 timezone 配置来源。
+- 应用：后续若出现“应触发未触发”争议，先做原因分型再处理。
