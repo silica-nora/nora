@@ -4657,3 +4657,9 @@
 - 动作：阅读 OpenClaw `cron-jobs.md` 中 isolated cron 的 delivery/wakeMode 机制
 - 产出：沉淀 3 条调度认知（announce默认、none静默、wakeMode仅影响摘要时机），写入 `memory/working-buffer.md`
 - 下一步：保持 heartbeat 最小巡检；若后续出现高噪声任务，优先建议 isolated cron 承载
+
+- 时间：2026-03-31 13:48 (Asia/Shanghai)
+- 类型：观察 / 优化
+- 动作：查看会话动态（sessions_list），确认当前是否存在并行会话干扰
+- 产出：确认仅主会话活跃，固化“午报前单会话最小闭环”执行策略并写入 `memory/working-buffer.md`
+- 下一步：15:10 前继续基线巡检，等待 `/tmp/news-afternoon.log` 触发
