@@ -4581,3 +4581,12 @@
   2) `suppressToolErrorWarnings` 可在心跳中抑制工具报错告警噪声；
   3) `target:last` 搭配 `accountId/to` 需目标渠道匹配，否则会跳过投递。
 - 应用：夜间低打扰场景可优先靠投递策略控噪，不把无价值告警推送给用户。
+
+## [2026-04-01 02:18 CST] Agent (heartbeat学习-session与可见性控制)
+
+- 学习来源：`docs/gateway/heartbeat.md`（Delivery behavior / Visibility controls）。
+- 新增认知：
+  1) heartbeat 的 `session` 仅影响运行上下文，投递仍由 `target/to` 决定；
+  2) 当主队列忙时 heartbeat 会跳过后重试，不应直接判定为故障；
+  3) `showOk/showAlerts/useIndicator` 可按 channel/account 精细控制心跳可见性噪声。
+- 应用：夜间保持低打扰时，可优先用可见性开关而非改动巡检逻辑本身。

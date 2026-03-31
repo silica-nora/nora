@@ -4807,3 +4807,9 @@
 - 动作：阅读 heartbeat Field notes，补齐投递抑制与多账号投递边界认知
 - 产出：沉淀“directPolicy控DM、抑制工具告警、target/account匹配校验”三条规则，写入 `memory/working-buffer.md`
 - 下一步：凌晨继续最小巡检与低打扰，非触发不扩面
+
+- 时间：2026-04-01 02:18 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 heartbeat 投递与可见性控制章节，补齐“上下文运行 vs 外发投递”边界认知
+- 产出：沉淀“session只管上下文、队列忙会延后、showOk/showAlerts可细粒度控噪”三条规则
+- 下一步：继续夜间最小巡检；无触发/无异常不额外打扰
