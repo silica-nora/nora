@@ -4835,3 +4835,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/queue.md`（命令队列机制）。
   - 产出：沉淀 3 条可执行规则（collect 合并、双层 lane 限流、queue 参数模板）。
   - 下一步：在后续高并发消息场景优先检查 queue mode/debounce/cap/drop 组合，必要时建议最小改动调参。
+- 时间：2026-04-01 04:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/session-pruning.md`（会话裁剪机制）。
+  - 产出：沉淀 3 条规则（仅影响当次上下文、TTL触发+重置、只裁剪旧toolResult且保留图像语义）。
+  - 下一步：在 context 使用率升高或长会话工具输出过多时，优先检查/建议 `contextPruning.cache-ttl` 参数。

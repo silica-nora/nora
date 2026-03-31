@@ -4621,3 +4621,7 @@
   1) 默认队列模式建议 `collect`，可把高频消息合并为一次 followup，减少重复回复与资源抖动。
   2) 队列是“会话 lane + 全局 lane”双层限流：单会话串行防冲突，全局并发由 `agents.defaults.maxConcurrent` 控制。
   3) 高频干预优先用 `/queue collect debounce:2s cap:25 drop:summarize`，在不丢上下文的前提下降低噪声与排队拥塞。
+- 2026-04-01 04:48 heartbeat 学习笔记（Session Pruning）：
+  1) `contextPruning` 只影响“发送给模型的当次上下文”，不改写磁盘 session jsonl 历史。
+  2) `cache-ttl` 模式在超出 TTL 后才触发裁剪；裁剪后 TTL 窗口重置，可减少下一阶段重复 cacheWrite 成本。
+  3) 仅裁剪旧 `toolResult`，用户/assistant 原文不改；含图片的 toolResult 跳过，避免破坏多模态语义。
