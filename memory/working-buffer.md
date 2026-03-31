@@ -4545,3 +4545,12 @@
 - 复核动作：校验“夜间仅异常上报”边界与执行一致性。
 - 结论：当前无待办、无日志异常、无新闻触发文件，维持最小巡检与低打扰输出最优。
 - 下一步：跨日后继续基线巡检，除非出现触发/异常信号。
+
+## [2026-04-01 00:18 CST] Agent (时区学习-envelope标准化)
+
+- 学习来源：`docs/concepts/timezone.md`。
+- 新增认知：
+  1) 入站消息 envelope 默认使用 host-local 时间；
+  2) 可用 `envelopeTimezone` 切到 `utc/local/user/指定IANA`；
+  3) `envelopeTimestamp` 与 `envelopeElapsed` 可独立关闭，减少上下文中的时间噪声。
+- 应用：跨时区/错时排障时，优先先确认 envelope 时间基准，再判断任务是否“真错时”。

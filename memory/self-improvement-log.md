@@ -4783,3 +4783,9 @@
 - 动作：复核夜间低打扰执行边界（23:00后仅异常上报）
 - 产出：确认当前执行与夜间策略一致，固化“无触发不扩面、无异常不打扰”规则
 - 下一步：跨日继续最小巡检，等待新触发文件
+
+- 时间：2026-04-01 00:18 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 `concepts/timezone.md`，补齐 envelope 时间标准化配置认知
+- 产出：沉淀“默认host-local + envelopeTimezone可控 + 时间戳/elapsed可裁剪”三条规则，写入 `memory/working-buffer.md`
+- 下一步：跨日保持最小巡检；若出现错时问题先核对 envelopeTimezone 与 userTimezone
