@@ -4843,3 +4843,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/compaction.md`（上下文压缩机制）。
   - 产出：沉淀 3 条规则（持久化摘要、自动触发与状态可观测、与 pruning 的边界区分）。
   - 下一步：当长会话出现上下文逼近上限时，优先判断是否应手动 `/compact`，再评估 pruning 参数。
+- 时间：2026-04-01 05:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/context.md`（上下文构成与观测）。
+  - 产出：沉淀 3 条规则（context与memory边界、工具双层开销、context超限治理优先级）。
+  - 下一步：若后续出现上下文膨胀，先用 `/context detail` 定位最大项，再按“compact→pruning→注入裁剪”顺序处理。

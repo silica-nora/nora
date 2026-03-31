@@ -4629,3 +4629,7 @@
   1) Compaction 会把旧对话摘要并“持久化写入 JSONL”，后续上下文由摘要+近期消息组成。
   2) Auto-compaction 接近上下文上限时自动触发，可重试原请求；`/status` 可见 compaction 计数。
   3) 与 pruning 区别：compaction=持久摘要，pruning=仅当次内存裁剪旧 toolResult，不改历史文件。
+- 2026-04-01 05:48 heartbeat 学习笔记（Context）：
+  1) Context = 系统提示词+会话历史+工具调用结果/附件；与 memory 不同，memory是可落盘回读的长期信息。
+  2) 工具开销有两层：工具列表文本 + tool schemas(JSON)，后者虽不可见但同样占上下文。
+  3) `/context detail` 可定位大头（文件注入/工具schema/技能条目），超限治理优先顺序：先 compact，再看 pruning 与注入体积。
