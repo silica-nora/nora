@@ -4723,3 +4723,9 @@
 - 动作：阅读 `cron-vs-heartbeat.md` 成本章节，复核 heartbeat 与 cron 的成本结构
 - 产出：沉淀“HEARTBEAT.md 长度控制 + 批处理优先 + 隔离任务按需分流”三条成本规则，并写入 `memory/working-buffer.md`
 - 下一步：22:00 前维持最小巡检与短回执，优先保留晚报触发预算
+
+- 时间：2026-03-31 19:18 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 `gateway/heartbeat.md` 的配置优先级与 ack 参数说明
+- 产出：沉淀“agent范围覆盖、channel层级覆盖、ackMaxChars边界”三条配置认知并写入 `memory/working-buffer.md`
+- 下一步：晚报前继续最小巡检，保持短回执与触发门控一致

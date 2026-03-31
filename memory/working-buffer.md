@@ -4459,3 +4459,12 @@
   2) main cron 通过事件并入下一次 heartbeat，不额外起隔离会话；
   3) isolated cron 可分流高频任务并可用更便宜模型控成本。
 - 落地原则：继续保持 HEARTBEAT.md 精简，常规检查做批处理，非必要不新增隔离重任务。
+
+## [2026-03-31 19:18 CST] Agent (heartbeat配置学习-作用域与优先级)
+
+- 学习来源：`docs/gateway/heartbeat.md`（Config / Scope and precedence）。
+- 新增认知：
+  1) `agents.defaults.heartbeat` 是全局默认，`agents.list[].heartbeat` 会覆盖并且可触发“仅这些agent跑heartbeat”；
+  2) channel 级别可继续覆盖 heartbeat 可见性（defaults -> channel -> account）；
+  3) `ackMaxChars` 控制 HEARTBEAT_OK 后可保留的最大文本长度，影响“折叠为ack”行为。
+- 应用：继续保持“短回执 + 明确触发条件”以匹配 ack 机制并降低噪声。
