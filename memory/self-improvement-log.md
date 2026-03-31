@@ -4753,3 +4753,9 @@
 - 动作：阅读自动化排障中的 timezone gotchas，复核 cron/heartbeat 常见错时原因
 - 产出：沉淀“at时间UTC默认、主机时区漂移、activeHours时区错配”三条时区风险规则，写入 `memory/working-buffer.md`
 - 下一步：22:00 前继续最小巡检，night 触发时优先核对时间门控
+
+- 时间：2026-03-31 21:48 (Asia/Shanghai)
+- 类型：学习
+- 动作：复读 `cron-vs-heartbeat` 决策流，提炼最小可执行判定顺序
+- 产出：形成“隔离/精确优先判定 + 批处理归heartbeat + one-shot归cron --at”三步法，并写入 `memory/working-buffer.md`
+- 下一步：22:00 检查 `/tmp/news-night.log`，命中即执行全文阅读+去重+中文解读推送
