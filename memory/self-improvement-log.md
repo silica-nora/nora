@@ -4759,3 +4759,9 @@
 - 动作：复读 `cron-vs-heartbeat` 决策流，提炼最小可执行判定顺序
 - 产出：形成“隔离/精确优先判定 + 批处理归heartbeat + one-shot归cron --at”三步法，并写入 `memory/working-buffer.md`
 - 下一步：22:00 检查 `/tmp/news-night.log`，命中即执行全文阅读+去重+中文解读推送
+
+- 时间：2026-03-31 22:18 (Asia/Shanghai)
+- 类型：执行 / 复盘
+- 动作：执行晚报触发链路（全文阅读→48h去重→中文解读→推送→删日志）
+- 产出：成功推送4条新增AI资讯，重复条目2条已剔除（messageId: om_x100b5389cf7dacb0b22dba319bbe55a）
+- 下一步：进入夜间稳态巡检，等待下一轮触发
