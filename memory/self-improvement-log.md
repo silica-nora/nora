@@ -4705,3 +4705,9 @@
 - 动作：复核 15:10-22:00 长等待窗执行方式，并沉淀“长等待窗四点守则”
 - 产出：形成可复用低噪声模板（固定巡检+不回放+不扩面+触发后闭环），写入 `memory/working-buffer.md`
 - 下一步：22:00 前继续最小巡检，等待 `/tmp/news-night.log` 触发
+
+- 时间：2026-03-31 17:48 (Asia/Shanghai)
+- 类型：学习
+- 动作：补充阅读 `cron-vs-heartbeat.md` 中 main cron 与 isolated cron 的适用边界
+- 产出：沉淀“主会话提醒保上下文、隔离cron降噪分流、heartbeat继续承载常规巡检”三条调度规则
+- 下一步：晚报前继续最小巡检；仅在精确触发+高噪声场景考虑 isolated cron

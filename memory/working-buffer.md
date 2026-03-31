@@ -4433,3 +4433,11 @@
   3) 非触发不扩面抓取，避免上下文膨胀；
   4) 触发后再一次性执行完整闭环。
 - 目标：在保持响应性的同时，把噪声与token消耗压到最低。
+
+## [2026-03-31 17:48 CST] Agent (调度学习-主会话cron vs 隔离cron)
+
+- 学习来源：`cron-vs-heartbeat.md`（main cron vs isolated cron 对比段）。
+- 新增认知：
+  1) `--session main --system-event` 适合需要留在主会话上下文内的提醒；
+  2) `--session isolated` 适合重任务/高噪声任务，避免主历史膨胀；
+  3) 当前这类周期巡检继续用 heartbeat 更经济，只有“精确时点+高噪声”才升级到 isolated cron。
