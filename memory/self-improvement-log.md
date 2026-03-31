@@ -4825,3 +4825,9 @@
 - 动作：阅读 `concepts/session.md`，复核 DM 会话聚合与隔离策略
 - 产出：沉淀“dmScope默认风险、per-channel-peer隔离建议、identityLinks跨渠道映射”三条安全规则
 - 下一步：维持夜间最小巡检；若出现多用户DM接入需求，优先建议启用安全DM模式
+
+- 时间：2026-04-01 03:48 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 session maintenance 配置示例，补齐会话保留与磁盘预算治理认知
+- 产出：沉淀“enforce保留治理+磁盘水位保护+与日志治理联动”三条规则，写入 `memory/working-buffer.md`
+- 下一步：凌晨继续最小巡检；无触发文件则保持静默低打扰

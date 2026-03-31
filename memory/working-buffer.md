@@ -4608,3 +4608,12 @@
   2) 多用户场景建议 `per-channel-peer`（或更细粒度）隔离DM上下文；
   3) `session.identityLinks` 可把跨渠道同一人映射到统一身份，兼顾隔离与连续性。
 - 应用：若后续接入多用户私聊，应优先切换安全DM模式以防串话泄露。
+
+## [2026-04-01 03:48 CST] Agent (会话维护学习-session maintenance)
+
+- 学习来源：`docs/concepts/session.md`（session maintenance 示例）。
+- 新增认知：
+  1) 可用 `maintenance.mode=enforce` 配合 `pruneAfter/maxEntries/rotateBytes` 做会话保留治理；
+  2) 可设置 `maxDiskBytes/highWaterBytes` 给 sessions 目录加硬盘水位保护；
+  3) 会话治理应与调度日志治理联动，避免长期运行导致历史膨胀。
+- 应用：当前夜间巡检保持最小输出，后续若会话体积增长可优先走维护参数收敛。
