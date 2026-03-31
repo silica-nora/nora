@@ -4625,3 +4625,7 @@
   1) `contextPruning` 只影响“发送给模型的当次上下文”，不改写磁盘 session jsonl 历史。
   2) `cache-ttl` 模式在超出 TTL 后才触发裁剪；裁剪后 TTL 窗口重置，可减少下一阶段重复 cacheWrite 成本。
   3) 仅裁剪旧 `toolResult`，用户/assistant 原文不改；含图片的 toolResult 跳过，避免破坏多模态语义。
+- 2026-04-01 05:18 heartbeat 学习笔记（Compaction）：
+  1) Compaction 会把旧对话摘要并“持久化写入 JSONL”，后续上下文由摘要+近期消息组成。
+  2) Auto-compaction 接近上下文上限时自动触发，可重试原请求；`/status` 可见 compaction 计数。
+  3) 与 pruning 区别：compaction=持久摘要，pruning=仅当次内存裁剪旧 toolResult，不改历史文件。
