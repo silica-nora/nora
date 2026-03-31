@@ -4801,3 +4801,9 @@
 - 动作：阅读 `date-time.md`，复核 OpenClaw 的“传输时间 vs 系统提示时间”分层机制
 - 产出：沉淀“host-local传输、userTimezone提示层、当前时间用session_status”三条规则并写入 `memory/working-buffer.md`
 - 下一步：凌晨继续最小巡检，保持低打扰
+
+- 时间：2026-04-01 01:48 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 heartbeat Field notes，补齐投递抑制与多账号投递边界认知
+- 产出：沉淀“directPolicy控DM、抑制工具告警、target/account匹配校验”三条规则，写入 `memory/working-buffer.md`
+- 下一步：凌晨继续最小巡检与低打扰，非触发不扩面

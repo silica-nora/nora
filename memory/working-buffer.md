@@ -4572,3 +4572,12 @@
   2) 用户时区主要体现在 system prompt（而非强改 provider 原始语义）；
   3) 当前时间查询应优先 `session_status`，避免混用来源造成错判。
 - 应用：夜间巡检场景继续以 host-local 门控日志触发，遇到“时间冲突”先区分传输层与提示层。
+
+## [2026-04-01 01:48 CST] Agent (heartbeat配置学习-投递与抑制细项)
+
+- 学习来源：`docs/gateway/heartbeat.md`（Field notes）。
+- 新增认知：
+  1) `directPolicy=block` 可显式阻止 DM 直发（reason=dm-blocked）；
+  2) `suppressToolErrorWarnings` 可在心跳中抑制工具报错告警噪声；
+  3) `target:last` 搭配 `accountId/to` 需目标渠道匹配，否则会跳过投递。
+- 应用：夜间低打扰场景可优先靠投递策略控噪，不把无价值告警推送给用户。
