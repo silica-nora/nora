@@ -4789,3 +4789,9 @@
 - 动作：阅读 `concepts/timezone.md`，补齐 envelope 时间标准化配置认知
 - 产出：沉淀“默认host-local + envelopeTimezone可控 + 时间戳/elapsed可裁剪”三条规则，写入 `memory/working-buffer.md`
 - 下一步：跨日保持最小巡检；若出现错时问题先核对 envelopeTimezone 与 userTimezone
+
+- 时间：2026-04-01 00:48 (Asia/Shanghai)
+- 类型：学习
+- 动作：继续阅读 `concepts/timezone.md`，补齐工具时间字段与系统时区回退机制认知
+- 产出：沉淀“标准化时间字段优先 + userTimezone回退 + timeFormat可控”三条规则，写入 `memory/working-buffer.md`
+- 下一步：凌晨继续最小巡检，除非有触发文件或异常日志

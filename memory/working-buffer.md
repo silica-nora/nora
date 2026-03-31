@@ -4554,3 +4554,12 @@
   2) 可用 `envelopeTimezone` 切到 `utc/local/user/指定IANA`；
   3) `envelopeTimestamp` 与 `envelopeElapsed` 可独立关闭，减少上下文中的时间噪声。
 - 应用：跨时区/错时排障时，优先先确认 envelope 时间基准，再判断任务是否“真错时”。
+
+## [2026-04-01 00:48 CST] Agent (时区学习-tool时间字段与系统时区)
+
+- 学习来源：`docs/concepts/timezone.md`（tool payload + userTimezone）。
+- 新增认知：
+  1) 各渠道工具返回原始时间字段的同时，会附带标准化 `timestampMs` / `timestampUtc`；
+  2) `agents.defaults.userTimezone` 未设置时会在运行时回退到主机时区；
+  3) `timeFormat` 可控制系统提示时间格式（auto/12/24）。
+- 应用：后续跨渠道时间对账优先使用标准化字段，减少 provider 字段差异误判。
