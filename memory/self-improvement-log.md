@@ -4603,3 +4603,9 @@
 - 动作：阅读 OpenClaw 文档《Cron vs Heartbeat》，复核当前心跳任务的调度边界与成本控制策略
 - 产出：沉淀 3 条可执行规则（精确触发用 cron、巡检批处理用 heartbeat、HEARTBEAT.md 保持精简以控成本）并写入 `memory/working-buffer.md`
 - 下一步：10:00 前保持最小巡检；仅当 `/tmp/news-morning.log` 非空且到时段时触发推送
+
+- 时间：2026-03-31 09:16 (Asia/Shanghai)
+- 类型：复盘 / 优化
+- 动作：在 09:00-09:30 关键时点执行“事实/约束/假设/方案”四段复核，校验无样本场景下的 A股输出边界
+- 产出：固化“无可验证样本不产出盘前观点，仅做门控与触发等待”的执行规则，并写入 `memory/working-buffer.md`
+- 下一步：10:00 检查 `/tmp/news-morning.log`；若非空则按去重+中文解读流程推送
