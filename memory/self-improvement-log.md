@@ -4651,3 +4651,9 @@
 - 动作：固化午间后半段 heartbeat 的“三步最小闭环”执行节奏
 - 产出：形成可复用模板（刚性检查→触发判断→输出控制），写入 `memory/working-buffer.md`
 - 下一步：15:10 前维持该节奏，等待 `/tmp/news-afternoon.log` 触发
+
+- 时间：2026-03-31 13:18 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 OpenClaw `cron-jobs.md` 中 isolated cron 的 delivery/wakeMode 机制
+- 产出：沉淀 3 条调度认知（announce默认、none静默、wakeMode仅影响摘要时机），写入 `memory/working-buffer.md`
+- 下一步：保持 heartbeat 最小巡检；若后续出现高噪声任务，优先建议 isolated cron 承载

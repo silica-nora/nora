@@ -4351,3 +4351,12 @@
   2) 触发判断：仅看 `afternoon.log` 是否非空；
   3) 输出控制：未触发则不扩面抓取、不生成盘面结论。
 - 预期收益：降低重复检查噪声与token消耗，避免午报前无效产出。
+
+## [2026-03-31 13:18 CST] Agent (调度学习-隔离cron投递语义)
+
+- 学习来源：`docs/automation/cron-jobs.md`（isolated job 行为段）。
+- 新增认知：
+  1) isolated cron 默认 `delivery.mode=announce`，适合高频/噪声任务与主会话解耦；
+  2) `delivery.mode=none` 可完全内部执行，不向主会话回传摘要；
+  3) `wakeMode` 只控制主会话摘要唤醒时机（now / next-heartbeat）。
+- 对当前heartbeat启发：午报前等待窗继续保留 heartbeat 最小巡检，不把高噪声任务塞进主会话。
