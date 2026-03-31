@@ -4450,3 +4450,12 @@
   2) 噪声高的周期任务应放 isolated 并控制 delivery，避免主会话与run-log双重膨胀；
   3) 需周期性用 `openclaw cron runs` 观察增长并提前收敛保留策略。
 - 当前应用：继续保持 heartbeat 最小巡检，不引入无必要高噪声任务。
+
+## [2026-03-31 18:48 CST] Agent (成本控制学习-heartbeat与cron)
+
+- 学习来源：`cron-vs-heartbeat.md`（Cost Considerations 段）。
+- 新增认知：
+  1) heartbeat 成本主要受 HEARTBEAT.md 长度影响；
+  2) main cron 通过事件并入下一次 heartbeat，不额外起隔离会话；
+  3) isolated cron 可分流高频任务并可用更便宜模型控成本。
+- 落地原则：继续保持 HEARTBEAT.md 精简，常规检查做批处理，非必要不新增隔离重任务。

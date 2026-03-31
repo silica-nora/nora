@@ -4717,3 +4717,9 @@
 - 动作：阅读 `cron-jobs.md` 的 run-log/sessionRetention 治理建议
 - 产出：沉淀“保留策略协同控制 + 高噪声任务隔离 + 周期性增长复查”三条日志治理规则，并写入 `memory/working-buffer.md`
 - 下一步：维持最小巡检，晚报触发前不扩面抓取
+
+- 时间：2026-03-31 18:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：阅读 `cron-vs-heartbeat.md` 成本章节，复核 heartbeat 与 cron 的成本结构
+- 产出：沉淀“HEARTBEAT.md 长度控制 + 批处理优先 + 隔离任务按需分流”三条成本规则，并写入 `memory/working-buffer.md`
+- 下一步：22:00 前维持最小巡检与短回执，优先保留晚报触发预算
