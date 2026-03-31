@@ -4687,3 +4687,9 @@
 - 动作：复核午报后的长等待窗执行策略，确认“已闭环不补发 + 非触发不扩面”一致性
 - 产出：固化 15:10-22:00 稳态巡检模板，写入 `memory/working-buffer.md`
 - 下一步：22:00 前维持最小巡检，等待 `/tmp/news-night.log` 触发
+
+- 时间：2026-03-31 16:18 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 OpenClaw `gateway/heartbeat.md`，复核 heartbeat 投递与 ACK 行为边界
+- 产出：沉淀 3 条配置认知（target:none 默认、HEARTBEAT_OK 折叠条件、activeHours 抑制夜间打扰）并写入 `memory/working-buffer.md`
+- 下一步：继续最小巡检，等待 22:00 night 日志触发
