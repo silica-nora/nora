@@ -4486,3 +4486,9 @@
   2) top-of-hour 循环任务默认有确定性 stagger（最高5分钟）以削峰；
   3) one-shot 任务默认成功后删除（可 `deleteAfterRun:false` 保留记录）。
 - 应用：后续若有精确时点要求，需显式关注时区与是否关闭stagger。
+
+## [2026-03-31 20:48 CST] Agent (运行观测学习-heartbeat last)
+
+- 动作：执行 `openclaw system heartbeat last` 观察最近一次心跳结果。
+- 发现：状态为 `skipped`，原因 `target-none`，说明该轮不会向外部目标投递（属配置预期）。
+- 认知：在“有内部输出但未外发”场景下，应先检查 target/delivery 配置，再判断是否异常。
