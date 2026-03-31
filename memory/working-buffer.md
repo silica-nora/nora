@@ -4492,3 +4492,12 @@
 - 动作：执行 `openclaw system heartbeat last` 观察最近一次心跳结果。
 - 发现：状态为 `skipped`，原因 `target-none`，说明该轮不会向外部目标投递（属配置预期）。
 - 认知：在“有内部输出但未外发”场景下，应先检查 target/delivery 配置，再判断是否异常。
+
+## [2026-03-31 21:18 CST] Agent (时区坑位学习-调度时间偏移)
+
+- 学习来源：`docs/automation/troubleshooting.md`（timezone gotchas）。
+- 新增认知：
+  1) cron `at` 使用不带时区的 ISO 时间会按 UTC 解析；
+  2) 主机时区变化会导致 job 墙钟时间偏移；
+  3) `activeHours.timezone` 错配会造成 heartbeat 在白天被误跳过。
+- 应用：涉及一次性定时时优先显式时区，避免“看起来正确但实际错时”问题。

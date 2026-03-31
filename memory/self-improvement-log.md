@@ -4747,3 +4747,9 @@
 - 动作：运行 `openclaw system heartbeat last`，验证最近一轮心跳执行与投递状态
 - 产出：确认 `status=skipped, reason=target-none` 属配置行为，并沉淀“先看target/delivery再判异常”规则
 - 下一步：22:00 前继续最小巡检；night日志触发后按既定闭环执行
+
+- 时间：2026-03-31 21:18 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读自动化排障中的 timezone gotchas，复核 cron/heartbeat 常见错时原因
+- 产出：沉淀“at时间UTC默认、主机时区漂移、activeHours时区错配”三条时区风险规则，写入 `memory/working-buffer.md`
+- 下一步：22:00 前继续最小巡检，night 触发时优先核对时间门控
