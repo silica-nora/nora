@@ -4711,3 +4711,9 @@
 - 动作：补充阅读 `cron-vs-heartbeat.md` 中 main cron 与 isolated cron 的适用边界
 - 产出：沉淀“主会话提醒保上下文、隔离cron降噪分流、heartbeat继续承载常规巡检”三条调度规则
 - 下一步：晚报前继续最小巡检；仅在精确触发+高噪声场景考虑 isolated cron
+
+- 时间：2026-03-31 18:18 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 `cron-jobs.md` 的 run-log/sessionRetention 治理建议
+- 产出：沉淀“保留策略协同控制 + 高噪声任务隔离 + 周期性增长复查”三条日志治理规则，并写入 `memory/working-buffer.md`
+- 下一步：维持最小巡检，晚报触发前不扩面抓取

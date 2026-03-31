@@ -4441,3 +4441,12 @@
   1) `--session main --system-event` 适合需要留在主会话上下文内的提醒；
   2) `--session isolated` 适合重任务/高噪声任务，避免主历史膨胀；
   3) 当前这类周期巡检继续用 heartbeat 更经济，只有“精确时点+高噪声”才升级到 isolated cron。
+
+## [2026-03-31 18:18 CST] Agent (cron日志治理学习)
+
+- 学习来源：`docs/automation/cron-jobs.md`（run-log/session retention 段）。
+- 新增认知：
+  1) `sessionRetention` 与 `runLog.maxBytes/keepLines` 共同决定 cron 历史膨胀速度；
+  2) 噪声高的周期任务应放 isolated 并控制 delivery，避免主会话与run-log双重膨胀；
+  3) 需周期性用 `openclaw cron runs` 观察增长并提前收敛保留策略。
+- 当前应用：继续保持 heartbeat 最小巡检，不引入无必要高噪声任务。
