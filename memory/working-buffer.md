@@ -4529,3 +4529,12 @@
   2) 高强度任务可按 job 级别覆写 `model/thinking`；
   3) recurring minute 任务可配 `--stagger` 降低同刻负载峰值。
 - 应用：当前继续heartbeat巡检；若后续要做定向夜报，可考虑隔离cron直投频道。
+
+## [2026-03-31 23:18 CST] Agent (heartbeat学习-智能抑制与自然漂移)
+
+- 学习来源：`cron-vs-heartbeat.md` heartbeat 特性段。
+- 新增认知：
+  1) heartbeat 自带“智能抑制”（无关注项可 HEARTBEAT_OK），核心是降打扰而非持续输出；
+  2) 心跳存在自然漂移，属队列负载下正常现象，不等同故障；
+  3) HEARTBEAT.md 清单应聚焦可批处理检查项，避免把一次性任务塞入周期巡检。
+- 应用：夜间窗口保持最小巡检与短回执，优先低打扰。
