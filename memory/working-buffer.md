@@ -4477,3 +4477,12 @@
   2) 诊断命令优先：`openclaw system heartbeat last` + `config get agents.defaults.heartbeat` + `channels status --probe`；
   3) 时区错配会直接影响 activeHours 判断，需要核对 timezone 配置来源。
 - 应用：后续若出现“应触发未触发”争议，先做原因分型再处理。
+
+## [2026-03-31 20:18 CST] Agent (cron机制学习-调度基础与stagger)
+
+- 学习来源：`docs/automation/cron-jobs.md`（Jobs / Schedules 段）。
+- 新增认知：
+  1) cron 支持 `at/every/cron` 三类调度，缺省时区走网关主机时区；
+  2) top-of-hour 循环任务默认有确定性 stagger（最高5分钟）以削峰；
+  3) one-shot 任务默认成功后删除（可 `deleteAfterRun:false` 保留记录）。
+- 应用：后续若有精确时点要求，需显式关注时区与是否关闭stagger。

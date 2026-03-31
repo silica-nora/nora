@@ -4735,3 +4735,9 @@
 - 动作：补充阅读 heartbeat 跳过/抑制排障章节，提炼原因分型与定位命令
 - 产出：沉淀“跳过原因四分法 + 核心诊断命令 + 时区核对”三条排障规则，写入 `memory/working-buffer.md`
 - 下一步：22:00 前继续最小巡检；若出现触发异常优先按该分型排查
+
+- 时间：2026-03-31 20:18 (Asia/Shanghai)
+- 类型：学习
+- 动作：阅读 `cron-jobs.md` 的调度基础（schedule类型、timezone、stagger、one-shot保留）
+- 产出：沉淀“时区默认来源 + top-of-hour削峰stagger + one-shot删除策略”三条认知，写入 `memory/working-buffer.md`
+- 下一步：22:00 前继续最小巡检；若晚报触发则按全文阅读与去重流程执行
