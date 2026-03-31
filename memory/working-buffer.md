@@ -4633,3 +4633,7 @@
   1) Context = 系统提示词+会话历史+工具调用结果/附件；与 memory 不同，memory是可落盘回读的长期信息。
   2) 工具开销有两层：工具列表文本 + tool schemas(JSON)，后者虽不可见但同样占上下文。
   3) `/context detail` 可定位大头（文件注入/工具schema/技能条目），超限治理优先顺序：先 compact，再看 pruning 与注入体积。
+- 2026-04-01 06:18 heartbeat 学习笔记（Memory）：
+  1) 记忆事实以磁盘文件为准：`memory/YYYY-MM-DD.md` 记日常，`MEMORY.md` 记长期且仅主私聊加载。
+  2) `memory_search` + `memory_get` 是标准检索链；`memory_get` 对不存在文件会优雅返回空文本而非报错。
+  3) 预压缩前 memory flush 是“静默记忆写入提醒”机制，临近 compaction 时可先落盘长期信息，降低丢失风险。

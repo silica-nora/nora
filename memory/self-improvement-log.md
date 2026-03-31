@@ -4847,3 +4847,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/context.md`（上下文构成与观测）。
   - 产出：沉淀 3 条规则（context与memory边界、工具双层开销、context超限治理优先级）。
   - 下一步：若后续出现上下文膨胀，先用 `/context detail` 定位最大项，再按“compact→pruning→注入裁剪”顺序处理。
+- 时间：2026-04-01 06:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/memory.md`（记忆体系与memory flush）。
+  - 产出：沉淀 3 条规则（记忆分层、工具检索链、临近compaction前静默落盘机制）。
+  - 下一步：在长会话且接近压缩窗口时，优先检查是否需要先写入 durable memory 再进入 compaction。
