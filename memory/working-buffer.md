@@ -4693,3 +4693,7 @@
   1) OpenClaw 把 `auth-profiles.json` 当统一 token sink，降低多端登录导致 refresh token 互踢风险。
   2) 凭证按 agent 隔离存储（`~/.openclaw/agents/<agentId>/agent/auth-profiles.json`），多身份最稳方案仍是多agent隔离。
   3) 运行时按 `expires` 自动刷新并落盘，过期问题优先查 profile 与 refresh 链路，不要手工散落改token。
+- 2026-04-02 01:18 heartbeat 学习笔记（System Prompt）：
+  1) system prompt 为每次run动态组装，核心包含工具/安全/工作区/时间/运行态等固定段落，属于 OpenClaw 所有。
+  2) bootstrap文件会直接注入上下文并消耗token；`memory/*.md`日记不自动注入，需通过 memory_search/get 按需读取。
+  3) 子代理默认 `promptMode=minimal`，只保留关键段落与精简注入，能显著控上下文膨胀。

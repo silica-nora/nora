@@ -4907,3 +4907,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/oauth.md`（OAuth交换、存储与多账号路由）。
   - 产出：沉淀 3 条规则（token sink机制、agent级凭证隔离、按expires自动刷新语义）。
   - 下一步：若后续出现“随机掉登录”，优先核查是否跨工具/跨端复用同一OAuth账号导致refresh token竞争。
+- 时间：2026-04-02 01:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/system-prompt.md`（系统提示词结构与注入机制）。
+  - 产出：沉淀 3 条规则（系统提示词分段结构、bootstrap注入与memory按需读取边界、subagent minimal模式价值）。
+  - 下一步：后续若 context 上升过快，优先检查 bootstrap 文件长度与 subagent promptMode 选择。
