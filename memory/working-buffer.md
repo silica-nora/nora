@@ -4713,3 +4713,7 @@
   1) 网关协议以 TypeBox 为单一真源，统一驱动运行时校验、JSON Schema 导出与 Swift 模型生成。
   2) WS 首帧必须 `connect`，并通过 min/max protocol 协商版本；不匹配会在握手阶段拒绝。
   3) 变更协议应走固定流水线：改 schema → `pnpm protocol:check` 生成校验 → 再补测试与文档。
+- 2026-04-02 03:48 heartbeat 学习笔记（Agent Loop）：
+  1) Agent run 主链路是“入站受理→队列串行→模型/工具流式→生命周期结束回写”，单会话串行是防竞态核心。
+  2) `agent.wait` 只等 lifecycle end/error，不会主动停止正在运行的agent（超时仅影响等待方）。
+  3) 超时/压缩重试场景会重置中间缓冲与工具摘要，避免重复输出污染最终回复。

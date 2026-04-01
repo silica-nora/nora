@@ -4927,3 +4927,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/typebox.md`（协议 schema 单一真源与代码生成链）。
   - 产出：沉淀 3 条规则（TypeBox单一真源、connect握手版本协商、协议变更固定流水线）。
   - 下一步：后续若出现协议字段漂移，优先核查是否绕过了 `protocol:check` 生成与提交步骤。
+- 时间：2026-04-02 03:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/agent-loop.md`（agent循环生命周期与wait语义）。
+  - 产出：沉淀 3 条规则（会话串行防竞态、agent.wait等待边界、超时/重试缓冲重置）。
+  - 下一步：后续若出现“等待超时但任务仍跑”现象，优先按 `agent.wait` 语义解释并检查 lifecycle 事件流。
