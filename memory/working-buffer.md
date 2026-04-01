@@ -4705,3 +4705,7 @@
   1) OpenClaw能力面是“多渠道接入 + 多agent路由 + 多端节点（iOS/Android/macOS/Web）”的一体化网关架构。
   2) 会话语义默认“私聊归main、群聊隔离”，是跨渠道连续性与隔离性的基线设计。
   3) 编码路径当前以 Pi 为唯一 coding agent 主路径，旧 Claude/Codex/Gemini/Opencode coding path 已移除。
+- 2026-04-02 02:48 heartbeat 学习笔记（Markdown Formatting）：
+  1) 出站格式链路是 Markdown→IR→分块→各渠道渲染，先分块后渲染可避免样式断裂。
+  2) IR 使用 UTF-16 偏移，尤其对 Signal 样式范围对齐是硬约束。
+  3) 表格策略需按渠道配置（code/bullets/off），Signal/WhatsApp 默认 bullets 更稳。
