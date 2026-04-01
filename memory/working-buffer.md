@@ -4649,3 +4649,7 @@
   1) OpenClaw有两层流式：block streaming（真实分段发消息）与preview streaming（草稿编辑），不是token级直推。
   2) 是否“边写边发”关键看 `blockStreamingBreak`：`text_end` 边生成边发，`message_end` 末尾统一flush。
   3) 若出现碎片化刷屏，优先调 `blockStreamingCoalesce`（idle/min/max）与 `minChars`，再看渠道 `textChunkLimit`。
+- 2026-04-01 17:18 heartbeat 学习笔记（Presence）：
+  1) Presence 是网关“轻量在线视图”，由 self/connect/system-event/node 多来源合并，不是强一致设备注册表。
+  2) 去重关键是稳定 `client.instanceId`；没有稳定 instanceId 会出现重复实例行。
+  3) Presence 有TTL（5分钟）与容量上限（200），天然是短期可观测面板，不能当长期资产台账。

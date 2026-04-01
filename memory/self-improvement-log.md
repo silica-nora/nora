@@ -4863,3 +4863,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/streaming.md`（流式与分块机制）。
   - 产出：沉淀 3 条规则（双层流式区分、text_end/message_end边界、coalesce抗刷屏调参顺序）。
   - 下一步：若后续出现“回复碎片过多/发太慢”，先检查 break 模式与 coalesce，再评估渠道上限。
+- 时间：2026-04-01 17:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/presence.md`（实例在线状态的生产与合并机制）。
+  - 产出：沉淀 3 条规则（多源合并语义、instanceId去重关键、TTL/容量边界）。
+  - 下一步：若后续出现实例重复/过期显示，优先核查 connect 与 system-event 是否复用同一 instanceId。
