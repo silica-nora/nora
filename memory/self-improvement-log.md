@@ -4879,3 +4879,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/retry.md`（Provider重试策略）。
   - 产出：沉淀 3 条规则（按请求重试粒度、Discord/Telegram重试边界、Markdown解析错降级）。
   - 下一步：若后续出现发送抖动或速率限制，优先按 provider retry_after 与重试边界做定点排查。
+- 时间：2026-04-01 19:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/typing-indicators.md`（输入状态触发与节奏控制）。
+  - 产出：沉淀 3 条规则（默认场景分层、typingMode触发顺序、interval仅控刷新）。
+  - 下一步：若后续出现“空打字/过早打字”体验问题，优先检查 typingMode 是否与 NO_REPLY 策略匹配。

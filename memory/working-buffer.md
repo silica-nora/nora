@@ -4665,3 +4665,7 @@
   1) 重试粒度是“单个HTTP请求”不是整条多步骤流程，已成功步骤不会被整流重放。
   2) Discord 仅对429重试；Telegram对429/超时/连接中断等瞬态错误重试，并优先用 `retry_after`。
   3) Telegram Markdown 解析错误不重试，直接降级纯文本，避免无效重试消耗。
+- 2026-04-01 19:18 heartbeat 学习笔记（Typing Indicators）：
+  1) 默认行为按场景分层：私聊/被@群聊可立即typing，未@群聊延后到正文流出，heartbeat始终不显示typing。
+  2) `typingMode` 触发先后：never < message < thinking < instant；`message` 可避免 silent NO_REPLY 误打字提示。
+  3) `typingIntervalSeconds` 只控制刷新频率，不决定首发时机；首发由 typingMode 决定。
