@@ -4697,3 +4697,7 @@
   1) system prompt 为每次run动态组装，核心包含工具/安全/工作区/时间/运行态等固定段落，属于 OpenClaw 所有。
   2) bootstrap文件会直接注入上下文并消耗token；`memory/*.md`日记不自动注入，需通过 memory_search/get 按需读取。
   3) 子代理默认 `promptMode=minimal`，只保留关键段落与精简注入，能显著控上下文膨胀。
+- 2026-04-02 01:48 heartbeat 学习笔记（Gateway Architecture）：
+  1) Gateway 是唯一消息面接入点（含 WhatsApp 会话所有权），控制端/节点统一走同一WS协议。
+  2) 连接首帧必须 `connect`；有网关token时需在握手携带匹配token，否则直接断开。
+  3) 副作用方法（如 `send`/`agent`）依赖幂等键去重，重试排障应优先核查 idempotency 行为。
