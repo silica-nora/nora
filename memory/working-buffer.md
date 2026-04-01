@@ -4701,3 +4701,7 @@
   1) Gateway 是唯一消息面接入点（含 WhatsApp 会话所有权），控制端/节点统一走同一WS协议。
   2) 连接首帧必须 `connect`；有网关token时需在握手携带匹配token，否则直接断开。
   3) 副作用方法（如 `send`/`agent`）依赖幂等键去重，重试排障应优先核查 idempotency 行为。
+- 2026-04-02 02:18 heartbeat 学习笔记（Features）：
+  1) OpenClaw能力面是“多渠道接入 + 多agent路由 + 多端节点（iOS/Android/macOS/Web）”的一体化网关架构。
+  2) 会话语义默认“私聊归main、群聊隔离”，是跨渠道连续性与隔离性的基线设计。
+  3) 编码路径当前以 Pi 为唯一 coding agent 主路径，旧 Claude/Codex/Gemini/Opencode coding path 已移除。

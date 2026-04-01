@@ -4915,3 +4915,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/architecture.md`（网关组件与连接流程）。
   - 产出：沉淀 3 条规则（Gateway单点会话所有权、connect首帧与鉴权约束、副作用请求幂等去重）。
   - 下一步：若后续出现“重复发送或连接即断开”，优先检查握手字段与 idempotency key。
+- 时间：2026-04-02 02:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/features.md`（能力总览与边界）。
+  - 产出：沉淀 3 条规则（一体化网关能力面、私聊main/群聊隔离基线、coding path边界更新）。
+  - 下一步：后续遇到能力判定问题，先按 features 列表确认“是否原生支持/是否已被移除”。
