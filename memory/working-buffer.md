@@ -4657,3 +4657,7 @@
   1) 多人DM场景建议开启 `dmScope=per-channel-peer`（或多账号用 per-account-channel-peer），避免跨人串上下文。
   2) 会话reset可叠加 daily+idle，规则是“谁先过期谁生效”；排查“为何换新会话”要同时看两条。
   3) 会话维护建议生产用 `maintenance.mode=enforce` 并同时设 `pruneAfter+maxEntries`，否则 sessions.json 与转储会持续膨胀。
+- 2026-04-01 18:18 heartbeat 学习笔记（Agent Workspace）：
+  1) workspace 是默认 cwd 不是绝对沙箱；要隔离需显式启用 sandbox 与 workspaceAccess 策略。
+  2) `~/.openclaw/workspace` 与 `~/.openclaw/`职责分离：前者是可版本化工作区，后者是配置/凭证/会话状态。
+  3) 迁移时应“workspace 与 sessions 分开搬运”，避免把 `~/.openclaw/credentials` 等敏感目录误入git。

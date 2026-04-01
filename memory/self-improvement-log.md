@@ -4871,3 +4871,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/session.md`（会话隔离、reset策略、维护治理）。
   - 产出：沉淀 3 条规则（dmScope安全隔离、daily+idle并行过期机制、维护参数成组配置）。
   - 下一步：后续若出现跨人上下文风险或会话膨胀，优先检查 dmScope 与 maintenance enforce 配置。
+- 时间：2026-04-01 18:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/agent-workspace.md`（工作区边界与备份迁移实践）。
+  - 产出：沉淀 3 条规则（默认cwd非硬沙箱、workspace与state目录分离、迁移与敏感数据分流）。
+  - 下一步：后续若做环境迁移或备份策略优化，优先检查是否误把 `~/.openclaw/`敏感状态纳入仓库。
