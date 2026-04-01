@@ -4689,3 +4689,7 @@
   1) 多agent隔离单元是“workspace + agentDir + sessions + auth-profiles”，不要复用 agentDir 避免串号。
   2) 绑定路由遵循“最具体优先”：peer > parentPeer > guild/team > accountId > channel > 默认agent。
   3) 多账号场景下，binding不写 accountId 只匹配默认账号；要全账号兜底需显式 `accountId:"*"`。
+- 2026-04-02 00:48 heartbeat 学习笔记（OAuth）：
+  1) OpenClaw 把 `auth-profiles.json` 当统一 token sink，降低多端登录导致 refresh token 互踢风险。
+  2) 凭证按 agent 隔离存储（`~/.openclaw/agents/<agentId>/agent/auth-profiles.json`），多身份最稳方案仍是多agent隔离。
+  3) 运行时按 `expires` 自动刷新并落盘，过期问题优先查 profile 与 refresh 链路，不要手工散落改token。

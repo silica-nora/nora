@@ -4903,3 +4903,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/multi-agent.md`（多agent隔离与绑定路由）。
   - 产出：沉淀 3 条规则（隔离单元边界、路由优先级、accountId匹配细则）。
   - 下一步：后续若出现“消息跑错agent”，优先核查 binding 具体度与 accountId 是否遗漏或误配。
+- 时间：2026-04-02 00:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/oauth.md`（OAuth交换、存储与多账号路由）。
+  - 产出：沉淀 3 条规则（token sink机制、agent级凭证隔离、按expires自动刷新语义）。
+  - 下一步：若后续出现“随机掉登录”，优先核查是否跨工具/跨端复用同一OAuth账号导致refresh token竞争。
