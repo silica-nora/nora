@@ -4895,3 +4895,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/model-providers.md`（provider配置与轮换行为）。
   - 产出：沉淀 3 条规则（模型引用与白名单、限流触发key轮换边界、内建与自定义provider分流）。
   - 下一步：后续若出现“为什么没自动换key/没命中模型”，优先核查错误类型与 models allowlist。
+- 时间：2026-04-01 21:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/models.md`（模型选择顺序、白名单、CLI操作）。
+  - 产出：沉淀 3 条规则（primary/fallback链路、allowlist中断语义、会话命令与CLI职责分离）。
+  - 下一步：若后续出现“模型切换后无回复”，优先检查 models allowlist 与 `/model` 目标是否被允许。

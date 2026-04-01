@@ -4681,3 +4681,7 @@
   1) 模型引用统一 `provider/model`；若配置 `agents.defaults.models` 则形成可用模型白名单。
   2) API key 轮换仅在限流类错误触发，非限流失败不会自动换key，排障要先判定错误类型。
   3) 内建provider与自定义 `models.providers` 是两条配置路径：前者开箱，后者用于代理/本地端点（如LM Studio/vLLM）。
+- 2026-04-01 21:48 heartbeat 学习笔记（Models CLI）：
+  1) 模型选择链路是 primary → fallbacks，provider内部先做auth failover后才跨模型。
+  2) 配置了 `agents.defaults.models` 后会变成强白名单，未命中会直接报“not allowed”并中断正常回复链。
+  3) `/model` 与 `openclaw models status/list` 要分工：前者会话切换，后者做全局配置/认证可见性核查。
