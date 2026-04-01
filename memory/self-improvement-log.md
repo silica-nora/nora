@@ -4923,3 +4923,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/markdown-formatting.md`（Markdown到多渠道渲染管线）。
   - 产出：沉淀 3 条规则（IR优先分块、UTF-16偏移约束、表格按渠道策略配置）。
   - 下一步：若后续出现“样式断裂/链接错位”，优先检查 IR 分块与渠道 renderer 映射。
+- 时间：2026-04-02 03:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/typebox.md`（协议 schema 单一真源与代码生成链）。
+  - 产出：沉淀 3 条规则（TypeBox单一真源、connect握手版本协商、协议变更固定流水线）。
+  - 下一步：后续若出现协议字段漂移，优先核查是否绕过了 `protocol:check` 生成与提交步骤。

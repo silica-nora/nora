@@ -4709,3 +4709,7 @@
   1) 出站格式链路是 Markdown→IR→分块→各渠道渲染，先分块后渲染可避免样式断裂。
   2) IR 使用 UTF-16 偏移，尤其对 Signal 样式范围对齐是硬约束。
   3) 表格策略需按渠道配置（code/bullets/off），Signal/WhatsApp 默认 bullets 更稳。
+- 2026-04-02 03:18 heartbeat 学习笔记（TypeBox Protocol）：
+  1) 网关协议以 TypeBox 为单一真源，统一驱动运行时校验、JSON Schema 导出与 Swift 模型生成。
+  2) WS 首帧必须 `connect`，并通过 min/max protocol 协商版本；不匹配会在握手阶段拒绝。
+  3) 变更协议应走固定流水线：改 schema → `pnpm protocol:check` 生成校验 → 再补测试与文档。
