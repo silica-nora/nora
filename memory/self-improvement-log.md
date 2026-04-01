@@ -4899,3 +4899,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/models.md`（模型选择顺序、白名单、CLI操作）。
   - 产出：沉淀 3 条规则（primary/fallback链路、allowlist中断语义、会话命令与CLI职责分离）。
   - 下一步：若后续出现“模型切换后无回复”，优先检查 models allowlist 与 `/model` 目标是否被允许。
+- 时间：2026-04-01 22:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/multi-agent.md`（多agent隔离与绑定路由）。
+  - 产出：沉淀 3 条规则（隔离单元边界、路由优先级、accountId匹配细则）。
+  - 下一步：后续若出现“消息跑错agent”，优先核查 binding 具体度与 accountId 是否遗漏或误配。

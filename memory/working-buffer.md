@@ -4685,3 +4685,7 @@
   1) 模型选择链路是 primary → fallbacks，provider内部先做auth failover后才跨模型。
   2) 配置了 `agents.defaults.models` 后会变成强白名单，未命中会直接报“not allowed”并中断正常回复链。
   3) `/model` 与 `openclaw models status/list` 要分工：前者会话切换，后者做全局配置/认证可见性核查。
+- 2026-04-01 22:18 heartbeat 学习笔记（Multi-Agent Routing）：
+  1) 多agent隔离单元是“workspace + agentDir + sessions + auth-profiles”，不要复用 agentDir 避免串号。
+  2) 绑定路由遵循“最具体优先”：peer > parentPeer > guild/team > accountId > channel > 默认agent。
+  3) 多账号场景下，binding不写 accountId 只匹配默认账号；要全账号兜底需显式 `accountId:"*"`。
