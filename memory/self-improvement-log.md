@@ -4875,3 +4875,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/agent-workspace.md`（工作区边界与备份迁移实践）。
   - 产出：沉淀 3 条规则（默认cwd非硬沙箱、workspace与state目录分离、迁移与敏感数据分流）。
   - 下一步：后续若做环境迁移或备份策略优化，优先检查是否误把 `~/.openclaw/`敏感状态纳入仓库。
+- 时间：2026-04-01 18:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/retry.md`（Provider重试策略）。
+  - 产出：沉淀 3 条规则（按请求重试粒度、Discord/Telegram重试边界、Markdown解析错降级）。
+  - 下一步：若后续出现发送抖动或速率限制，优先按 provider retry_after 与重试边界做定点排查。

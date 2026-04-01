@@ -4661,3 +4661,7 @@
   1) workspace 是默认 cwd 不是绝对沙箱；要隔离需显式启用 sandbox 与 workspaceAccess 策略。
   2) `~/.openclaw/workspace` 与 `~/.openclaw/`职责分离：前者是可版本化工作区，后者是配置/凭证/会话状态。
   3) 迁移时应“workspace 与 sessions 分开搬运”，避免把 `~/.openclaw/credentials` 等敏感目录误入git。
+- 2026-04-01 18:48 heartbeat 学习笔记（Retry Policy）：
+  1) 重试粒度是“单个HTTP请求”不是整条多步骤流程，已成功步骤不会被整流重放。
+  2) Discord 仅对429重试；Telegram对429/超时/连接中断等瞬态错误重试，并优先用 `retry_after`。
+  3) Telegram Markdown 解析错误不重试，直接降级纯文本，避免无效重试消耗。
