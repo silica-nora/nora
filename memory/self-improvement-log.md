@@ -4883,3 +4883,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/typing-indicators.md`（输入状态触发与节奏控制）。
   - 产出：沉淀 3 条规则（默认场景分层、typingMode触发顺序、interval仅控刷新）。
   - 下一步：若后续出现“空打字/过早打字”体验问题，优先检查 typingMode 是否与 NO_REPLY 策略匹配。
+- 时间：2026-04-01 19:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/usage-tracking.md`（用量追踪与展示入口）。
+  - 产出：沉淀 3 条规则（官方端点优先、三层观察入口、凭证门控可见性）。
+  - 下一步：若后续出现“看不到usage”反馈，先排查对应provider凭证是否存在且匹配当前模型提供商。

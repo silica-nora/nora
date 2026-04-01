@@ -4669,3 +4669,7 @@
   1) 默认行为按场景分层：私聊/被@群聊可立即typing，未@群聊延后到正文流出，heartbeat始终不显示typing。
   2) `typingMode` 触发先后：never < message < thinking < instant；`message` 可避免 silent NO_REPLY 误打字提示。
   3) `typingIntervalSeconds` 只控制刷新频率，不决定首发时机；首发由 typingMode 决定。
+- 2026-04-01 19:48 heartbeat 学习笔记（Usage Tracking）：
+  1) 用量面板优先采用“Provider官方usage端点”，不做猜测性账单替代。
+  2) 观察层分三档：`/status` 快照、`/usage` 会话内细项、`openclaw status --usage` 全量CLI视图。
+  3) 可见性受凭证约束（OAuth/API key）；缺凭证时 usage 会隐藏，这是预期行为非故障。
