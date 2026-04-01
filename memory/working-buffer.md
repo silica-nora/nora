@@ -4677,3 +4677,7 @@
   1) 故障处理分两层：先在同provider做auth profile轮转，再走 `model.fallbacks` 切模型。
   2) 会话会对auth profile做粘性复用以保缓存；仅在reset/压缩后或profile冷却失效时切换。
   3) 计费失败会走“disabledUntil长退避”（5h起步、上限24h），不是短冷却，排障要区分限流与余额问题。
+- 2026-04-01 20:48/21:18 heartbeat 学习笔记（Model Providers）：
+  1) 模型引用统一 `provider/model`；若配置 `agents.defaults.models` 则形成可用模型白名单。
+  2) API key 轮换仅在限流类错误触发，非限流失败不会自动换key，排障要先判定错误类型。
+  3) 内建provider与自定义 `models.providers` 是两条配置路径：前者开箱，后者用于代理/本地端点（如LM Studio/vLLM）。

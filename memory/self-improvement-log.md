@@ -4891,3 +4891,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/model-failover.md`（认证轮转与模型回退机制）。
   - 产出：沉淀 3 条规则（两层failover路径、会话profile粘性、计费失败长退避语义）。
   - 下一步：若后续出现“看似随机换账号/换模型”，优先核查 profile cooldown/disabledUntil 与 session 粘性状态。
+- 时间：2026-04-01 21:18 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/model-providers.md`（provider配置与轮换行为）。
+  - 产出：沉淀 3 条规则（模型引用与白名单、限流触发key轮换边界、内建与自定义provider分流）。
+  - 下一步：后续若出现“为什么没自动换key/没命中模型”，优先核查错误类型与 models allowlist。
