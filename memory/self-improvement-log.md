@@ -4887,3 +4887,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/usage-tracking.md`（用量追踪与展示入口）。
   - 产出：沉淀 3 条规则（官方端点优先、三层观察入口、凭证门控可见性）。
   - 下一步：若后续出现“看不到usage”反馈，先排查对应provider凭证是否存在且匹配当前模型提供商。
+- 时间：2026-04-01 20:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/model-failover.md`（认证轮转与模型回退机制）。
+  - 产出：沉淀 3 条规则（两层failover路径、会话profile粘性、计费失败长退避语义）。
+  - 下一步：若后续出现“看似随机换账号/换模型”，优先核查 profile cooldown/disabledUntil 与 session 粘性状态。

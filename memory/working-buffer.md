@@ -4673,3 +4673,7 @@
   1) 用量面板优先采用“Provider官方usage端点”，不做猜测性账单替代。
   2) 观察层分三档：`/status` 快照、`/usage` 会话内细项、`openclaw status --usage` 全量CLI视图。
   3) 可见性受凭证约束（OAuth/API key）；缺凭证时 usage 会隐藏，这是预期行为非故障。
+- 2026-04-01 20:48 heartbeat 学习笔记（Model Failover）：
+  1) 故障处理分两层：先在同provider做auth profile轮转，再走 `model.fallbacks` 切模型。
+  2) 会话会对auth profile做粘性复用以保缓存；仅在reset/压缩后或profile冷却失效时切换。
+  3) 计费失败会走“disabledUntil长退避”（5h起步、上限24h），不是短冷却，排障要区分限流与余额问题。
