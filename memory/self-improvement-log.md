@@ -4859,3 +4859,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/messages.md`（消息流、去重、debounce、会话上下文）。
   - 产出：沉淀 3 条规则（链路化排障、debounce边界、群聊历史与当前消息分离原则）。
   - 下一步：后续若出现“重复回复/晚回复/上下文错位”，优先按消息链路与queue/debounce配置做定点诊断。
+- 时间：2026-04-01 16:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/streaming.md`（流式与分块机制）。
+  - 产出：沉淀 3 条规则（双层流式区分、text_end/message_end边界、coalesce抗刷屏调参顺序）。
+  - 下一步：若后续出现“回复碎片过多/发太慢”，先检查 break 模式与 coalesce，再评估渠道上限。

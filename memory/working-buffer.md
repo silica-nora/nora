@@ -4645,3 +4645,7 @@
   1) 入站消息链路是“路由到session→队列→agent run→按渠道分块发送”，排障要按这条链逐段定位。
   2) `messages.inbound.debounceMs` 仅对纯文本生效，媒体消息会立即flush；控制命令不走debounce。
   3) 群聊历史上下文与当前消息分离，directive strip只作用于当前消息段，避免污染历史语义。
+- 2026-04-01 16:48 heartbeat 学习笔记（Streaming & Chunking）：
+  1) OpenClaw有两层流式：block streaming（真实分段发消息）与preview streaming（草稿编辑），不是token级直推。
+  2) 是否“边写边发”关键看 `blockStreamingBreak`：`text_end` 边生成边发，`message_end` 末尾统一flush。
+  3) 若出现碎片化刷屏，优先调 `blockStreamingCoalesce`（idle/min/max）与 `minChars`，再看渠道 `textChunkLimit`。
