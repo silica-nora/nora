@@ -4653,3 +4653,7 @@
   1) Presence 是网关“轻量在线视图”，由 self/connect/system-event/node 多来源合并，不是强一致设备注册表。
   2) 去重关键是稳定 `client.instanceId`；没有稳定 instanceId 会出现重复实例行。
   3) Presence 有TTL（5分钟）与容量上限（200），天然是短期可观测面板，不能当长期资产台账。
+- 2026-04-01 17:48 heartbeat 学习笔记（Session Management）：
+  1) 多人DM场景建议开启 `dmScope=per-channel-peer`（或多账号用 per-account-channel-peer），避免跨人串上下文。
+  2) 会话reset可叠加 daily+idle，规则是“谁先过期谁生效”；排查“为何换新会话”要同时看两条。
+  3) 会话维护建议生产用 `maintenance.mode=enforce` 并同时设 `pruneAfter+maxEntries`，否则 sessions.json 与转储会持续膨胀。

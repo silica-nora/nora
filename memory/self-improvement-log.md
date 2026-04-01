@@ -4867,3 +4867,7 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/presence.md`（实例在线状态的生产与合并机制）。
   - 产出：沉淀 3 条规则（多源合并语义、instanceId去重关键、TTL/容量边界）。
   - 下一步：若后续出现实例重复/过期显示，优先核查 connect 与 system-event 是否复用同一 instanceId。
+- 时间：2026-04-01 17:48 CST
+  - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/session.md`（会话隔离、reset策略、维护治理）。
+  - 产出：沉淀 3 条规则（dmScope安全隔离、daily+idle并行过期机制、维护参数成组配置）。
+  - 下一步：后续若出现跨人上下文风险或会话膨胀，优先检查 dmScope 与 maintenance enforce 配置。
