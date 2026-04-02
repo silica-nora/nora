@@ -4931,3 +4931,12 @@
   - 做了什么：完成 heartbeat 强制巡检后，学习 OpenClaw 文档 `docs/concepts/agent-loop.md`（agent循环生命周期与wait语义）。
   - 产出：沉淀 3 条规则（会话串行防竞态、agent.wait等待边界、超时/重试缓冲重置）。
   - 下一步：后续若出现“等待超时但任务仍跑”现象，优先按 `agent.wait` 语义解释并检查 lifecycle 事件流。
+
+- 时间：2026-04-02 08:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 强制巡检后，学习 `automation/cron-vs-heartbeat.md`，提炼调度选型规则
+- 产出：
+  - 固化“准时任务用 cron、批量感知任务用 heartbeat”的二分决策法
+  - 固化“heartbeat+cron 组合优于多条碎片轮询”的成本与稳定性认知
+  - 将 3 条新规则写入 `memory/working-buffer.md`
+- 下一步：后续新增自动化需求时先做“精确时点/隔离需求”判定，再选 heartbeat 或 cron
