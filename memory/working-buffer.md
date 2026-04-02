@@ -4843,3 +4843,12 @@
   2) 该钩子必须同步执行，返回更新后的tool result或 `undefined` 保持原样。
   3) 适合做“落盘前规范化/脱敏”，不适合做耗时异步逻辑。
 - 落地动作：后续若需统一tool结果落盘格式，优先考虑该钩子而非事后清洗。
+
+## [2026-04-02 15:48 CST] Agent (Heartbeat自我强化-Cron实操与重试)
+
+- 学习文档：`docs/automation/cron-jobs.md`（CLI quickstart + troubleshooting片段）
+- 新增认知（3条）：
+  1) `cron run` 默认是 force 执行；若要仅在到期时运行需显式 `--due`。
+  2) recurring 任务连续失败会指数退避：30s→1m→5m→15m→60m，成功后自动重置。
+  3) 可用 `--exact` 关闭错峰；需精确触发场景建议明确设置，避免默认抖动影响预期。
+- 落地动作：后续手工触发诊断时优先用 `--due` 验证调度正确性，避免 force 造成误判。
