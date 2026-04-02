@@ -4949,3 +4949,12 @@
   - 固化“cron已跑但未投递”的判定路径（delivery/target/channel三层）
   - 固化 heartbeat 静默四类典型原因与对应检查入口
 - 下一步：后续出现定时任务异常时先跑标准命令梯，再决定是否调整配置或重启服务
+
+- 时间：2026-04-02 09:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 强制巡检后，学习 `automation/poll.md` 并整理跨渠道投票能力边界
+- 产出：
+  - 固化 WhatsApp/Discord/Teams 的 poll 参数差异
+  - 固化 Discord 多选与时长限制规则
+  - 固化 Teams 投票依赖网关在线记录状态的运维前提
+- 下一步：若后续需要发起投票，先按渠道能力模板做参数预检

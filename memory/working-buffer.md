@@ -4735,3 +4735,12 @@
   2) cron“不发消息”要先区分“任务未跑”与“delivery=none/目标缺失”，避免误判为系统故障。
   3) heartbeat 常见“静默”原因是 quiet-hours、main lane 忙、empty-heartbeat-file、alerts-disabled，需按原因定位。
 - 落地动作：后续遇到定时任务异常，优先按上述梯度排障并记录具体签名。
+
+## [2026-04-02 09:48 CST] Agent (Heartbeat自我强化-Poll能力)
+
+- 学习文档：`docs/automation/poll.md`
+- 新增认知（3条）：
+  1) Poll 原生支持主要是 WhatsApp/Discord/MS Teams，不同渠道选项上限与能力边界不同。
+  2) Discord 可多选但不支持“精确选N个”；`poll-duration-hours` 仅 Discord 生效（1-768h）。
+  3) Teams 轮询为 OpenClaw Adaptive Card 方案，投票记录依赖网关在线与本地状态文件。
+- 落地动作：后续做跨渠道投票前，先按渠道能力表约束参数，避免发送后才报错。
