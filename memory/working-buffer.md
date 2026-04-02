@@ -4807,3 +4807,12 @@
   2) `message:received` 与 `message:sent` 的 context 字段不同，排障时必须按方向看 from/to 与 success/error。
   3) Hook 可以通过 `event.messages.push()` 追加对用户可见消息，需避免误触发造成噪声。
 - 落地动作：后续写hook先做“事件方向+字段白名单”校验，再处理业务逻辑。
+
+## [2026-04-02 13:48 CST] Agent (Heartbeat自我强化-Poll参数约束复核)
+
+- 学习文档：`docs/automation/poll.md`（RPC参数与渠道差异）
+- 新增认知（3条）：
+  1) poll RPC 需要 `idempotencyKey`，可用于避免重复投票创建。
+  2) WhatsApp 要求 `maxSelections` 不超过选项数；Discord 不支持“精确N选”，仅支持是否多选。
+  3) Teams 投票是网关托管卡片，网关离线会影响投票记录落盘。
+- 落地动作：后续发起poll前先做“参数预检+渠道能力映射”，减少运行时报错。

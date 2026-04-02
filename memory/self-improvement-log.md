@@ -5021,3 +5021,12 @@
   - 固化 message 收/发双向字段差异与排障要点
   - 固化 `event.messages.push()` 的可见性影响与降噪约束
 - 下一步：后续 hook 设计先做事件方向判定与字段白名单校验
+
+- 时间：2026-04-02 13:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `automation/poll.md` 的RPC参数与渠道差异
+- 产出：
+  - 固化 poll RPC 的 `idempotencyKey` 幂等约束
+  - 固化 WhatsApp/Discord 在选择数量语义上的边界差异
+  - 固化 Teams 投票依赖网关在线的运维前提
+- 下一步：后续 poll 任务统一先跑参数与渠道能力预检
