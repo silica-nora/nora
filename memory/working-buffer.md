@@ -4834,3 +4834,12 @@
   2) 新配置结构建议走 `hooks.internal.entries.<hook>.enabled`，比 legacy handlers 更可维护。
   3) hook 变更后需要重启 gateway 进程才能重新加载，排障时要先确认是否重载生效。
 - 落地动作：后续 hook 异常先做“已发现→已启用→已重启”三步核验。
+
+## [2026-04-02 15:18 CST] Agent (Heartbeat自我强化-Hook持久化钩子)
+
+- 学习文档：`docs/automation/hooks.md`（tool_result_persist 段）
+- 新增认知（3条）：
+  1) `tool_result_persist` 属于插件级持久化前改写钩子，不是普通事件流hook。
+  2) 该钩子必须同步执行，返回更新后的tool result或 `undefined` 保持原样。
+  3) 适合做“落盘前规范化/脱敏”，不适合做耗时异步逻辑。
+- 落地动作：后续若需统一tool结果落盘格式，优先考虑该钩子而非事后清洗。
