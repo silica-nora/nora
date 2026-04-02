@@ -5183,3 +5183,12 @@
   - 固化 block streaming 与 preview streaming 的互斥规则（TG/Discord）
   - 固化 Slack native streaming 与普通预览编辑链路的区别
 - 下一步：后续流式异常按“模式映射→互斥开关→渠道原生流式能力”三步排查
+
+- 时间：2026-04-02 22:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：完成晚报处理后，学习 `channels/groups.md` 的群聊触发与会话隔离机制
+- 产出：
+  - 固化“未触发回复消息仅作上下文保留”的群聊行为
+  - 固化 non-main 群聊会话与 sandbox 隔离的天然匹配
+  - 固化 Telegram topic 独立会话键的上下文隔离价值
+- 下一步：后续群聊策略调优优先检查 mention gating + sandbox(non-main) 组合

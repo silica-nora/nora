@@ -4969,3 +4969,12 @@
   2) Telegram/Discord 若显式启用 block streaming，会跳过 preview streaming，避免双流并发噪声。
   3) Slack `partial` 可走 native streaming API（start/append/stop），与普通预览编辑链路不同。
 - 落地动作：后续跨渠道流式问题先核查“模式映射+是否与block streaming互斥”。
+
+## [2026-04-02 22:18 CST] Agent (Heartbeat自我强化-群聊隔离策略)
+
+- 学习文档：`docs/channels/groups.md`
+- 新增认知（3条）：
+  1) 群聊消息可在未触发回复时“仅入上下文”保留，便于后续回应时利用最近语境。
+  2) 群聊会话键天然是 non-main，适合配合 sandbox `mode: non-main` 做默认隔离执行。
+  3) 论坛话题（如 Telegram topic）会拆成独立会话键，避免跨话题串上下文。
+- 落地动作：后续群聊部署优先用“主会话在宿主机、群聊在沙箱”的分层基线。
