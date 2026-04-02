@@ -4726,3 +4726,12 @@
   2) heartbeat 负责“合并多检查+上下文感知”，cron 负责“精确时点+会话隔离+可单独模型”。
   3) 最优组合是“heartbeat做常规监控，cron做精确任务”；能显著降低碎片化轮询与token消耗。
 - 落地动作：后续新增定时任务先按“是否要求精确时点/是否需要隔离”二分决策。
+
+## [2026-04-02 09:18 CST] Agent (Heartbeat自我强化-自动化排障)
+
+- 学习文档：`docs/automation/troubleshooting.md`
+- 新增认知（3条）：
+  1) 自动化排障先走固定命令梯：`openclaw status`→`gateway status`→`logs --follow`→`doctor`→`channels status --probe`。
+  2) cron“不发消息”要先区分“任务未跑”与“delivery=none/目标缺失”，避免误判为系统故障。
+  3) heartbeat 常见“静默”原因是 quiet-hours、main lane 忙、empty-heartbeat-file、alerts-disabled，需按原因定位。
+- 落地动作：后续遇到定时任务异常，优先按上述梯度排障并记录具体签名。

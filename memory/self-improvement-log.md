@@ -4940,3 +4940,12 @@
   - 固化“heartbeat+cron 组合优于多条碎片轮询”的成本与稳定性认知
   - 将 3 条新规则写入 `memory/working-buffer.md`
 - 下一步：后续新增自动化需求时先做“精确时点/隔离需求”判定，再选 heartbeat 或 cron
+
+- 时间：2026-04-02 09:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 强制巡检后，学习 `automation/troubleshooting.md` 并沉淀 cron/heartbeat 排障流程
+- 产出：
+  - 固化自动化排障命令梯与优先级
+  - 固化“cron已跑但未投递”的判定路径（delivery/target/channel三层）
+  - 固化 heartbeat 静默四类典型原因与对应检查入口
+- 下一步：后续出现定时任务异常时先跑标准命令梯，再决定是否调整配置或重启服务
