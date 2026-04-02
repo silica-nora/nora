@@ -4960,3 +4960,12 @@
   2) `message_end` 模式不是“只发一条”，文本过长仍会在结束时按 chunker 切成多段发送。
   3) block streaming 分块受 `minChars/maxChars + 渠道textChunkLimit` 共同约束，且会保护代码围栏不被破坏。
 - 落地动作：后续若用户说“为什么结束时还分多条”，优先解释 message_end + chunker 共同作用。
+
+## [2026-04-02 21:48 CST] Agent (Heartbeat自我强化-跨渠道预览流式映射)
+
+- 学习文档：`docs/concepts/streaming.md`（channel mode mapping + runtime behavior）
+- 新增认知（3条）：
+  1) `progress` 在 Telegram/Discord 会映射到 `partial`，仅 Slack 保留独立 progress 语义。
+  2) Telegram/Discord 若显式启用 block streaming，会跳过 preview streaming，避免双流并发噪声。
+  3) Slack `partial` 可走 native streaming API（start/append/stop），与普通预览编辑链路不同。
+- 落地动作：后续跨渠道流式问题先核查“模式映射+是否与block streaming互斥”。

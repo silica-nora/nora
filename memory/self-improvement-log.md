@@ -5174,3 +5174,12 @@
   - 固化 message_end 仍可能多段输出的机制解释
   - 固化 chunker 与 channel textChunkLimit 联合作用及代码围栏保护
 - 下一步：后续输出体验调优先区分“预览反馈速度”与“最终分块策略”两条参数链
+
+- 时间：2026-04-02 21:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，补充学习 `concepts/streaming.md` 的渠道模式映射与运行时差异
+- 产出：
+  - 固化 progress 在 Telegram/Discord 的映射语义（partial）与 Slack 差异
+  - 固化 block streaming 与 preview streaming 的互斥规则（TG/Discord）
+  - 固化 Slack native streaming 与普通预览编辑链路的区别
+- 下一步：后续流式异常按“模式映射→互斥开关→渠道原生流式能力”三步排查
