@@ -4771,3 +4771,12 @@
   2) isolated 若未显式配置 delivery，默认是 `announce`（会对外投递摘要）；若不想对外发送需显式 `delivery.mode=none`。
   3) cron 顶点时刻会做确定性错峰（top-of-hour），可用 `--exact` 关闭或 `--stagger` 自定义抖动。
 - 落地动作：后续新增定时任务时先明确“是否允许默认announce外发”，避免误触达。
+
+## [2026-04-02 11:48 CST] Agent (Heartbeat自我强化-调度决策流)
+
+- 学习文档：`docs/automation/cron-vs-heartbeat.md`（决策流与组合策略复核）
+- 新增认知（3条）：
+  1) 选型顺序可固定为：先看“是否精确时间”→再看“是否需要隔离”→再看“是否可批量并入heartbeat”。
+  2) `cron(main)` 适合“把事件注入主会话并由下一次heartbeat处理”，不是等价于 isolated 独立执行。
+  3) 成本优化上，优先把可合并巡检放 heartbeat，把精确/一次性提醒留给 cron。
+- 落地动作：后续新增自动化需求先写一行“选型判定链”，再创建任务。

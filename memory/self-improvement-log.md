@@ -4985,3 +4985,12 @@
   - 固化 isolated 默认 `announce` 的外发风险点与规避方式
   - 固化 top-of-hour 确定性错峰与 `--exact/--stagger` 控制策略
 - 下一步：后续新增 cron 任务时默认先写明 delivery.mode，避免隐式外发
+
+- 时间：2026-04-02 11:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 强制巡检后，复核 `automation/cron-vs-heartbeat.md` 的决策流与成本策略
+- 产出：
+  - 固化“精确时间→隔离需求→批量可能性”的三步选型链
+  - 明确 `cron(main)` 与 `cron(isolated)` 的执行语义差异
+  - 固化“heartbeat承载批量巡检、cron承载精确定时”的成本最优原则
+- 下一步：新增任务时先写选型判定链，再落地配置
