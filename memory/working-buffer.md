@@ -4870,3 +4870,12 @@
   2) Lobster 适合多步骤+审批门；出现 `needs_approval` 需用 resumeToken 继续。
   3) 成本上 `cron(main)` 仅注入事件到主会话，而 `cron(isolated)` 是完整独立回合，开销更高但更干净。
 - 落地动作：后续复杂自动化先拆“触发层(heartbeat/cron)”与“执行层(Lobster)”再设计。
+
+## [2026-04-02 17:18 CST] Agent (Heartbeat自我强化-Hook配置迁移)
+
+- 学习文档：`docs/automation/hooks.md`（config + CLI 管理段）
+- 新增认知（3条）：
+  1) hook 推荐用 discovery 配置（`hooks.internal.entries`），legacy handlers 仅兼容保留。
+  2) legacy `module` 必须是 workspace 相对路径，绝对路径/越界路径会被拒绝。
+  3) 诊断顺序可标准化为：`hooks list`→`hooks info`→`hooks check`，快速定位发现/资格/启用问题。
+- 落地动作：后续hook治理优先做 legacy→entries 迁移，降低长期维护复杂度。

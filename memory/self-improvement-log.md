@@ -5084,3 +5084,12 @@
   - 固化 Lobster 审批续跑机制（needs_approval + resumeToken）
   - 固化 cron(main) 与 cron(isolated) 的成本与隔离权衡
 - 下一步：后续复杂任务设计先做分层图，再决定是否引入 Lobster
+
+- 时间：2026-04-02 17:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `automation/hooks.md` 的配置迁移与CLI诊断路径
+- 产出：
+  - 固化 discovery 配置优先、legacy 兼容保留的治理方向
+  - 固化 legacy module 路径安全边界（仅workspace相对路径）
+  - 固化 hooks 诊断三步：list/info/check
+- 下一步：后续遇到 hook 异常先跑三步诊断，再决定是否迁移配置
