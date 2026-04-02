@@ -4942,3 +4942,12 @@
   2) chunking 会优先避免切断 fenced code，分块策略可用 min/max 与 breakPreference 控制。
   3) reasoning 即使不展示，模型若产生仍计入token；展示策略应与成本策略联动。
 - 落地动作：后续出现“刷屏/截断/成本升高”时，优先联调 blockStreaming、coalesce、reasoning 可见性。
+
+## [2026-04-02 21:18 CST] Agent (Heartbeat自我强化-Queue模式复核)
+
+- 学习文档：`docs/concepts/queue.md`
+- 新增认知（3条）：
+  1) 默认 queue 模式已是 `collect`，可减少同会话多条消息导致的连发回复。
+  2) `steer-backlog` 会“当前插队 + 后续补回”，在流式场景容易被误感知为重复回复。
+  3) queue 策略可做会话级覆盖（`/queue collect debounce:2s cap:25 drop:summarize`），适合按场景调参。
+- 落地动作：后续若用户反馈“重复/刷屏”，先查是否误用了 steer-backlog，再收敛到 collect。

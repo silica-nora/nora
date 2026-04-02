@@ -5156,3 +5156,12 @@
   - 固化 chunking 的代码块保护与分块参数调优点
   - 固化 reasoning 可见性与 token 成本解耦但强相关的认知
 - 下一步：后续对外输出策略按“可读性(流式) × 成本(reasoning)”双目标调参
+
+- 时间：2026-04-02 21:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `concepts/queue.md` 的模式语义与会话级调参能力
+- 产出：
+  - 固化 collect 作为默认低噪模式的行为边界
+  - 固化 steer-backlog 可能引发“看似重复回复”的感知风险
+  - 固化 /queue 会话级覆盖参数的实操模板
+- 下一步：后续消息体验优化优先以 collect 为基线，再按场景调 debounce/cap/drop
