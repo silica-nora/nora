@@ -4816,3 +4816,12 @@
   2) WhatsApp 要求 `maxSelections` 不超过选项数；Discord 不支持“精确N选”，仅支持是否多选。
   3) Teams 投票是网关托管卡片，网关离线会影响投票记录落盘。
 - 落地动作：后续发起poll前先做“参数预检+渠道能力映射”，减少运行时报错。
+
+## [2026-04-02 14:18 CST] Agent (Heartbeat自我强化-Cron维护参数)
+
+- 学习文档：`docs/automation/cron-jobs.md`（storage/history/maintenance 段）
+- 新增认知（3条）：
+  1) cron 运行历史是 `cron/runs/<jobId>.jsonl`，会按 `runLog.maxBytes + keepLines` 自动裁剪。
+  2) isolated cron 会产生活动会话，默认 `sessionRetention=24h`，可缩短以控制体量。
+  3) 高频任务下应先收紧 retention 与 runLog 参数，优先降低IO和清理压力。
+- 落地动作：后续遇到 cron 高频场景，先做 retention/runLog 配置评估再扩任务。

@@ -5030,3 +5030,12 @@
   - 固化 WhatsApp/Discord 在选择数量语义上的边界差异
   - 固化 Teams 投票依赖网关在线的运维前提
 - 下一步：后续 poll 任务统一先跑参数与渠道能力预检
+
+- 时间：2026-04-02 14:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，学习 `automation/cron-jobs.md` 的存储与维护参数
+- 产出：
+  - 固化 run history 裁剪机制（maxBytes + keepLines）
+  - 固化 isolated run session 的 retention 风险与默认值认知
+  - 固化高频任务下先调 retention/runLog 再扩任务的运维策略
+- 下一步：后续 cron 设计评审加入“日志与会话增长预算”检查项
