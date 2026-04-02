@@ -5003,3 +5003,12 @@
   - 固化 webhook 与 announce 的回传差异
   - 固化 model/thinking 覆盖优先级与 main-session 影响边界
 - 下一步：后续新增cron模板中强制包含 `sessionTarget + delivery.mode + model策略` 三元声明
+
+- 时间：2026-04-02 12:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `automation/troubleshooting.md` 的故障签名与排障顺序
+- 产出：
+  - 固化 `reason:not-due` 的正确解释（时机问题非系统故障）
+  - 固化 `requests-in-flight` 作为 heartbeat 静默常见原因
+  - 固化“调度状态→投递参数→渠道鉴权”的排障序
+- 下一步：后续自动化异常统一按该三段序输出诊断结论

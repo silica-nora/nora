@@ -4789,3 +4789,12 @@
   2) `delivery.mode=webhook` 与 `announce` 不同，不会走频道投递，也不会回写主会话摘要。
   3) `payload.model/thinking` 覆盖优先级最高，且 main-session 覆盖模型会影响共享上下文，宜谨慎。
 - 落地动作：后续建cron统一显式写 `delivery.mode` 与 `sessionTarget`，避免隐式行为。
+
+## [2026-04-02 12:48 CST] Agent (Heartbeat自我强化-自动化故障签名)
+
+- 学习文档：`docs/automation/troubleshooting.md`（故障签名段复核）
+- 新增认知（3条）：
+  1) `reason:not-due` 属于手动运行时机问题，不是调度器坏掉。
+  2) heartbeat 静默除 quiet-hours 外，`requests-in-flight` 也常见，需先看主lane是否忙。
+  3) delivery 失败优先检查 `mode/channel/to` 三元配置，再看渠道鉴权错误。
+- 落地动作：后续排障记录统一按“调度状态→投递参数→渠道鉴权”顺序排查。
