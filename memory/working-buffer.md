@@ -4798,3 +4798,12 @@
   2) heartbeat 静默除 quiet-hours 外，`requests-in-flight` 也常见，需先看主lane是否忙。
   3) delivery 失败优先检查 `mode/channel/to` 三元配置，再看渠道鉴权错误。
 - 落地动作：后续排障记录统一按“调度状态→投递参数→渠道鉴权”顺序排查。
+
+## [2026-04-02 13:18 CST] Agent (Heartbeat自我强化-Hook事件上下文)
+
+- 学习文档：`docs/automation/hooks.md`（Event Context + Message Events）
+- 新增认知（3条）：
+  1) Hook event 有统一骨架：`type/action/sessionKey/timestamp/messages/context`，可作为调试最小字段集。
+  2) `message:received` 与 `message:sent` 的 context 字段不同，排障时必须按方向看 from/to 与 success/error。
+  3) Hook 可以通过 `event.messages.push()` 追加对用户可见消息，需避免误触发造成噪声。
+- 落地动作：后续写hook先做“事件方向+字段白名单”校验，再处理业务逻辑。
