@@ -4951,3 +4951,12 @@
   2) `steer-backlog` 会“当前插队 + 后续补回”，在流式场景容易被误感知为重复回复。
   3) queue 策略可做会话级覆盖（`/queue collect debounce:2s cap:25 drop:summarize`），适合按场景调参。
 - 落地动作：后续若用户反馈“重复/刷屏”，先查是否误用了 steer-backlog，再收敛到 collect。
+
+## [2026-04-02 21:48 CST] Agent (Heartbeat自我强化-Streaming双层机制)
+
+- 学习文档：`docs/concepts/streaming.md`
+- 新增认知（3条）：
+  1) OpenClaw 有“块流式(对外消息)”与“预览流式(TG/Discord/Slack编辑预览)”两层，非 token-delta 直推。
+  2) `message_end` 模式不是“只发一条”，文本过长仍会在结束时按 chunker 切成多段发送。
+  3) block streaming 分块受 `minChars/maxChars + 渠道textChunkLimit` 共同约束，且会保护代码围栏不被破坏。
+- 落地动作：后续若用户说“为什么结束时还分多条”，优先解释 message_end + chunker 共同作用。

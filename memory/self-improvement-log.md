@@ -5165,3 +5165,12 @@
   - 固化 steer-backlog 可能引发“看似重复回复”的感知风险
   - 固化 /queue 会话级覆盖参数的实操模板
 - 下一步：后续消息体验优化优先以 collect 为基线，再按场景调 debounce/cap/drop
+
+- 时间：2026-04-02 21:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，补充学习 `concepts/streaming.md` 的双层流式与分块边界
+- 产出：
+  - 固化块流式与预览流式分层模型
+  - 固化 message_end 仍可能多段输出的机制解释
+  - 固化 chunker 与 channel textChunkLimit 联合作用及代码围栏保护
+- 下一步：后续输出体验调优先区分“预览反馈速度”与“最终分块策略”两条参数链
