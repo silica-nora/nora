@@ -5147,3 +5147,12 @@
   - 固化文本防抖与附件即时flush的行为差异
   - 固化 group history pending-only 注入边界
 - 下一步：后续消息异常排障优先执行“去重→防抖→historyLimit”三段排查
+
+- 时间：2026-04-02 20:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `concepts/messages.md` 的 streaming/chunking 与 reasoning 可见性
+- 产出：
+  - 固化 block streaming 在非Telegram渠道需显式启用的门槛
+  - 固化 chunking 的代码块保护与分块参数调优点
+  - 固化 reasoning 可见性与 token 成本解耦但强相关的认知
+- 下一步：后续对外输出策略按“可读性(流式) × 成本(reasoning)”双目标调参

@@ -4933,3 +4933,12 @@
   2) 入站防抖按 channel+conversation 作用，文本可合并，附件消息会立即flush。
   3) 群聊历史是“pending-only”上下文，已入会话转录的消息不会重复注入。
 - 落地动作：后续出现“重复回复/漏上下文”时，先查 dedupe 与 debounce 及 historyLimit 配置。
+
+## [2026-04-02 20:48 CST] Agent (Heartbeat自我强化-Streaming与Reasoning可见性)
+
+- 学习文档：`docs/concepts/messages.md`（streaming/chunking + reasoning visibility）
+- 新增认知（3条）：
+  1) block streaming 是否生效受“全局默认+渠道显式开启”双重门控，非Telegram渠道需显式开关。
+  2) chunking 会优先避免切断 fenced code，分块策略可用 min/max 与 breakPreference 控制。
+  3) reasoning 即使不展示，模型若产生仍计入token；展示策略应与成本策略联动。
+- 落地动作：后续出现“刷屏/截断/成本升高”时，优先联调 blockStreaming、coalesce、reasoning 可见性。
