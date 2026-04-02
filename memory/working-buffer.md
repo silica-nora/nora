@@ -4897,3 +4897,12 @@
   2) 24小时运行应“省略 activeHours”或设 `00:00-24:00`，不要写同起止时间。
   3) 心跳可见性优先级：per-account > per-channel > defaults；三项全关会直接跳过模型调用。
 - 落地动作：后续若出现“心跳不跑/无消息”，优先核查 activeHours 窗口与 showOk/showAlerts/useIndicator 组合。
+
+## [2026-04-02 18:48 CST] Agent (Heartbeat自我强化-可见性策略与HEARTBEAT.md)
+
+- 学习文档：`docs/gateway/heartbeat.md`（visibility patterns + HEARTBEAT.md）
+- 新增认知（3条）：
+  1) `HEARTBEAT.md` 若仅空行/标题会触发“空文件跳过”机制，节省模型调用。
+  2) 可见性三开关可实现“全静默/仅指示器/单渠道显示OK”等策略化输出。
+  3) `includeReasoning=true` 会额外发送 `Reasoning:` 消息，适合排障，不适合群聊默认开启。
+- 落地动作：后续若需降本，优先保持 HEARTBEAT.md 小而实，并按场景收紧可见性开关。

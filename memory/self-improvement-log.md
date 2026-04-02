@@ -5111,3 +5111,12 @@
   - 固化 24/7 配置正确写法（省略activeHours或00:00-24:00）
   - 固化可见性配置优先级与“三项全关即跳过运行”的行为
 - 下一步：后续 heartbeat 问题排障先做“窗口配置+可见性开关”双检查
+
+- 时间：2026-04-02 18:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，补充学习 `gateway/heartbeat.md` 的可见性策略与 HEARTBEAT.md 行为
+- 产出：
+  - 固化 HEARTBEAT.md 空内容跳过机制与降本价值
+  - 固化 showOk/showAlerts/useIndicator 组合策略
+  - 固化 includeReasoning 的适用场景与风险边界
+- 下一步：后续按渠道场景细化可见性模板（私聊排障/群聊低噪）
