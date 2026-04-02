@@ -4879,3 +4879,12 @@
   2) legacy `module` 必须是 workspace 相对路径，绝对路径/越界路径会被拒绝。
   3) 诊断顺序可标准化为：`hooks list`→`hooks info`→`hooks check`，快速定位发现/资格/启用问题。
 - 落地动作：后续hook治理优先做 legacy→entries 迁移，降低长期维护复杂度。
+
+## [2026-04-02 17:48 CST] Agent (Heartbeat自我强化-ACK与投递边界)
+
+- 学习文档：`docs/gateway/heartbeat.md`
+- 新增认知（3条）：
+  1) heartbeat 下 `HEARTBEAT_OK` 仅在首尾位置触发 ack 语义；出现在中间不生效。
+  2) `HEARTBEAT_OK` 被识别后若剩余文本 ≤ `ackMaxChars` 会被丢弃（默认300），可控降噪。
+  3) heartbeat 默认 `target:none`，需要显式设 `target:last` 或指定频道才会外发提醒。
+- 落地动作：后续若出现“消息没发出/被吞”先核查 ack位置与 ackMaxChars 设置。

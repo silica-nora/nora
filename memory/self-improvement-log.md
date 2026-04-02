@@ -5093,3 +5093,12 @@
   - 固化 legacy module 路径安全边界（仅workspace相对路径）
   - 固化 hooks 诊断三步：list/info/check
 - 下一步：后续遇到 hook 异常先跑三步诊断，再决定是否迁移配置
+
+- 时间：2026-04-02 17:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，学习 `gateway/heartbeat.md` 的 ACK 规则与投递配置
+- 产出：
+  - 固化 HEARTBEAT_OK 首尾识别与中间无效的语义边界
+  - 固化 `ackMaxChars` 对消息保留/丢弃的噪声控制逻辑
+  - 固化 heartbeat 默认不外发（target:none）需显式目标配置
+- 下一步：后续 heartbeat 可见性问题优先检查 ack 与 target 配置
