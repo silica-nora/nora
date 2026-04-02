@@ -4744,3 +4744,12 @@
   2) Discord 可多选但不支持“精确选N个”；`poll-duration-hours` 仅 Discord 生效（1-768h）。
   3) Teams 轮询为 OpenClaw Adaptive Card 方案，投票记录依赖网关在线与本地状态文件。
 - 落地动作：后续做跨渠道投票前，先按渠道能力表约束参数，避免发送后才报错。
+
+## [2026-04-02 10:18 CST] Agent (Heartbeat自我强化-Agent Runtime)
+
+- 学习文档：`docs/concepts/agent.md`
+- 新增认知（3条）：
+  1) OpenClaw 默认单一主工作区；仅在启用 sandbox 时，非主会话可用 per-session workspace。
+  2) Bootstrap 文件会在新会话首轮注入上下文，缺失时注入“missing marker”，超大文件会被裁剪。
+  3) queue=steer 模式下，工具调用后会检查排队消息；若有新消息会中止剩余工具链并转入新用户输入。
+- 落地动作：后续排障会先判断是否受 queue 模式与上下文注入裁剪影响。
