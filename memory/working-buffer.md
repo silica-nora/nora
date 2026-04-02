@@ -4852,3 +4852,12 @@
   2) recurring 任务连续失败会指数退避：30s→1m→5m→15m→60m，成功后自动重置。
   3) 可用 `--exact` 关闭错峰；需精确触发场景建议明确设置，避免默认抖动影响预期。
 - 落地动作：后续手工触发诊断时优先用 `--due` 验证调度正确性，避免 force 造成误判。
+
+## [2026-04-02 16:18 CST] Agent (Heartbeat自我强化-Cron边界案例)
+
+- 学习文档：`docs/automation/cron-jobs.md`（troubleshooting尾段）
+- 新增认知（3条）：
+  1) one-shot `at` 任务在终态（ok/error/skipped）后会禁用，不会重试。
+  2) Telegram 话题投递建议显式 `-100...:topic:<id>`，减少目标歧义。
+  3) subagent announce 有重试与5分钟过期保护，排障可看 `announceRetryCount`。
+- 落地动作：后续遇到“没再触发”的一次性任务先核查是否已进入终态禁用。

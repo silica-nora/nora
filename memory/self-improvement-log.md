@@ -5066,3 +5066,12 @@
   - 固化 recurring 失败指数退避梯度与重置条件
   - 固化 `--exact` 对时间抖动的控制边界
 - 下一步：后续 cron 排障默认先用 `--due` + runs历史联合判断
+
+- 时间：2026-04-02 16:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，补充复核 `automation/cron-jobs.md` 的边界排障案例
+- 产出：
+  - 固化 one-shot 终态后禁用且不重试规则
+  - 固化 Telegram topic 目标格式的显式写法
+  - 固化 subagent announce 重试计数与过期保护机制
+- 下一步：后续排障清单加入“终态禁用/target格式/announceRetryCount”三项快检
