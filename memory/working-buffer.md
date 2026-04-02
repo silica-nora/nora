@@ -4762,3 +4762,12 @@
   2) Hook 发现优先级是 workspace > managed > bundled；同名以高优先级覆盖。
   3) Hook 需“快返回+早过滤+容错不抛出”，避免阻塞命令链路和影响其他处理器。
 - 落地动作：后续扩展自动化时优先写细粒度事件钩子（如 command:new），避免用过宽事件造成性能噪声。
+
+## [2026-04-02 11:18 CST] Agent (Heartbeat自我强化-Cron Jobs)
+
+- 学习文档：`docs/automation/cron-jobs.md`
+- 新增认知（3条）：
+  1) cron 支持 main/isolated 两种执行路径：main走系统事件+heartbeat，isolated走 `cron:<jobId>` 独立回合。
+  2) isolated 若未显式配置 delivery，默认是 `announce`（会对外投递摘要）；若不想对外发送需显式 `delivery.mode=none`。
+  3) cron 顶点时刻会做确定性错峰（top-of-hour），可用 `--exact` 关闭或 `--stagger` 自定义抖动。
+- 落地动作：后续新增定时任务时先明确“是否允许默认announce外发”，避免误触达。

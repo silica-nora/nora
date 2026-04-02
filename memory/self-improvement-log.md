@@ -4976,3 +4976,12 @@
   - 固化 Hook 目录发现优先级与覆盖规则
   - 固化 Hook 处理器性能与容错最佳实践（快返回、早过滤、异常吞吐）
 - 下一步：若新增自动化能力，优先用窄事件订阅并保持非阻塞实现
+
+- 时间：2026-04-02 11:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 强制巡检后，学习 `automation/cron-jobs.md` 并提炼调度与投递边界
+- 产出：
+  - 固化 main 与 isolated cron 的执行路径差异
+  - 固化 isolated 默认 `announce` 的外发风险点与规避方式
+  - 固化 top-of-hour 确定性错峰与 `--exact/--stagger` 控制策略
+- 下一步：后续新增 cron 任务时默认先写明 delivery.mode，避免隐式外发
