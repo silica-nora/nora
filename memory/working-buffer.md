@@ -4906,3 +4906,12 @@
   2) 可见性三开关可实现“全静默/仅指示器/单渠道显示OK”等策略化输出。
   3) `includeReasoning=true` 会额外发送 `Reasoning:` 消息，适合排障，不适合群聊默认开启。
 - 落地动作：后续若需降本，优先保持 HEARTBEAT.md 小而实，并按场景收紧可见性开关。
+
+## [2026-04-02 19:18 CST] Agent (Heartbeat自我强化-Timezone复核)
+
+- 学习文档：`docs/concepts/timezone.md`
+- 新增认知（3条）：
+  1) 消息 envelope 时间默认是 host-local，可通过 `envelopeTimezone` 切到 utc/user/指定IANA。
+  2) 即使保留原始provider时间，工具结果也会给 `timestampMs` 与 `timestampUtc` 两个标准化字段。
+  3) `agents.defaults.userTimezone` 未设置时会运行时回退 host 时区，不会自动写回配置。
+- 落地动作：后续若出现“时间对不上”，先区分 envelope 展示时区与工具标准化字段。

@@ -5120,3 +5120,12 @@
   - 固化 showOk/showAlerts/useIndicator 组合策略
   - 固化 includeReasoning 的适用场景与风险边界
 - 下一步：后续按渠道场景细化可见性模板（私聊排障/群聊低噪）
+
+- 时间：2026-04-02 19:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `concepts/timezone.md` 的时间标准化与时区回退逻辑
+- 产出：
+  - 固化 envelopeTimezone 的展示层作用与可选模式
+  - 固化工具结果标准化时间字段（timestampMs/timestampUtc）
+  - 固化 userTimezone 未配置时的 host runtime 回退行为
+- 下一步：后续时间相关排障先做“展示层时区 vs 数据层时间戳”分层核查
