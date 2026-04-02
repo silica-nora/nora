@@ -5129,3 +5129,12 @@
   - 固化工具结果标准化时间字段（timestampMs/timestampUtc）
   - 固化 userTimezone 未配置时的 host runtime 回退行为
 - 下一步：后续时间相关排障先做“展示层时区 vs 数据层时间戳”分层核查
+
+- 时间：2026-04-02 19:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `date-time.md` 的提示层与工具层时间语义
+- 产出：
+  - 固化“当前时间需用 session_status 获取”的操作约定
+  - 固化 system event 与 envelope 同时区链路的认知
+  - 固化 provider原始时间与标准化字段并存的解析策略
+- 下一步：后续时间相关输出优先引用标准字段并保留原始字段用于溯源

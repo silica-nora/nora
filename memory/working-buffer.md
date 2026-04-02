@@ -4915,3 +4915,12 @@
   2) 即使保留原始provider时间，工具结果也会给 `timestampMs` 与 `timestampUtc` 两个标准化字段。
   3) `agents.defaults.userTimezone` 未设置时会运行时回退 host 时区，不会自动写回配置。
 - 落地动作：后续若出现“时间对不上”，先区分 envelope 展示时区与工具标准化字段。
+
+## [2026-04-02 19:48 CST] Agent (Heartbeat自我强化-Date-Time复核)
+
+- 学习文档：`docs/date-time.md`
+- 新增认知（3条）：
+  1) 系统提示里“Current Date & Time”默认只给时区，不直接给时钟值；取当前时间应走 `session_status`。
+  2) system event 行的时间前缀与 envelope 同一时区选择链路（默认host-local）。
+  3) 渠道工具返回“provider原始时间 + timestampMs/timestampUtc标准字段”双轨并存。
+- 落地动作：后续时间问题排障时，先区分“提示层时区信息”与“工具层原始/标准双字段”。
