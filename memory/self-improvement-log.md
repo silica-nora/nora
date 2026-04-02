@@ -5039,3 +5039,12 @@
   - 固化 isolated run session 的 retention 风险与默认值认知
   - 固化高频任务下先调 retention/runLog 再扩任务的运维策略
 - 下一步：后续 cron 设计评审加入“日志与会话增长预算”检查项
+
+- 时间：2026-04-02 14:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `automation/hooks.md` 的创建、启用与配置流程
+- 产出：
+  - 固化自定义 hook 最小文件结构与启用路径
+  - 固化新配置 `hooks.internal.entries` 的维护优势
+  - 固化“变更后需重启 gateway 才生效”的关键排障前提
+- 下一步：后续 hook 问题先跑“发现/启用/重启”三步核验清单

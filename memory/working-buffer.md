@@ -4825,3 +4825,12 @@
   2) isolated cron 会产生活动会话，默认 `sessionRetention=24h`，可缩短以控制体量。
   3) 高频任务下应先收紧 retention 与 runLog 参数，优先降低IO和清理压力。
 - 落地动作：后续遇到 cron 高频场景，先做 retention/runLog 配置评估再扩任务。
+
+## [2026-04-02 14:48 CST] Agent (Heartbeat自我强化-Hook落地流程)
+
+- 学习文档：`docs/automation/hooks.md`（创建与启用流程段）
+- 新增认知（3条）：
+  1) 自定义 hook 最小闭环是 `HOOK.md + handler.ts`，并通过 `openclaw hooks enable` 显式启用。
+  2) 新配置结构建议走 `hooks.internal.entries.<hook>.enabled`，比 legacy handlers 更可维护。
+  3) hook 变更后需要重启 gateway 进程才能重新加载，排障时要先确认是否重载生效。
+- 落地动作：后续 hook 异常先做“已发现→已启用→已重启”三步核验。
