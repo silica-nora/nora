@@ -4753,3 +4753,12 @@
   2) Bootstrap 文件会在新会话首轮注入上下文，缺失时注入“missing marker”，超大文件会被裁剪。
   3) queue=steer 模式下，工具调用后会检查排队消息；若有新消息会中止剩余工具链并转入新用户输入。
 - 落地动作：后续排障会先判断是否受 queue 模式与上下文注入裁剪影响。
+
+## [2026-04-02 10:48 CST] Agent (Heartbeat自我强化-Hooks)
+
+- 学习文档：`docs/automation/hooks.md`
+- 新增认知（3条）：
+  1) Hook 与 Webhook 分工不同：Hook监听网关内部事件，Webhook是外部HTTP触发入口。
+  2) Hook 发现优先级是 workspace > managed > bundled；同名以高优先级覆盖。
+  3) Hook 需“快返回+早过滤+容错不抛出”，避免阻塞命令链路和影响其他处理器。
+- 落地动作：后续扩展自动化时优先写细粒度事件钩子（如 command:new），避免用过宽事件造成性能噪声。
