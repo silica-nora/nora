@@ -5102,3 +5102,12 @@
   - 固化 `ackMaxChars` 对消息保留/丢弃的噪声控制逻辑
   - 固化 heartbeat 默认不外发（target:none）需显式目标配置
 - 下一步：后续 heartbeat 可见性问题优先检查 ack 与 target 配置
+
+- 时间：2026-04-02 18:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，补充学习 `gateway/heartbeat.md` 的 activeHours 与可见性控制
+- 产出：
+  - 固化 activeHours 同起止导致零宽窗口的高频误配风险
+  - 固化 24/7 配置正确写法（省略activeHours或00:00-24:00）
+  - 固化可见性配置优先级与“三项全关即跳过运行”的行为
+- 下一步：后续 heartbeat 问题排障先做“窗口配置+可见性开关”双检查

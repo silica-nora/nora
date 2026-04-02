@@ -4888,3 +4888,12 @@
   2) `HEARTBEAT_OK` 被识别后若剩余文本 ≤ `ackMaxChars` 会被丢弃（默认300），可控降噪。
   3) heartbeat 默认 `target:none`，需要显式设 `target:last` 或指定频道才会外发提醒。
 - 落地动作：后续若出现“消息没发出/被吞”先核查 ack位置与 ackMaxChars 设置。
+
+## [2026-04-02 18:18 CST] Agent (Heartbeat自我强化-ActiveHours与可见性)
+
+- 学习文档：`docs/gateway/heartbeat.md`（activeHours + visibility controls）
+- 新增认知（3条）：
+  1) `activeHours` 中 `start=end` 会被视为零宽窗口，导致心跳始终跳过。
+  2) 24小时运行应“省略 activeHours”或设 `00:00-24:00`，不要写同起止时间。
+  3) 心跳可见性优先级：per-account > per-channel > defaults；三项全关会直接跳过模型调用。
+- 落地动作：后续若出现“心跳不跑/无消息”，优先核查 activeHours 窗口与 showOk/showAlerts/useIndicator 组合。
