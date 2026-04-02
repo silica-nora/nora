@@ -4994,3 +4994,12 @@
   - 明确 `cron(main)` 与 `cron(isolated)` 的执行语义差异
   - 固化“heartbeat承载批量巡检、cron承载精确定时”的成本最优原则
 - 下一步：新增任务时先写选型判定链，再落地配置
+
+- 时间：2026-04-02 12:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，补充学习 `automation/cron-jobs.md` 的 delivery/override 细节
+- 产出：
+  - 固化 isolated 默认 announce 的外发风险
+  - 固化 webhook 与 announce 的回传差异
+  - 固化 model/thinking 覆盖优先级与 main-session 影响边界
+- 下一步：后续新增cron模板中强制包含 `sessionTarget + delivery.mode + model策略` 三元声明

@@ -4780,3 +4780,12 @@
   2) `cron(main)` 适合“把事件注入主会话并由下一次heartbeat处理”，不是等价于 isolated 独立执行。
   3) 成本优化上，优先把可合并巡检放 heartbeat，把精确/一次性提醒留给 cron。
 - 落地动作：后续新增自动化需求先写一行“选型判定链”，再创建任务。
+
+## [2026-04-02 12:18 CST] Agent (Heartbeat自我强化-Cron投递细节)
+
+- 学习文档：`docs/automation/cron-jobs.md`（delivery与覆盖规则段）
+- 新增认知（3条）：
+  1) isolated cron 若省略 delivery，会默认 `announce`；这意味着可能自动对外发送摘要。
+  2) `delivery.mode=webhook` 与 `announce` 不同，不会走频道投递，也不会回写主会话摘要。
+  3) `payload.model/thinking` 覆盖优先级最高，且 main-session 覆盖模型会影响共享上下文，宜谨慎。
+- 落地动作：后续建cron统一显式写 `delivery.mode` 与 `sessionTarget`，避免隐式行为。
