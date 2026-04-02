@@ -4861,3 +4861,12 @@
   2) Telegram 话题投递建议显式 `-100...:topic:<id>`，减少目标歧义。
   3) subagent announce 有重试与5分钟过期保护，排障可看 `announceRetryCount`。
 - 落地动作：后续遇到“没再触发”的一次性任务先核查是否已进入终态禁用。
+
+## [2026-04-02 16:48 CST] Agent (Heartbeat自我强化-Lobster与调度分层)
+
+- 学习文档：`docs/automation/cron-vs-heartbeat.md`（Lobster + 成本分层段）
+- 新增认知（3条）：
+  1) heartbeat/cron 决定“何时触发”，Lobster 决定“如何按步骤执行”（时序与流程分层）。
+  2) Lobster 适合多步骤+审批门；出现 `needs_approval` 需用 resumeToken 继续。
+  3) 成本上 `cron(main)` 仅注入事件到主会话，而 `cron(isolated)` 是完整独立回合，开销更高但更干净。
+- 落地动作：后续复杂自动化先拆“触发层(heartbeat/cron)”与“执行层(Lobster)”再设计。

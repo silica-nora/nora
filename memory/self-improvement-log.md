@@ -5075,3 +5075,12 @@
   - 固化 Telegram topic 目标格式的显式写法
   - 固化 subagent announce 重试计数与过期保护机制
 - 下一步：后续排障清单加入“终态禁用/target格式/announceRetryCount”三项快检
+
+- 时间：2026-04-02 16:48 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `automation/cron-vs-heartbeat.md` 的 Lobster 与成本分层内容
+- 产出：
+  - 固化“触发层(heartbeat/cron) vs 执行层(Lobster)”分层框架
+  - 固化 Lobster 审批续跑机制（needs_approval + resumeToken）
+  - 固化 cron(main) 与 cron(isolated) 的成本与隔离权衡
+- 下一步：后续复杂任务设计先做分层图，再决定是否引入 Lobster
