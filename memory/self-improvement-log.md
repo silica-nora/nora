@@ -5138,3 +5138,12 @@
   - 固化 system event 与 envelope 同时区链路的认知
   - 固化 provider原始时间与标准化字段并存的解析策略
 - 下一步：后续时间相关输出优先引用标准字段并保留原始字段用于溯源
+
+- 时间：2026-04-02 20:18 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 巡检后，复核 `concepts/messages.md` 的消息流/去重/防抖机制
+- 产出：
+  - 固化入站去重键维度与防重触发机制
+  - 固化文本防抖与附件即时flush的行为差异
+  - 固化 group history pending-only 注入边界
+- 下一步：后续消息异常排障优先执行“去重→防抖→historyLimit”三段排查

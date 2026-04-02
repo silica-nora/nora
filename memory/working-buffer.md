@@ -4924,3 +4924,12 @@
   2) system event 行的时间前缀与 envelope 同一时区选择链路（默认host-local）。
   3) 渠道工具返回“provider原始时间 + timestampMs/timestampUtc标准字段”双轨并存。
 - 落地动作：后续时间问题排障时，先区分“提示层时区信息”与“工具层原始/标准双字段”。
+
+## [2026-04-02 20:18 CST] Agent (Heartbeat自我强化-Messages链路)
+
+- 学习文档：`docs/concepts/messages.md`
+- 新增认知（3条）：
+  1) 入站消息有短时去重缓存（按channel/account/peer/session/message id），可防重连重复触发。
+  2) 入站防抖按 channel+conversation 作用，文本可合并，附件消息会立即flush。
+  3) 群聊历史是“pending-only”上下文，已入会话转录的消息不会重复注入。
+- 落地动作：后续出现“重复回复/漏上下文”时，先查 dedupe 与 debounce 及 historyLimit 配置。
