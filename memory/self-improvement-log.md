@@ -5260,3 +5260,8 @@
 - 产出：沉淀 3 条会话治理规则（文档入口别名识别、DM 隔离优先级、maintenance 双阈值策略）。
 - 下一步：后续若出现私聊上下文串扰或 sessions.json 膨胀，先核查 dmScope 与 maintenance(enforce+pruneAfter+maxEntries)。
 
+## 2026-04-04 07:18 (Asia/Shanghai)
+- 动作：夜间 heartbeat 完成巡检后，执行 1 项非股票自我强化（复核 `concepts/streaming.md`）。
+- 产出：沉淀 3 条实践规则（双层流式边界、block与preview互斥点、流式调参顺序）。
+- 下一步：若后续出现“重复发送/多气泡噪声”，优先检查是否误开 blockStreaming + preview 双路径。
+

@@ -5133,3 +5133,7 @@
   1) `sessions.md` 只是别名入口，实质规则在 `session.md`（避免读错文档导致空转）；
   2) 多用户私聊场景应优先 `session.dmScope=per-channel-peer`（或多账号用 per-account-channel-peer）防串话；
   3) 会话存储治理建议在生产使用 `maintenance.mode=enforce`，并同时设置 `pruneAfter + maxEntries`，避免只靠单阈值失控。
+- 2026-04-04 07:18 复核 `docs/concepts/streaming.md`：
+  1) OpenClaw有两层流式：block回复与preview预览，频道里并非token级delta；
+  2) 若频道显式开启 blockStreaming，Telegram/Discord 预览流会跳过，避免双流导致“看起来重复”；
+  3) 调参顺序：先定 blockStreamingBreak（text_end/message_end）→ 再调 chunk/coalesce → 最后按频道上限(textChunkLimit/maxLines)收口。
