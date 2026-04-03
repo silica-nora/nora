@@ -5125,3 +5125,7 @@
   1) pruning 只改本次发给模型的内存上下文，不改磁盘 jsonl 历史；
   2) `cache-ttl` 触发点是“上次 Anthropic 调用超过 ttl”，首轮可降 cacheWrite 成本；
   3) image 类 toolResult 不裁剪，排障时需先区分“文本膨胀”与“图片结果保留”。
+- 2026-04-04 06:18 学习 `docs/concepts/typing-indicators.md`：
+  1) typingMode 未设置时沿用 legacy：私聊/被@群聊即时，未@群聊在首条文本流才触发；
+  2) 模式触发早晚顺序：never → message → thinking → instant；
+  3) 心跳任务永不显示 typing，`typingIntervalSeconds` 只影响刷新频率，不影响起始时机。

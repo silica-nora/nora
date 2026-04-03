@@ -5250,3 +5250,8 @@
 - 产出：固化 3 条规则（内存态裁剪边界、cache-ttl 成本触发点、image toolResult 不裁剪例外）。
 - 下一步：若出现上下文膨胀，先按“是否 Anthropic + 是否过 ttl + 是否图片结果”三步快速判因。
 
+## 2026-04-04 06:18 (Asia/Shanghai)
+- 动作：夜间 heartbeat 完成巡检后，执行 1 项非股票自我强化（阅读 `concepts/typing-indicators.md`）。
+- 产出：沉淀 3 条规则（legacy 默认触发边界、四档模式触发顺序、heartbeat 不显示 typing + interval 仅刷新）。
+- 下一步：若出现“群聊输入中提示时机不对”反馈，优先检查 typingMode 与是否 mention，再看 interval。
+
