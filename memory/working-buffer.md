@@ -5121,3 +5121,7 @@
   2) Session 存在 profile 粘性，自动选择的 profile 失败时可轮换，用户手动 pin 的 profile 不自动轮换；
   3) 计费失败会走 disabled 长退避（5h 起步、上限24h），应与短期限流冷却区分处理。
 - 2026-04-04 05:18 学习             `docs/concepts/context.md`：1) “Context” is **everything OpenClaw sends to the model for a run**. It is bounded by the model’s **context window** (token limit).; 2) - You want to reduce context overhead (/context, /status, /compact); 3) summary: "Context: what the model sees, how it is built, and how to inspect it"
+- 2026-04-04 05:48 学习 `docs/concepts/session-pruning.md`：
+  1) pruning 只改本次发给模型的内存上下文，不改磁盘 jsonl 历史；
+  2) `cache-ttl` 触发点是“上次 Anthropic 调用超过 ttl”，首轮可降 cacheWrite 成本；
+  3) image 类 toolResult 不裁剪，排障时需先区分“文本膨胀”与“图片结果保留”。

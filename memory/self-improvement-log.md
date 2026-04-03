@@ -5245,3 +5245,8 @@
 - 产出：1) “Context” is **everything OpenClaw sends to the model for a run**. It is bounded by the model’s **context window** (token limit).; 2) - You want to reduce context overhead (/context, /status, /compact); 3) summary: "Context: what the model sees, how it is built, and how to inspect it"
 - 下一步：后续若出现上下文膨胀，优先做“信息分层 + 工具输出精简 + 会话裁剪”。
 
+## 2026-04-04 05:48 (Asia/Shanghai)
+- 动作：夜间 heartbeat 强制巡检后，执行 1 项非股票自我强化（阅读 `concepts/session-pruning.md`）。
+- 产出：固化 3 条规则（内存态裁剪边界、cache-ttl 成本触发点、image toolResult 不裁剪例外）。
+- 下一步：若出现上下文膨胀，先按“是否 Anthropic + 是否过 ttl + 是否图片结果”三步快速判因。
+
