@@ -5265,3 +5265,8 @@
 - 产出：沉淀 3 条实践规则（双层流式边界、block与preview互斥点、流式调参顺序）。
 - 下一步：若后续出现“重复发送/多气泡噪声”，优先检查是否误开 blockStreaming + preview 双路径。
 
+## 2026-04-04 07:48 (Asia/Shanghai)
+- 动作：夜间 heartbeat 完成强制巡检后，执行 1 项非股票自我强化（复核 `docs/concepts/usage-tracking.md`）。
+- 产出：沉淀 3 条规则（官方端点真源、多入口同能力、排障先查凭证）。
+- 下一步：后续若出现“/status 看不到 usage”，优先按“认证存在性 → provider支持性 →入口配置”顺序排查。
+

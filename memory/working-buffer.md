@@ -5137,3 +5137,7 @@
   1) OpenClaw有两层流式：block回复与preview预览，频道里并非token级delta；
   2) 若频道显式开启 blockStreaming，Telegram/Discord 预览流会跳过，避免双流导致“看起来重复”；
   3) 调参顺序：先定 blockStreamingBreak（text_end/message_end）→ 再调 chunk/coalesce → 最后按频道上限(textChunkLimit/maxLines)收口。
+- 2026-04-04 07:48 复核 `docs/concepts/usage-tracking.md`：
+  1) provider usage 以官方 usage endpoint 为准，不做估算替代；
+  2) `/status`、`/usage`、`openclaw status --usage`、`channels list` 是同一能力的不同展示面；
+  3) 无匹配凭证时 usage 会隐藏，排障先看认证是否存在再看功能本身。
