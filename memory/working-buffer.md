@@ -5129,3 +5129,7 @@
   1) typingMode 未设置时沿用 legacy：私聊/被@群聊即时，未@群聊在首条文本流才触发；
   2) 模式触发早晚顺序：never → message → thinking → instant；
   3) 心跳任务永不显示 typing，`typingIntervalSeconds` 只影响刷新频率，不影响起始时机。
+- 2026-04-04 06:48 学习 `docs/concepts/sessions.md` + `docs/concepts/session.md`：
+  1) `sessions.md` 只是别名入口，实质规则在 `session.md`（避免读错文档导致空转）；
+  2) 多用户私聊场景应优先 `session.dmScope=per-channel-peer`（或多账号用 per-account-channel-peer）防串话；
+  3) 会话存储治理建议在生产使用 `maintenance.mode=enforce`，并同时设置 `pruneAfter + maxEntries`，避免只靠单阈值失控。

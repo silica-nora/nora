@@ -5255,3 +5255,8 @@
 - 产出：沉淀 3 条规则（legacy 默认触发边界、四档模式触发顺序、heartbeat 不显示 typing + interval 仅刷新）。
 - 下一步：若出现“群聊输入中提示时机不对”反馈，优先检查 typingMode 与是否 mention，再看 interval。
 
+## 2026-04-04 06:48 (Asia/Shanghai)
+- 动作：夜间 heartbeat 完成强制巡检后，执行 1 项非股票自我强化（阅读 `concepts/sessions.md` 并追到 canonical `concepts/session.md`）。
+- 产出：沉淀 3 条会话治理规则（文档入口别名识别、DM 隔离优先级、maintenance 双阈值策略）。
+- 下一步：后续若出现私聊上下文串扰或 sessions.json 膨胀，先核查 dmScope 与 maintenance(enforce+pruneAfter+maxEntries)。
+
