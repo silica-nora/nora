@@ -5116,3 +5116,7 @@
   1) 入站默认应优先 `collect`，可减少“多条连续回复”与重复感；
   2) `steer-backlog` 会产生“当前转向 + 后续补回”双响应，默认仅在明确需要时用；
   3) 队列调优优先级：先看 `debounceMs` 抑制抖动，再看 `cap/drop` 控拥塞，最后再调全局并发。
+- 2026-04-04 04:48 学习 `docs/concepts/model-failover.md`：
+  1) Failover 两阶段：先轮换同 provider 的 auth profile，再切换 fallback model；
+  2) Session 存在 profile 粘性，自动选择的 profile 失败时可轮换，用户手动 pin 的 profile 不自动轮换；
+  3) 计费失败会走 disabled 长退避（5h 起步、上限24h），应与短期限流冷却区分处理。

@@ -5235,3 +5235,8 @@
 - 产出：沉淀 3 条可执行规则（collect 默认优先、steer-backlog 双响应风险、队列调参顺序）。
 - 下一步：后续若出现“同一会话多次碎片回复”或“排队体感慢”，按 debounce→cap/drop→maxConcurrent 的顺序排障。
 
+## 2026-04-04 04:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/model-failover.md`）。
+- 产出：沉淀 3 条 failover 操作规则（两阶段策略、profile 粘性边界、billing 长退避）。
+- 下一步：若后续出现连续 429/认证失败，按“profile 冷却状态 → 是否手动 pin → fallback 链完整性”顺序排障。
+
