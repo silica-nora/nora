@@ -5192,3 +5192,46 @@
   - 固化 non-main 群聊会话与 sandbox 隔离的天然匹配
   - 固化 Telegram topic 独立会话键的上下文隔离价值
 - 下一步：后续群聊策略调优优先检查 mention gating + sandbox(non-main) 组合
+
+## 2026-04-03 06:48 CST
+- 类型：非股票类能力强化（OpenClaw 文档学习）
+- 动作：阅读 `docs/concepts/sessions.md`（别名页）与 `docs/concepts/session.md`（正文）
+- 产出：沉淀3条可执行规则（DM隔离、gateway单一真源、maintenance enforce+双阈值）并写入 `memory/working-buffer.md`
+- 下一步：下轮可补充 `openclaw security audit` 的最小核验脚本，形成“配置→审计→修正”闭环清单
+- 2026-04-03 09:19:27 CST｜heartbeat 自我强化：学习 docs/concepts/session-tool.md；产出：会话工具职责边界、send 等待/超时语义、sandbox 可见性最小权限 3 条执行规则；下一步：在跨会话协作前优先用 sessions_list(messageLimit=0)+history 点查，避免全量拉取。
+- 2026-04-03 09:49:08 CST｜heartbeat 自我强化：复核 docs/concepts/session.md；产出：secure DM 分桶策略、gateway 单一真源、maintenance 双阈值控量 3 条执行规则；下一步：后续若出现多人私聊接入，优先检查 dmScope 与 identityLinks 是否匹配。
+- 2026-04-03 10:19:56 CST｜heartbeat 自我强化：学习 docs/concepts/session-pruning.md；产出：pruning 作用边界、cache-ttl 成本机制、图像结果不裁剪约束 3 条执行规则；下一步：遇到上下文膨胀时优先检查 pruning 与 compaction 配置是否协同。
+- 2026-04-03 10:49:04 CST｜heartbeat 自我强化：学习 docs/concepts/retry.md；产出：请求级重试边界、Discord/Telegram 差异策略、Markdown 失败降级文本 3 条规则；下一步：遇到发送失败先分辨 429/瞬态错误/解析错误再选路径。
+- 2026-04-03 11:19:10 CST｜heartbeat 自我强化：学习 docs/concepts/usage-tracking.md；产出：官方端点优先、多入口一致性、凭证门控可见性 3 条规则；下一步：后续遇到“看不到用量”先排查凭证类型与provider映射。
+- 2026-04-03 11:49:05 CST｜heartbeat 自我强化：复核 docs/concepts/model-failover.md；产出：profile轮换优先级、会话粘性边界、billing禁用长退避 3 条执行规则；下一步：若再次出现 provider 报错，先判定是 rate-limit/timeout 还是 billing，再决定轮换与fallback路径。
+- 2026-04-03 12:19:07 CST｜heartbeat 自我强化：复核 docs/concepts/messages.md；产出：入站去重键、防抖与媒体flush边界、group pending-only历史语义 3 条规则；下一步：排查群聊上下文异常时先核对 historyLimit 与 pending-only 是否符合预期。
+- 2026-04-03 12:49:20 CST｜heartbeat 自我强化：复核 docs/concepts/queue.md；产出：session+global 双lane语义、collect与steer-backlog取舍、队列拥塞调参路径 3 条规则；下一步：若再现“重复回复”体感，先检查会话是否误设 steer-backlog。
+- 2026-04-03 13:19:21 CST｜heartbeat 自我强化：复核 docs/concepts/streaming.md；产出：双层流式边界、非TG块流式显式门控、双开导致重复感的排障顺序 3 条规则；下一步：遇到分段回复异常时先核对 channel streaming 与 blockStreaming 配置组合。
+- 2026-04-03 13:49:21 CST｜heartbeat 自我强化：复核 docs/concepts/context.md；产出：context与memory边界、tools双层开销、/context→/compact治理路径 3 条规则；下一步：后续若 context 升高，先看 tool schema 与注入文件体积再决定裁剪策略。
+- 2026-04-03 14:19:10 CST｜heartbeat 自我强化：复核 docs/concepts/agent-workspace.md；产出：默认cwd与沙箱边界、workspace与~/.openclaw分层、私有git备份与避密提交 3 条规则；下一步：后续涉及文件安全边界时先判定是否处于sandbox会话。
+- 2026-04-03 14:49:15 CST｜heartbeat 自我强化：学习 docs/concepts/compaction.md；产出：compaction持久化语义、auto-compaction触发与重试、compaction/pruning边界 3 条规则；下一步：上下文膨胀时先判断该用 /compact 还是调 pruning 参数。
+- 2026-04-03 15:20:38 CST｜heartbeat 自我强化：学习 docs/concepts/model-providers.md；产出：provider/model引用规范、限流触发key轮换边界、内置与自定义provider分层配置 3 条规则；下一步：后续新增模型时先确认是内置provider还是models.providers自定义路径。
+- 2026-04-03 15:49:47 CST｜heartbeat 自我强化：复核 docs/concepts/timezone.md；产出：envelope 时区可控、标准化时间字段优先、userTimezone回退逻辑 3 条规则；下一步：涉及跨渠道时间对齐时默认以 timestampMs/timestampUtc 为判定主轴。
+- 2026-04-03 16:19:11 CST｜heartbeat 自我强化：学习 docs/date-time.md；产出：传输层/用户时区分层、当前时间取数路径、标准化时间字段对齐 3 条规则；下一步：遇到时区歧义优先以 timestampUtc 与 session_status 交叉校验。
+- 2026-04-03 16:49:09 CST｜heartbeat 自我强化：学习 docs/concepts/system-prompt.md；产出：系统提示词重建机制、bootstrap注入成本、sub-agent minimal模式 3 条规则；下一步：若context再升高，优先清理长文件注入而非盲目调模型窗口。
+- 2026-04-03 17:19:22 CST｜heartbeat 自我强化：学习 docs/concepts/memory.md；产出：Markdown真源记忆原则、pre-compaction flush 触发语义、search/get与compaction-pruning边界 3 条规则；下一步：后续长会话在接近压缩前优先确认关键决策已写入 memory 文件。
+- 2026-04-03 17:49:18 CST｜heartbeat 自我强化：学习 docs/concepts/presence.md；产出：presence多源合并模型、instanceId去重关键、TTL与容量边界 3 条规则；下一步：若出现实例重复，先核对握手与beacon是否复用同一instanceId。
+- 2026-04-03 18:19:16 CST｜heartbeat 自我强化：学习 docs/concepts/typing-indicators.md；产出：默认场景分层、typingMode触发顺序、刷新间隔语义 3 条规则；下一步：后续若用户反馈“打字提示打扰”，优先下调typingMode而非仅调interval。
+- 2026-04-03 18:49:13 CST｜heartbeat 自我强化：学习 docs/concepts/agent-loop.md；产出：agent loop主路径语义、wait超时边界、compaction重试防重复机制 3 条规则；下一步：后续排障优先按 lifecycle/assistant/tool 三流事件拆分定位。
+- 2026-04-03 19:19:29 CST｜heartbeat 自我强化：复核 docs/concepts/session.md；产出：secure DM分桶、daily+idle双触发重置语义、sendPolicy路由级封禁策略 3 条规则；下一步：后续若出现“串上下文/误发”先审计 dmScope 与 sendPolicy 命中链。
+- 2026-04-03 19:49:19 CST｜heartbeat 自我强化：学习 docs/concepts/models.md；产出：primary/fallback/auth轮换顺序、allowlist拒绝边界、/model与models status分工 3 条规则；下一步：若出现“模型切换无响应”，先排查是否被allowlist拦截。
+- 2026-04-03 20:19:20 CST｜heartbeat 自我强化：学习 docs/tools/slash-commands.md；产出：命令与指令边界、allowFrom优先级、关键指令门控排障路径 3 条规则；下一步：后续出现“指令未生效”先核对授权与是否为directive-only消息。
+- 2026-04-03 20:49:33 CST｜heartbeat 自我强化：复核 docs/concepts/queue.md；产出：双层并发闸门、steer-backlog双回复副作用、队列调参优先级 3 条规则；下一步：若再现“回复重复”先审查 queue mode 与 debounce 组合。
+- 2026-04-03 21:19:59 CST｜heartbeat 自我强化：学习 docs/concepts/features.md；产出：能力主轴、会话隔离与激活协同、Pi主路径认知 3 条规则；附带失败复盘：read webhooks.md ENOENT，改为“先目录枚举后精确读取”流程；下一步：后续文档检索默认先列目录再定位。
+- 2026-04-03 21:49:32 CST｜heartbeat 自我强化：学习 docs/concepts/architecture.md；产出：Gateway单点真源、握手首帧硬约束、副作用请求幂等重试 3 条规则；下一步：后续诊断“重复发消息”优先检查idempotencyKey与重试链路。
+- 2026-04-03 22:20:56 CST｜heartbeat 自我强化：学习 docs/concepts/markdown-formatting.md；产出：IR统一中间层、IR层先chunk、跨渠道链接策略差异 3 条规则；下一步：后续跨渠道推送排障时先校验“解析→切块→渲染”三段链路。
+- 2026-04-03 22:49:36 CST｜heartbeat 自我强化：学习 docs/concepts/multi-agent.md；产出：多代理隔离单元定义、绑定优先级路由、accountId显式匹配边界 3 条规则；下一步：后续排查“路由跑错agent”优先核对绑定层级与配置顺序。
+- 2026-04-04 01:19:29 CST｜heartbeat 自我强化：学习 docs/concepts/agent.md；产出：OpenClaw运行时归属边界、bootstrap注入成本意识、session转录真源路径 3 条规则；下一步：若出现上下文突增，优先检查bootstrap注入文件体量与重复内容。
+- 2026-04-04 01:49:17 CST｜heartbeat 自我强化：学习 docs/concepts/typebox.md；产出：TypeBox单一真源机制、connect首帧与版本协商、side-effect幂等重试 3 条规则；下一步：后续协议排障先核对 schema 与 runtime validator 是否一致。
+- 2026-04-04 02:19:19 CST｜heartbeat 自我强化：复核 docs/concepts/retry.md；产出：请求级重试边界、Discord 429专属重试、Telegram解析失败降级 3 条规则；下一步：若发送异常先按错误类型分流（429/瞬态/解析错误）。
+- 2026-04-04 02:49:19 CST｜heartbeat 自我强化：学习 docs/concepts/oauth.md；产出：token sink真源路径、Codex PKCE+自动刷新、账号隔离优先级 3 条规则；下一步：后续若出现“随机掉线/被踢登录”，优先排查是否跨客户端抢占同一刷新令牌。
+## 2026-04-04 04:18 (Asia/Shanghai)
+- 动作：夜间 heartbeat 完成强制巡检后，执行 1 项非股票自我强化（阅读 OpenClaw `concepts/queue.md`）。
+- 产出：沉淀 3 条可执行规则（collect 默认优先、steer-backlog 双响应风险、队列调参顺序）。
+- 下一步：后续若出现“同一会话多次碎片回复”或“排队体感慢”，按 debounce→cap/drop→maxConcurrent 的顺序排障。
+

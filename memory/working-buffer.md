@@ -4978,3 +4978,141 @@
   2) 群聊会话键天然是 non-main，适合配合 sandbox `mode: non-main` 做默认隔离执行。
   3) 论坛话题（如 Telegram topic）会拆成独立会话键，避免跨话题串上下文。
 - 落地动作：后续群聊部署优先用“主会话在宿主机、群聊在沙箱”的分层基线。
+
+- 2026-04-03 06:48（heartbeat 学习）`concepts/session.md` 补充三条：
+  1) 多用户DM默认应改 `session.dmScope=per-channel-peer`（或多账号用 `per-account-channel-peer`）避免跨人泄露上下文。
+  2) 会话状态单一真源在 gateway；远程模式下 token/session 统计应以网关 store 为准，不应靠客户端解析 transcript 反推。
+  3) 生产环境建议 `session.maintenance.mode=enforce` 并同时配置 `pruneAfter + maxEntries`（必要时再加 `maxDiskBytes/highWaterBytes`）控制写路径与磁盘膨胀。
+- 2026-04-03 09:18 自我强化：学习 `concepts/session-tool.md`，沉淀三条会话工具规则：
+  1) `sessions_list/history/send/spawn` 各司其职，默认避免 toolResult 泄洪；
+  2) `sessions_send` 采用 server-side wait + 可控 timeout，超时不等于失败（可后查 history）；
+  3) sandbox 默认仅“当前+派生”会话可见，跨会话访问应最小化授权。
+- 2026-04-03 09:48 自我强化：复核 `concepts/session.md`，新增三条会话治理要点：
+  1) 多人DM场景应改 `session.dmScope=per-channel-peer`（或 per-account-channel-peer）避免串话泄露；
+  2) 会话状态以 Gateway 为单一真源，UI 不应本地“修正” token/会话统计；
+  3) 生产建议开启 maintenance enforce，并同时设置 `pruneAfter + maxEntries` 做双阈值控量。
+- 2026-04-03 10:18 自我强化：学习 `concepts/session-pruning.md`，沉淀三条规则：
+  1) pruning 仅裁剪内存上下文中的旧 toolResult，不改写 jsonl 历史；
+  2) `cache-ttl` 适合跨 TTL 后首轮降 cacheWrite 成本，且会在 pruning 后重置窗口；
+  3) 图像类 toolResult 默认不裁剪，需结合 compaction 做长期上下文治理。
+- 2026-04-03 10:48 自我强化：学习 `concepts/retry.md`，沉淀三条重试策略：
+  1) 重试粒度是“单次HTTP请求”而非整条多步骤流程，避免已成功步骤被重复执行；
+  2) Discord 主要针对 429 重试，优先使用 `retry_after`，否则指数退避；
+  3) Telegram Markdown 解析错误不重试，直接降级纯文本发送以保障可达性。
+- 2026-04-03 11:18 自我强化：学习 `concepts/usage-tracking.md`，沉淀三条规则：
+  1) 使用量优先取 provider 官方 usage/quota 端点，不做“猜测型”成本替代；
+  2) `/status`、`/usage`、CLI 与菜单栏是同一能力面的不同展示入口；
+  3) usage可见性受凭证门控（OAuth/API key），无匹配凭证时应明确“不可见”而非误判为0。
+- 2026-04-03 11:48 自我强化：复核 `concepts/model-failover.md`，沉淀三条模型故障转移规则：
+  1) 故障转移顺序是“同provider内先轮换auth profile，再切换fallback model”；
+  2) 会话默认会粘住已选profile以保持缓存命中，除非reset/compaction或profile进入冷却禁用；
+  3) 计费失败按长退避并标记disabled（非短暂冷却），避免对失效账户高频重试。
+- 2026-04-03 12:18 自我强化：复核 `concepts/messages.md`，沉淀三条消息链路规则：
+  1) 入站去重键按 channel/account/peer/session/messageId 组合，优先防重投导致的重复执行；
+  2) 文本消息可按 sender 防抖合并，媒体消息应即时 flush，控制命令不走防抖；
+  3) 非私聊当前消息会带发送者标签，且 history 只收“未触发run”的 pending 内容，避免重复上下文。
+- 2026-04-03 12:48 自我强化：复核 `concepts/queue.md`，沉淀三条队列执行规则：
+  1) 先按 session lane 串行，再受 global lane 并发上限约束，保证“同会话不并发”；
+  2) 默认 `collect` 适合降噪合并，`steer-backlog` 容易造成看似重复回复，需谨慎；
+  3) 队列拥塞时优先调 `debounce/cap/drop`，并用 verbose 日志里的 queued 时长定位瓶颈。
+- 2026-04-03 13:18 自我强化：复核 `concepts/streaming.md`，沉淀三条流式输出规则：
+  1) Block streaming 与 preview streaming 是两层机制，非 token-delta 直出，避免混淆诊断口径；
+  2) 非 Telegram 渠道要想块流式生效，除默认开关外还需显式 `*.blockStreaming=true`；
+  3) 若出现“重复/刷屏感”，优先检查 blockStreaming 与 preview 是否双开，再调 coalesce 与 break 策略。
+- 2026-04-03 13:48 自我强化：复核 `concepts/context.md`，沉淀三条上下文治理规则：
+  1) context = 系统提示词+会话历史+工具结果+附件，不等于 memory（磁盘持久）；
+  2) tools 成本分两层：工具列表文本 + tool schema JSON，后者常是上下文大头；
+  3) 诊断顺序优先 `/status`→`/context list/detail`→`/compact`，先定位大头再压缩。
+- 2026-04-03 14:18 自我强化：复核 `concepts/agent-workspace.md`，沉淀三条工作区规则：
+  1) workspace 是默认 cwd 但非硬沙箱，绝对路径仍可越界，需结合 sandbox 才有隔离保证；
+  2) 工作区与 `~/.openclaw` 职责分离：前者放记忆/协作文件，后者放配置凭证与会话数据；
+  3) 备份优先私有 git，且避免提交 secrets（尤其 `~/.openclaw` 下凭证与会话）。
+- 2026-04-03 14:48 自我强化：学习 `concepts/compaction.md`，沉淀三条压缩治理规则：
+  1) compaction 会把旧历史摘要后持久写入 JSONL（不是临时态）；
+  2) auto-compaction 触发于接近/超出 context window，可在压缩后重试原请求；
+  3) compaction 与 pruning 职责分离：前者持久摘要，后者仅按请求临时裁剪旧 toolResult。
+- 2026-04-03 15:18 自我强化：学习 `concepts/model-providers.md`，沉淀三条模型提供方配置规则：
+  1) 模型引用统一 `provider/model`，并通过 `agents.defaults.models` 做白名单收敛；
+  2) API key 轮换仅对限流类错误触发，非限流失败应立即返回并排障；
+  3) 内置provider与自定义 `models.providers` 分层管理，代理场景要显式声明 contextWindow/maxTokens。
+- 2026-04-03 15:48 自我强化：复核 `concepts/timezone.md`，沉淀三条时区规则：
+  1) message envelope 默认用 host-local 时间，可通过 `envelopeTimezone` 改为 utc/user/IANA；
+  2) 工具返回应优先用标准化字段 `timestampMs/timestampUtc` 对齐跨源时间语义；
+  3) `userTimezone` 影响系统提示词“当前时间”展示，未配置时回退 host timezone。
+- 2026-04-03 16:18 自我强化：学习 `date-time.md`，沉淀三条时间处理规则：
+  1) 传输层时间默认 host-local，而用户时区主要用于系统提示词语义；
+  2) 需要“当前时刻”时应调用 `session_status`，不从提示词静态字段臆断；
+  3) 统一以 `timestampMs/timestampUtc` 做跨渠道时间对齐，保留原始provider字段作审计。
+- 2026-04-03 16:48 自我强化：学习 `concepts/system-prompt.md`，沉淀三条提示词治理规则：
+  1) system prompt 由 OpenClaw 每轮重建，核心结构稳定，变更应优先走配置与注入文件治理；
+  2) bootstrap 注入文件会长期占用上下文，尤其 MEMORY.md，需定期压缩避免高频 compaction；
+  3) sub-agent 采用 minimal prompt 并缩减注入文件，适合隔离任务与控成本。
+- 2026-04-03 17:18 自我强化：学习 `concepts/memory.md`，沉淀三条记忆机制规则：
+  1) 记忆以 Markdown 文件为真源，模型“记住”取决于是否写盘；
+  2) pre-compaction memory flush 是静默持久化兜底，适用于压缩前抢救长期信息；
+  3) 检索链路优先 `memory_search` + `memory_get`，并区分 compaction（持久摘要）与pruning（临时裁剪）。
+- 2026-04-03 17:48 自我强化：学习 `concepts/presence.md`，沉淀三条在线态规则：
+  1) presence 是多源合并视图（gateway self / ws connect / system-event / node），用于可观测而非强一致状态；
+  2) 去重核心依赖稳定 `instanceId`，缺失时重连会出现重复实例行；
+  3) presence 具备 5 分钟 TTL + 200 条上限，旧状态会自动清理，排障需关注时效窗口。
+- 2026-04-03 18:18 自我强化：学习 `concepts/typing-indicators.md`，沉淀三条输入态规则：
+  1) 默认模式按场景分层（私聊/被@群聊即时；无@群聊延后到文本流）；
+  2) `typingMode` 触发顺序是 never→message→thinking→instant，需按干扰成本选档；
+  3) `typingIntervalSeconds` 仅影响刷新节奏，不决定起始触发时点。
+- 2026-04-03 18:48 自我强化：学习 `concepts/agent-loop.md`，沉淀三条运行环路规则：
+  1) agent loop 是“接收→推理→工具→流式→持久化”的权威主路径，同会话串行执行避免竞态；
+  2) `agent.wait` 等待 lifecycle end/error，timeout 仅表示“等待超时”不等于任务已停止；
+  3) compaction/retry 场景会重置缓冲与工具摘要，避免重试后重复输出污染会话。
+- 2026-04-03 18:48 自我强化：复核 `concepts/session.md`，补充三条会话治理规则：
+  1) 多人私聊接入场景应优先启用 `dmScope=per-channel-peer`（或 per-account-channel-peer）防止跨人串上下文；
+  2) 会话 reset 策略可叠加 daily+idle，谁先到期谁生效，排障需先识别触发源；
+  3) sendPolicy 可按 channel/chatType/keyPrefix/rawKeyPrefix 做路由级封禁，优于按会话ID手工维护。
+- 2026-04-03 19:48 自我强化：学习 `concepts/models.md`，沉淀三条模型管理规则：
+  1) 模型选择顺序是 primary → fallbacks，provider内先做auth轮换再切下一模型；
+  2) 配置 `agents.defaults.models` 后即成为allowlist，未收录模型会被直接拒绝；
+  3) `/model` 适合会话级快速切换，`models status` 适合检查默认模型与认证健康度。
+- 2026-04-03 20:18 自我强化：学习 `tools/slash-commands.md`，沉淀三条命令治理规则：
+  1) 命令与指令分离：独立 `/...` 走命令处理，指令在普通消息里仅作本轮提示；
+  2) 命令授权以 `commands.allowFrom` 为最高优先，配置后将覆盖其他授权来源；
+  3) `/model` `/queue` `/reasoning` 等属于高影响指令，排障先确认是否被指令剥离与权限门控。
+- 2026-04-03 20:48 自我强化：复核 `concepts/queue.md`，补充三条执行规则：
+  1) 队列是“session lane 串行 + global lane 限流”双层并发闸门；
+  2) `steer-backlog` 会产生“即时响应+后续跟进”双回复体感，默认应优先 `collect`；
+  3) 高并发消息场景先调 `debounce/cap/drop` 再调 `maxConcurrent`，避免粗暴放大并发。
+- 2026-04-03 20:48 自我强化：学习 `concepts/features.md`，沉淀三条能力认知规则：
+  1) OpenClaw 能力主轴是“多渠道接入 + 多代理路由 + 媒体与节点扩展”；
+  2) 分组会话隔离与私聊主会话连续性并存，默认需结合 mention 激活策略控噪；
+  3) 编码代理路径以 Pi/RPC 工具流为主，历史旧路径已移除，排障应避免沿用旧认知。
+- 2026-04-03 20:49 失败复盘：尝试读取 `concepts/webhooks.md` 返回 ENOENT；修正为先 `ls concepts/` 再读取存在文件，避免路径臆测。
+- 2026-04-03 21:18 自我强化：学习 `concepts/architecture.md`，沉淀三条架构规则：
+  1) Gateway 是唯一消息面真源与会话执行中心，所有客户端/节点都走同一 WS 协议面；
+  2) 连接生命周期必须先 `connect` 握手，首帧非connect会被硬关闭；
+  3) 有副作用请求（如 send/agent）依赖幂等键重试保障，避免网络抖动下重复执行。
+- 2026-04-03 22:18 自我强化：学习 `concepts/markdown-formatting.md`，沉淀三条格式化规则：
+  1) Markdown 先统一转 IR，再做渠道渲染，避免多渠道重复解析导致语义漂移；
+  2) chunk 应在 IR 层先做，保证行内样式不被截断；
+  3) 各渠道链接策略不同（Slack/Telegram/Signal），输出前需按渠道语义落地。
+- 2026-04-03 22:48 自我强化：学习 `concepts/multi-agent.md`，沉淀三条多代理规则：
+  1) agent 是“workspace + agentDir + sessions”三位一体隔离单元，避免共用agentDir导致鉴权/会话串扰；
+  2) 绑定路由遵循“最具体优先”（peer > guild/team > account > channel > 默认），配置顺序影响同层命中；
+  3) 多账号场景需显式 `accountId`，省略时仅匹配默认账号。
+- 2026-04-04 01:18 自我强化：学习 `concepts/agent.md`，沉淀三条运行基线规则：
+  1) OpenClaw 以单嵌入运行时为主，session管理与工具编排由OpenClaw自管；
+  2) workspace 是工具默认cwd，bootstrap文件注入会直接消耗上下文，应控体积；
+  3) 会话转录存于 `~/.openclaw/agents/<agentId>/sessions/*.jsonl`，排障应优先看该真源。
+- 2026-04-04 01:48 自我强化：学习 `concepts/typebox.md`，沉淀三条协议规则：
+  1) TypeBox 是网关协议单一真源，驱动运行时校验 + JSON Schema + Swift 模型生成；
+  2) WS 首帧必须是 `connect` 请求，协议版本由 min/max 握手协商；
+  3) 有副作用方法依赖 `idempotencyKey` 做安全重试，防止重放重复执行。
+- 2026-04-04 02:18 自我强化：复核 `concepts/retry.md`，补充三条重试治理规则：
+  1) 重试单位是“单HTTP请求”而非整链路流程，避免已成功步骤被重复执行；
+  2) Discord 仅对429重试，优先 `retry_after`；
+  3) Telegram Markdown解析错误应降级纯文本，不走重试回圈。
+- 2026-04-04 02:48 自我强化：学习 `concepts/oauth.md`，沉淀三条鉴权规则：
+  1) OAuth 凭证以每个 agent 的 `auth-profiles.json` 为 token sink 真源，避免多入口漂移；
+  2) OpenAI Codex 走 PKCE 授权码交换并自动刷新，过期由运行时锁内更新；
+  3) 多账号隔离优先“多 agent”而非单 agent 多 profile，后者仅用于高级路由场景。
+- 2026-04-04 04:18 学习 `docs/concepts/queue.md`：
+  1) 入站默认应优先 `collect`，可减少“多条连续回复”与重复感；
+  2) `steer-backlog` 会产生“当前转向 + 后续补回”双响应，默认仅在明确需要时用；
+  3) 队列调优优先级：先看 `debounceMs` 抑制抖动，再看 `cap/drop` 控拥塞，最后再调全局并发。
