@@ -5120,3 +5120,4 @@
   1) Failover 两阶段：先轮换同 provider 的 auth profile，再切换 fallback model；
   2) Session 存在 profile 粘性，自动选择的 profile 失败时可轮换，用户手动 pin 的 profile 不自动轮换；
   3) 计费失败会走 disabled 长退避（5h 起步、上限24h），应与短期限流冷却区分处理。
+- 2026-04-04 05:18 学习             `docs/concepts/context.md`：1) “Context” is **everything OpenClaw sends to the model for a run**. It is bounded by the model’s **context window** (token limit).; 2) - You want to reduce context overhead (/context, /status, /compact); 3) summary: "Context: what the model sees, how it is built, and how to inspect it"

@@ -5240,3 +5240,8 @@
 - 产出：沉淀 3 条 failover 操作规则（两阶段策略、profile 粘性边界、billing 长退避）。
 - 下一步：若后续出现连续 429/认证失败，按“profile 冷却状态 → 是否手动 pin → fallback 链完整性”顺序排障。
 
+## 2026-04-04 05:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（学习 `docs/concepts/context.md`）。
+- 产出：1) “Context” is **everything OpenClaw sends to the model for a run**. It is bounded by the model’s **context window** (token limit).; 2) - You want to reduce context overhead (/context, /status, /compact); 3) summary: "Context: what the model sees, how it is built, and how to inspect it"
+- 下一步：后续若出现上下文膨胀，优先做“信息分层 + 工具输出精简 + 会话裁剪”。
+
