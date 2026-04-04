@@ -5280,3 +5280,8 @@
 - 产出：沉淀 3 条消息链路规则（入站防重键、文本防抖边界、群聊 pending-only 历史语义）。
 - 下一步：若出现“重复回复/群聊上下文串线/媒体消息延迟”现象，按 dedupe → debounce → history wrapper 顺序排障。
 
+## 2026-04-04 09:48 (Asia/Shanghai)
+- 动作：工作时段 heartbeat 巡检后执行 1 项非股票自我强化（复核 `concepts/session-tool.md`）。
+- 产出：固化 3 条规则（跨会话优先 sessions_send、history 按需最小读取、session_status 仅用于模型/用量核查）。
+- 下一步：遇到跨会话协作场景时先判定“是否必须跨会话”，再决定是否调用 sessions_send。
+

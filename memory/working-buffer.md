@@ -5146,3 +5146,7 @@
   1) 入站防重依赖 channel/account/peer/session/message id 短期缓存，重连重投不会重复触发run；
   2) 入站防抖只对纯文本生效，媒体消息会立即flush，控制命令绕过防抖；
   3) 群聊历史是 pending-only 缓冲（未触发run的消息），并与当前消息分段包装，避免上下文串扰。
+- 2026-04-04 09:48 学习 \：
+  1) 会话工具应优先用 sessions_send 做跨会话投递，避免误用外部消息通道；
+  2) sessions_history 只在需要追溯上下文时按需拉取，控制读取范围；
+  3) session_status 用于模型/用量核查，不与业务状态查询混用。
