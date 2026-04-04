@@ -5252,3 +5252,7 @@
   1) token 成本由“系统提示+历史+工具结果+附件”共同构成，不能只盯正文长度；
   2) `/status` 与 `/usage` 负责会话级可视化，`/context detail` 负责定位结构性开销大头；
   3) 长会话控费应组合使用“compact + 工具输出裁剪 + 图片维度下调”。
+- 2026-04-05 00:48 学习 `docs/reference/prompt-caching.md`：
+  1) 缓存治理主轴是 `cacheRetention`（模型/agent可覆写）+ `cache-ttl` pruning + heartbeat 保温三件套；
+  2) 配置合并顺序为 defaults.models.params → agents.list[].params，逐项覆盖；
+  3) 诊断缓存效果应看 `cacheRead/cacheWrite` 与 cache-trace 事件链，而非只看总token。

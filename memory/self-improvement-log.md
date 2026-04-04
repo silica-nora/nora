@@ -5415,3 +5415,8 @@
 - 产出：沉淀 3 条 token 治理规则（成本构成全景、usage/context 工具分工、长会话控费组合策略）。
 - 下一步：后续若出现 token 快速增长，先做结构性分解再决定是否 compact 与降采样。
 
+## 2026-04-05 00:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `reference/prompt-caching.md`）。
+- 产出：沉淀 3 条缓存治理规则（三件套策略、参数覆盖顺序、cacheRead/cacheWrite诊断路径）。
+- 下一步：后续若 cacheWrite 持续偏高，优先排查系统提示波动与 cacheRetention 命中情况。
+
