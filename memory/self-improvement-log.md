@@ -5445,3 +5445,8 @@
 - 产出：沉淀 3 条消息处理规则（Body/CommandBody分层、pending-only历史语义、文本与媒体处理分流）。
 - 下一步：后续若出现“命令混入上下文或群聊上下文缺失”问题，优先核对 Body/CommandBody 与 historyLimit 配置。
 
+## 2026-04-05 03:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `tools/thinking.md`）。
+- 产出：沉淀 3 条思考与可见性规则（优先级链路、会话持久化条件、reasoning与verbose分层）。
+- 下一步：后续若出现“设置不生效/误持久化”问题，先检查消息是否为“仅指令消息”。
+

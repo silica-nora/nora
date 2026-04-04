@@ -5276,3 +5276,7 @@
   1) 入站链路分 Body/CommandBody，命令解析与模型提示应隔离，避免指令误污染上下文；
   2) group history 是 pending-only 语义，定位“漏上下文”时需先确认是否已入 transcript；
   3) 文本防抖与媒体即时flush是不同路径，体验抖动排障要先区分消息类型。
+- 2026-04-05 03:48 学习 `docs/tools/thinking.md`：
+  1) thinking 生效优先级是“单条内联 > 会话覆盖 > 全局默认 > 模型兜底”；
+  2) 仅指令消息会持久化会话级 `/think`/`/verbose` 设置，内联指令只影响当条；
+  3) `/reasoning` 与 `/verbose` 是独立维度（一个控制思维可见性，一个控制工具回显粒度）。
