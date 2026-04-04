@@ -5190,3 +5190,4 @@
   1) 跨会话消息优先使用 `sessions_send`，并依据 `timeoutSeconds` 区分“等待结果”与“仅受理”；
   2) `sessions_list` 默认不含 toolResult，排障细节应转 `sessions_history(includeTools=true)`；
   3) 沙箱场景下会话可见性会被收敛到 spawned/tree，避免误判“全局不可见”为数据丢失。
+- 2026-04-04 15:18 午报执行：命中 `news-afternoon.log`，全文复核后有效样本仍不足（多为聚合入口页/时效证据弱），按T/T-1规则输出“低置信度风控提示”并已发送飞书；发送后删除源日志并写入 news-push-history 去重库。
