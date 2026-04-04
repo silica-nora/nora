@@ -5231,3 +5231,7 @@
   1) Presence 是网关内存态的轻量可见性层（网关自条目 + 各类客户端连接/心跳上报合并）；
   2) 稳定 `instanceId` 是去重关键，缺失时重连会出现重复实例行；
   3) Presence 有 TTL(5分钟) 与容量上限(200)双边界，天然偏“新鲜态观察”而非持久审计。
+- 2026-04-04 20:48 学习 `docs/concepts/typing-indicators.md`：
+  1) typingMode 决定“何时开始打字态”，typingIntervalSeconds 只决定刷新频率；
+  2) `message` 模式会忽略仅 `NO_REPLY` 的静默输出，避免无意义打字提示；
+  3) heartbeat 场景永不显示 typing（与模式配置无关）。
