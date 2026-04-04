@@ -5355,3 +5355,8 @@
 - 产出：沉淀 3 条会话治理规则（DM隔离策略、gateway真源原则、maintenance双阈值治理）。
 - 下一步：若后续出现会话串扰或存储膨胀，优先核对 dmScope 与 maintenance 配置。
 
+## 2026-04-04 17:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/agent-loop.md`）。
+- 产出：沉淀 3 条运行时规则（loop闭环语义、wait与run超时边界、compaction重试去重机制）。
+- 下一步：后续遇到“等待超时/重复输出”问题，先区分 wait 超时与 run 超时，再看 compaction 重试链路。
+

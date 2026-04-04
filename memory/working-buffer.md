@@ -5203,3 +5203,7 @@
   1) 多人DM场景应优先 `dmScope=per-channel-peer`（或 per-account-channel-peer）避免上下文串话泄露；
   2) Session 真源在 gateway（sessions.json + jsonl），客户端显示应以网关数据为准；
   3) 维护建议生产启用 `maintenance.mode=enforce`，并同时设置 `pruneAfter + maxEntries` 做双阈值控量。
+- 2026-04-04 17:18 学习 `docs/concepts/agent-loop.md`：
+  1) Agent loop 是“接收→建上下文→推理→工具→流式→持久化”的单次闭环，按 session 串行是核心一致性保障；
+  2) `agent.wait` 只等待 run 结束，不会停止 run，本体超时由 runtime timeout/abort 控制；
+  3) compaction 触发重试时会重置内存缓冲与工具摘要，避免重复输出。
