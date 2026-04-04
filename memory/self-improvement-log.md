@@ -5290,3 +5290,8 @@
 - 产出：沉淀 3 条模型提供方配置规则（限流才轮换、LIVE_KEY 应急覆盖、自定义provider显式边界）。
 - 下一步：若后续出现 provider 异常，先区分“限流 vs 非限流”，再决定是否做 key 轮换与模型回退。
 
+## 2026-04-04 10:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 OpenClaw `concepts/compaction.md`）。
+- 产出：沉淀 3 条规则（compaction持久化语义、auto-compaction重试机制、与pruning职责边界）。
+- 下一步：若后续出现“长会话变慢/上下文紧张”，优先排查 compaction 计数与是否需要手动 `/compact`。
+

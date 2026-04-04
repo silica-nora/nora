@@ -5154,3 +5154,7 @@
   1) API Key 轮换只在限流类错误触发，非限流失败应立即暴露，不应“盲轮换掩盖真实故障”；
   2) `OPENCLAW_LIVE_<PROVIDER>_KEY` 为最高优先级单键覆盖，适合紧急止血；
   3) 自定义 provider 未显式声明能力与上下文上限时会走默认值，生产配置应显式写死模型边界。
+- 2026-04-04 10:48 学习 `docs/concepts/compaction.md`：
+  1) Compaction 会把旧对话摘要写回会话 JSONL（持久化），不是一次性临时裁剪；
+  2) Auto-compaction 触发后可重试原请求，适合长会话抗 context 爆窗；
+  3) 区分 compaction vs pruning：前者“摘要并持久化”，后者“仅本次请求内存裁剪工具结果”。
