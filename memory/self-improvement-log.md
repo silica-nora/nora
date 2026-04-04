@@ -5420,3 +5420,8 @@
 - 产出：沉淀 3 条缓存治理规则（三件套策略、参数覆盖顺序、cacheRead/cacheWrite诊断路径）。
 - 下一步：后续若 cacheWrite 持续偏高，优先排查系统提示波动与 cacheRetention 命中情况。
 
+## 2026-04-05 01:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/session-pruning.md`）。
+- 产出：沉淀 3 条 pruning 规则（内存态裁剪边界、cache-ttl降写入机制、不可裁剪对象边界）。
+- 下一步：后续若首轮 cacheWrite 异常偏高，优先核查 contextPruning.ttl 与 cacheRetention 匹配。
+

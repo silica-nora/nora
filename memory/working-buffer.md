@@ -5256,3 +5256,7 @@
   1) 缓存治理主轴是 `cacheRetention`（模型/agent可覆写）+ `cache-ttl` pruning + heartbeat 保温三件套；
   2) 配置合并顺序为 defaults.models.params → agents.list[].params，逐项覆盖；
   3) 诊断缓存效果应看 `cacheRead/cacheWrite` 与 cache-trace 事件链，而非只看总token。
+- 2026-04-05 01:18 学习 `docs/concepts/session-pruning.md`：
+  1) pruning 仅裁剪“本次请求内存上下文”的旧 toolResult，不改写磁盘 JSONL；
+  2) `cache-ttl` 模式下，prune 发生在超 TTL 后首轮请求，可显著降低该轮 cacheWrite；
+  3) 用户/助手消息与含图片的 toolResult 不会被清理，避免语义断裂与视觉证据丢失。
