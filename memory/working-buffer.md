@@ -5191,3 +5191,7 @@
   2) `sessions_list` 默认不含 toolResult，排障细节应转 `sessions_history(includeTools=true)`；
   3) 沙箱场景下会话可见性会被收敛到 spawned/tree，避免误判“全局不可见”为数据丢失。
 - 2026-04-04 15:18 午报执行：命中 `news-afternoon.log`，全文复核后有效样本仍不足（多为聚合入口页/时效证据弱），按T/T-1规则输出“低置信度风控提示”并已发送飞书；发送后删除源日志并写入 news-push-history 去重库。
+- 2026-04-04 15:48 学习 `docs/concepts/model-providers.md`：
+  1) provider key 轮换只在限流类错误触发，非限流错误应立即失败并排查根因；
+  2) `OPENCLAW_LIVE_<PROVIDER>_KEY` 属于最高优先级单键应急覆盖；
+  3) 自定义 provider 推荐显式声明 contextWindow/maxTokens/cost，避免默认值误导容量与成本判断。
