@@ -5345,3 +5345,8 @@
 - 产出：沉淀 3 条模型提供方治理规则（限流触发轮换、LIVE_KEY应急优先级、自定义provider显式容量参数）。
 - 下一步：后续若出现 provider 级错误，先区分“限流vs非限流”再决定是否走轮换。
 
+## 2026-04-04 16:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/context.md`）。
+- 产出：沉淀 3 条上下文治理规则（context与memory分层、/context detail定位大头、降耗排障顺序）。
+- 下一步：若 context 持续上涨，优先用 /context detail 锁定工具schema与注入文件体积。
+

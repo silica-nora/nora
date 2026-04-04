@@ -5195,3 +5195,7 @@
   1) provider key 轮换只在限流类错误触发，非限流错误应立即失败并排查根因；
   2) `OPENCLAW_LIVE_<PROVIDER>_KEY` 属于最高优先级单键应急覆盖；
   3) 自定义 provider 推荐显式声明 contextWindow/maxTokens/cost，避免默认值误导容量与成本判断。
+- 2026-04-04 16:18 学习 `docs/concepts/context.md`：
+  1) context 包含系统提示+会话历史+工具schema/结果，和“memory落盘”是两层概念；
+  2) `/context detail` 可定位高开销项（特别是 tool schema 与 bootstrap 注入文件）；
+  3) 降耗优先顺序可用：先查大头（schema/注入）→ 再 compact 历史 → 最后再做更深配置调整。
