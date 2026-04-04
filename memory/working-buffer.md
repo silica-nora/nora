@@ -5215,3 +5215,7 @@
   1) OpenClaw能力主轴是“多渠道接入 + 多代理路由 + 工具体系”一体化网关；
   2) 会话模型默认“私聊归并 main、群聊隔离”，与激活策略（提及触发）配合使用；
   3) 生态形态是“网关真源 + Web/macOS 控制端 + iOS/Android node 扩展”。
+- 2026-04-04 18:48 学习 `docs/tools/slash-commands.md`：
+  1) 指令（think/verbose/model/queue等）与命令分层：前者可内联提示或独立持久化，后者通常需独立消息触发；
+  2) 命令授权优先级：若配置 `commands.allowFrom`，其为唯一授权源；
+  3) 命令路由上“text/nativе/inline shortcut”三路径并存，排障需先确认触发面与会话归属。
