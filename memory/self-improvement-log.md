@@ -5435,3 +5435,8 @@
 - 产出：沉淀 3 条 Hook 规则（发现优先级、轻量执行原则、标准排障顺序）。
 - 下一步：后续若出现 hook 不生效，先用 `openclaw hooks list/info/check` 做分层定位。
 
+## 2026-04-05 02:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（复核 `concepts/queue.md`）。
+- 产出：沉淀 3 条队列治理规则（双层lane语义、collect优先、调参顺序）。
+- 下一步：后续若出现“回复碎片/延迟堆积”，按 debounce→cap/drop→maxConcurrent 顺序排障。
+

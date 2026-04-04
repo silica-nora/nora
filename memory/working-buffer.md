@@ -5268,3 +5268,7 @@
   1) Hook 发现优先级是 workspace > managed > bundled，同名时上层可覆盖下层实现；
   2) 命令类自动化要优先保持 handler 轻量与早过滤，避免阻塞主命令路径；
   3) 排障顺序建议固定为“discover→eligibility→enabled→gateway重载→事件触发验证”。
+- 2026-04-05 02:48 复核 `docs/concepts/queue.md`：
+  1) 会话级串行 + 全局lane并发上限共同保证“单会话一致性 + 全局吞吐”；
+  2) 默认 `collect` 能减少碎片回复，`steer-backlog` 更易产生“看似重复”体感；
+  3) 队列调优优先看 `debounceMs`（抖动）再看 `cap/drop`（拥塞），最后才动全局并发。
