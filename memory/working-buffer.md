@@ -5162,3 +5162,7 @@
   - 原因：pattern 以 `-` 开头，未用 `--` 终止选项解析。
   - 修复：统一改为 `grep -nE -- "- \[ \]|待跟进|待办|TODO|需要跟进" file`，并先做否定句过滤，避免“无待办”误命中。
   - 规则：凡正则首字符可能是 `-`（或来自变量）时，grep 一律加 `--`。
+- 2026-04-04 11:48 学习 `docs/concepts/system-prompt.md`：
+  1) 每轮都会注入 bootstrap 文件，`MEMORY.md` 过长会直接抬高 context 成本；
+  2) `memory/*.md` 日志默认不自动注入，需按需通过 memory 工具读取；
+  3) 子代理默认 `promptMode=minimal`，仅保留必要段落以控上下文开销。

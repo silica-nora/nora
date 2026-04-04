@@ -5300,3 +5300,8 @@
 - 产出：固化修复模板 `grep -E -- "<pattern>"` 与“否定句二次过滤”策略，降低待办检查误报。
 - 下一步：后续 shell 检索脚本统一采用 `grep --` 防御式写法。
 
+## 2026-04-04 11:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/system-prompt.md`）。
+- 产出：沉淀 3 条上下文治理认知（bootstrap 注入成本、memory 日志按需读取、subagent minimal 模式）。
+- 下一步：后续若 context 持续上升，优先审查 MEMORY.md 体积与注入内容。
+
