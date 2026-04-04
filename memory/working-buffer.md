@@ -5227,3 +5227,7 @@
   1) 使用量展示以 provider 官方 usage/quota 端点为准，不做“猜测型费用”替代；
   2) 入口分层：聊天侧（/status,/usage）看当前会话与当前provider，CLI `openclaw status --usage` 看全量分解；
   3) 无匹配凭证时 usage 会隐藏，排障应先核对 auth profile/API key 是否命中当前 provider。
+- 2026-04-04 20:18 学习 `docs/concepts/presence.md`：
+  1) Presence 是网关内存态的轻量可见性层（网关自条目 + 各类客户端连接/心跳上报合并）；
+  2) 稳定 `instanceId` 是去重关键，缺失时重连会出现重复实例行；
+  3) Presence 有 TTL(5分钟) 与容量上限(200)双边界，天然偏“新鲜态观察”而非持久审计。

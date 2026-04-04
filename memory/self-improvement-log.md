@@ -5385,3 +5385,8 @@
 - 产出：沉淀 3 条使用量治理规则（官方usage真源、入口分层认知、凭证门控优先排障）。
 - 下一步：后续若出现“看不到usage”问题，先确认当前 provider 与凭证匹配关系。
 
+## 2026-04-04 20:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/presence.md`）。
+- 产出：沉淀 3 条实例可见性规则（多源合并、instanceId去重关键、TTL+容量边界）。
+- 下一步：若后续出现 Instances 重复/过期显示，优先核对 instanceId 稳定性与上报频率。
+
