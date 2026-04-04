@@ -5235,3 +5235,7 @@
   1) typingMode 决定“何时开始打字态”，typingIntervalSeconds 只决定刷新频率；
   2) `message` 模式会忽略仅 `NO_REPLY` 的静默输出，避免无意义打字提示；
   3) heartbeat 场景永不显示 typing（与模式配置无关）。
+- 2026-04-04 21:18 学习 `docs/concepts/multi-agent.md`：
+  1) 多代理隔离核心是“workspace + agentDir + sessions”三件套，避免共享 agentDir 造成认证/会话串扰；
+  2) 路由遵循“最具体匹配优先”（peer > parentPeer > guild/team > account > channel > default）；
+  3) `accountId` 省略仅匹配默认账号，跨账号兜底要显式 `accountId: "*"`。
