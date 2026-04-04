@@ -5182,3 +5182,7 @@
   1) envelopeTimezone 支持 local/utc/user/IANA，默认 local；
   2) 可通过 envelopeTimestamp/envelopeElapsed 细粒度控制头部时间信息；
   3) 工具层做时间对齐应优先 `timestampMs` 与 `timestampUtc`，保留 provider 原始字段作审计。
+- 2026-04-04 14:18 学习 `docs/concepts/streaming.md`：
+  1) OpenClaw 有两层流式：block streaming（真实消息分块）与 preview streaming（草稿预览），语义需分开诊断；
+  2) 非 Telegram 渠道要想开启 block replies，除默认开关外还需显式 `*.blockStreaming: true`；
+  3) 若出现“看似重复回复”，先排查是否同时开了 preview streaming 与 block streaming。

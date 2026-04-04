@@ -5325,3 +5325,8 @@
 - 产出：沉淀 3 条时区治理规则（envelopeTimezone 选项、时间头开关、标准化时间字段优先）。
 - 下一步：若后续出现跨渠道时间偏差，先核对 envelopeTimezone，再核对 timestampMs/timestampUtc。
 
+## 2026-04-04 14:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/streaming.md`）。
+- 产出：沉淀 3 条流式输出规则（双层流式边界、非TG显式block开关、重复感排障顺序）。
+- 下一步：后续若反馈“回复碎/重复”，优先按 preview 与 block 是否双开进行配置核查。
+
