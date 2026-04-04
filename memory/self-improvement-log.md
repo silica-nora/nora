@@ -5400,3 +5400,8 @@
 - 产出：沉淀 3 条多代理路由规则（三件套隔离、最具体匹配优先、accountId匹配边界）。
 - 下一步：后续若出现“消息路由异常”，优先按绑定优先级与 accountId 是否显式配置排障。
 
+## 2026-04-04 21:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/models.md`）。
+- 产出：沉淀 3 条模型治理规则（主备链路顺序、allowlist拒绝边界、status优先诊断）。
+- 下一步：后续若出现“模型切换后无响应/被拒绝”，先核对 allowlist 与 provider auth 状态。
+

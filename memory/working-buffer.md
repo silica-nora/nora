@@ -5239,3 +5239,7 @@
   1) 多代理隔离核心是“workspace + agentDir + sessions”三件套，避免共享 agentDir 造成认证/会话串扰；
   2) 路由遵循“最具体匹配优先”（peer > parentPeer > guild/team > account > channel > default）；
   3) `accountId` 省略仅匹配默认账号，跨账号兜底要显式 `accountId: "*"`。
+- 2026-04-04 21:48 学习 `docs/concepts/models.md`：
+  1) 模型选择链路是 primary → fallbacks（按序）→ provider 内部 auth failover；
+  2) 配置 `agents.defaults.models` 后会形成 allowlist，未入列模型会被 `/model` 拒绝；
+  3) 诊断模型可用性应优先 `openclaw models status`（含 missing auth / OAuth 过期窗口）。
