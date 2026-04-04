@@ -5178,3 +5178,7 @@
   1) 传输层 envelope 默认用主机本地时区，用户时区主要用于系统提示上下文；
   2) 需要“当前时间”时应调用 `session_status`，而不是依赖 prompt 中静态描述；
   3) 工具时间字段优先看 `timestampMs/timestampUtc` 做跨渠道对齐，避免各平台原始格式差异。
+- 2026-04-04 13:48 学习 `docs/concepts/timezone.md`：
+  1) envelopeTimezone 支持 local/utc/user/IANA，默认 local；
+  2) 可通过 envelopeTimestamp/envelopeElapsed 细粒度控制头部时间信息；
+  3) 工具层做时间对齐应优先 `timestampMs` 与 `timestampUtc`，保留 provider 原始字段作审计。

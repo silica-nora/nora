@@ -5320,3 +5320,8 @@
 - 产出：沉淀 3 条时间处理规则（传输层/用户时区分层、当前时刻以 session_status 为准、跨渠道用标准化时间字段）。
 - 下一步：后续遇到时间错位问题，优先按 envelopeTimezone 与 timestampMs/timestampUtc 双路径排障。
 
+## 2026-04-04 13:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/timezone.md`）。
+- 产出：沉淀 3 条时区治理规则（envelopeTimezone 选项、时间头开关、标准化时间字段优先）。
+- 下一步：若后续出现跨渠道时间偏差，先核对 envelopeTimezone，再核对 timestampMs/timestampUtc。
+
