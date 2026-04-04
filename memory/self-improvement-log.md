@@ -5330,3 +5330,8 @@
 - 产出：沉淀 3 条流式输出规则（双层流式边界、非TG显式block开关、重复感排障顺序）。
 - 下一步：后续若反馈“回复碎/重复”，优先按 preview 与 block 是否双开进行配置核查。
 
+## 2026-04-04 14:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/session-tool.md`）。
+- 产出：沉淀 3 条跨会话工具规则（send超时语义、list/history职责分离、沙箱可见性边界）。
+- 下一步：后续涉及跨会话协作时，先定可见性范围，再选 list/history/send 组合。
+

@@ -5186,3 +5186,7 @@
   1) OpenClaw 有两层流式：block streaming（真实消息分块）与 preview streaming（草稿预览），语义需分开诊断；
   2) 非 Telegram 渠道要想开启 block replies，除默认开关外还需显式 `*.blockStreaming: true`；
   3) 若出现“看似重复回复”，先排查是否同时开了 preview streaming 与 block streaming。
+- 2026-04-04 14:48 学习 `docs/concepts/session-tool.md`：
+  1) 跨会话消息优先使用 `sessions_send`，并依据 `timeoutSeconds` 区分“等待结果”与“仅受理”；
+  2) `sessions_list` 默认不含 toolResult，排障细节应转 `sessions_history(includeTools=true)`；
+  3) 沙箱场景下会话可见性会被收敛到 spawned/tree，避免误判“全局不可见”为数据丢失。
