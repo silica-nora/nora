@@ -5425,3 +5425,8 @@
 - 产出：沉淀 3 条 pruning 规则（内存态裁剪边界、cache-ttl降写入机制、不可裁剪对象边界）。
 - 下一步：后续若首轮 cacheWrite 异常偏高，优先核查 contextPruning.ttl 与 cacheRetention 匹配。
 
+## 2026-04-05 01:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（复核 `concepts/system-prompt.md`）。
+- 产出：沉淀 3 条提示词治理规则（重建+schema双开销、subagent minimal降载、bootstrap hook 可变性）。
+- 下一步：后续若出现“同配置下上下文波动”，优先检查 agent:bootstrap 钩子是否引入额外注入。
+

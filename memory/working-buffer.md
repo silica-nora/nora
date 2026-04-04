@@ -5260,3 +5260,7 @@
   1) pruning 仅裁剪“本次请求内存上下文”的旧 toolResult，不改写磁盘 JSONL；
   2) `cache-ttl` 模式下，prune 发生在超 TTL 后首轮请求，可显著降低该轮 cacheWrite；
   3) 用户/助手消息与含图片的 toolResult 不会被清理，避免语义断裂与视觉证据丢失。
+- 2026-04-05 01:48 复核 `docs/concepts/system-prompt.md`：
+  1) system prompt 每轮重建且含工具 schema 开销，长期控费要同时看“文本段落 + schema体积”；
+  2) 子代理 `minimal` 模式默认剔除多块提示区，是降低上下文负担的关键机制；
+  3) bootstrap 注入可被 `agent:bootstrap` 钩子改写，排障时需确认是否存在注入侧二次变更。
