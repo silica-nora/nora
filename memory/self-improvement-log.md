@@ -5310,3 +5310,8 @@
 - 产出：沉淀 3 条记忆治理规则（Markdown真源、memory_get缺失文件优雅降级、pre-compaction memory flush 机制）。
 - 下一步：后续在长会话中持续执行“先落盘再压缩”的记忆保护习惯。
 
+## 2026-04-04 12:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/messages.md`）。
+- 产出：沉淀 3 条消息链路规则（入站去重、防抖边界、pending-only 历史语义）。
+- 下一步：若出现“重复回复/上下文串扰”体感，优先按 dedupe → debounce → history pending-only 顺序排障。
+
