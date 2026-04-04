@@ -5223,3 +5223,7 @@
   1) 重试粒度是“单次HTTP请求”而非整条多步骤流程，避免已成功步骤被重复执行；
   2) Discord仅对429限流重试，Telegram会覆盖更多瞬态错误（含超时/连接重置）；
   3) Telegram Markdown 解析错误不重试，直接降级纯文本是更稳妥路径。
+- 2026-04-04 19:48 学习 `docs/concepts/usage-tracking.md`：
+  1) 使用量展示以 provider 官方 usage/quota 端点为准，不做“猜测型费用”替代；
+  2) 入口分层：聊天侧（/status,/usage）看当前会话与当前provider，CLI `openclaw status --usage` 看全量分解；
+  3) 无匹配凭证时 usage 会隐藏，排障应先核对 auth profile/API key 是否命中当前 provider。
