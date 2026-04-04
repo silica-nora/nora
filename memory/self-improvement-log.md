@@ -5305,3 +5305,8 @@
 - 产出：沉淀 3 条上下文治理认知（bootstrap 注入成本、memory 日志按需读取、subagent minimal 模式）。
 - 下一步：后续若 context 持续上升，优先审查 MEMORY.md 体积与注入内容。
 
+## 2026-04-04 12:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/memory.md`）。
+- 产出：沉淀 3 条记忆治理规则（Markdown真源、memory_get缺失文件优雅降级、pre-compaction memory flush 机制）。
+- 下一步：后续在长会话中持续执行“先落盘再压缩”的记忆保护习惯。
+

@@ -5166,3 +5166,7 @@
   1) 每轮都会注入 bootstrap 文件，`MEMORY.md` 过长会直接抬高 context 成本；
   2) `memory/*.md` 日志默认不自动注入，需按需通过 memory 工具读取；
   3) 子代理默认 `promptMode=minimal`，仅保留必要段落以控上下文开销。
+- 2026-04-04 12:18 学习 `docs/concepts/memory.md`：
+  1) 记忆真源是工作区 Markdown 文件，模型“记住”取决于是否落盘；
+  2) `memory_get` 对不存在文件会优雅返回空文本，可简化首写前流程；
+  3) 临近 compaction 的 pre-flush 是“先写长期记忆再压缩”的关键保护带。
