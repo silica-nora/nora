@@ -5199,3 +5199,7 @@
   1) context 包含系统提示+会话历史+工具schema/结果，和“memory落盘”是两层概念；
   2) `/context detail` 可定位高开销项（特别是 tool schema 与 bootstrap 注入文件）；
   3) 降耗优先顺序可用：先查大头（schema/注入）→ 再 compact 历史 → 最后再做更深配置调整。
+- 2026-04-04 16:48 学习 `docs/concepts/session.md`：
+  1) 多人DM场景应优先 `dmScope=per-channel-peer`（或 per-account-channel-peer）避免上下文串话泄露；
+  2) Session 真源在 gateway（sessions.json + jsonl），客户端显示应以网关数据为准；
+  3) 维护建议生产启用 `maintenance.mode=enforce`，并同时设置 `pruneAfter + maxEntries` 做双阈值控量。

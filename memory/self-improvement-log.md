@@ -5350,3 +5350,8 @@
 - 产出：沉淀 3 条上下文治理规则（context与memory分层、/context detail定位大头、降耗排障顺序）。
 - 下一步：若 context 持续上涨，优先用 /context detail 锁定工具schema与注入文件体积。
 
+## 2026-04-04 16:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/session.md`）。
+- 产出：沉淀 3 条会话治理规则（DM隔离策略、gateway真源原则、maintenance双阈值治理）。
+- 下一步：若后续出现会话串扰或存储膨胀，优先核对 dmScope 与 maintenance 配置。
+
