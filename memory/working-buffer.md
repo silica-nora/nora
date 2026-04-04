@@ -5207,3 +5207,7 @@
   1) Agent loop 是“接收→建上下文→推理→工具→流式→持久化”的单次闭环，按 session 串行是核心一致性保障；
   2) `agent.wait` 只等待 run 结束，不会停止 run，本体超时由 runtime timeout/abort 控制；
   3) compaction 触发重试时会重置内存缓冲与工具摘要，避免重复输出。
+- 2026-04-04 17:48 学习 `docs/concepts/architecture.md`：
+  1) Gateway 是唯一消息真源与编排点（同主机单实例负责连接各渠道）；
+  2) WebSocket 首帧必须是 `connect`，握手失败会直接关闭连接；
+  3) 具副作用方法（如 send/agent）依赖幂等键做去重重试，减少重连后的重复执行。

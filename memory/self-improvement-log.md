@@ -5360,3 +5360,8 @@
 - 产出：沉淀 3 条运行时规则（loop闭环语义、wait与run超时边界、compaction重试去重机制）。
 - 下一步：后续遇到“等待超时/重复输出”问题，先区分 wait 超时与 run 超时，再看 compaction 重试链路。
 
+## 2026-04-04 17:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/architecture.md`）。
+- 产出：沉淀 3 条架构规则（Gateway单点真源、WS connect首帧硬约束、副作用请求幂等去重）。
+- 下一步：若后续出现“重连后重复动作”问题，优先核对幂等键与去重缓存链路。
+
