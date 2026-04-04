@@ -5174,3 +5174,7 @@
   1) 入站去重键可防止重连后的重复投递触发二次回复；
   2) 入站防抖仅作用文本消息，媒体消息会立即 flush（控制命令也绕过防抖）；
   3) 群聊历史是 pending-only（仅收未触发运行的上下文），避免与 session transcript 重复。
+- 2026-04-04 13:18 学习 `docs/date-time.md`：
+  1) 传输层 envelope 默认用主机本地时区，用户时区主要用于系统提示上下文；
+  2) 需要“当前时间”时应调用 `session_status`，而不是依赖 prompt 中静态描述；
+  3) 工具时间字段优先看 `timestampMs/timestampUtc` 做跨渠道对齐，避免各平台原始格式差异。
