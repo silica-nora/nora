@@ -5142,3 +5142,7 @@
   2) `/status`、`/usage`、`openclaw status --usage`、`channels list` 是同一能力的不同展示面；
   3) 无匹配凭证时 usage 会隐藏，排障先看认证是否存在再看功能本身。
 - 2026-04-04 08:48 补充校正规则：待办检索避免字符串误报，优先使用未完成复选框（`- [ ]`）或显式 `待办:` 前缀，而不是匹配“无待跟进”这类否定句。
+- 2026-04-04 09:18 学习 `docs/concepts/messages.md`：
+  1) 入站防重依赖 channel/account/peer/session/message id 短期缓存，重连重投不会重复触发run；
+  2) 入站防抖只对纯文本生效，媒体消息会立即flush，控制命令绕过防抖；
+  3) 群聊历史是 pending-only 缓冲（未触发run的消息），并与当前消息分段包装，避免上下文串扰。
