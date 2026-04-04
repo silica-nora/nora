@@ -5264,3 +5264,7 @@
   1) system prompt 每轮重建且含工具 schema 开销，长期控费要同时看“文本段落 + schema体积”；
   2) 子代理 `minimal` 模式默认剔除多块提示区，是降低上下文负担的关键机制；
   3) bootstrap 注入可被 `agent:bootstrap` 钩子改写，排障时需确认是否存在注入侧二次变更。
+- 2026-04-05 02:18 学习 `docs/automation/hooks.md`：
+  1) Hook 发现优先级是 workspace > managed > bundled，同名时上层可覆盖下层实现；
+  2) 命令类自动化要优先保持 handler 轻量与早过滤，避免阻塞主命令路径；
+  3) 排障顺序建议固定为“discover→eligibility→enabled→gateway重载→事件触发验证”。

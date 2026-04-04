@@ -5430,3 +5430,8 @@
 - 产出：沉淀 3 条提示词治理规则（重建+schema双开销、subagent minimal降载、bootstrap hook 可变性）。
 - 下一步：后续若出现“同配置下上下文波动”，优先检查 agent:bootstrap 钩子是否引入额外注入。
 
+## 2026-04-05 02:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `automation/hooks.md`）。
+- 产出：沉淀 3 条 Hook 规则（发现优先级、轻量执行原则、标准排障顺序）。
+- 下一步：后续若出现 hook 不生效，先用 `openclaw hooks list/info/check` 做分层定位。
+
