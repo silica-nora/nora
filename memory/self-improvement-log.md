@@ -5295,3 +5295,8 @@
 - 产出：沉淀 3 条规则（compaction持久化语义、auto-compaction重试机制、与pruning职责边界）。
 - 下一步：若后续出现“长会话变慢/上下文紧张”，优先排查 compaction 计数与是否需要手动 `/compact`。
 
+## 2026-04-04 11:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项自我强化（失败复盘：grep pattern 以 `-` 开头导致参数解析错误）。
+- 产出：固化修复模板 `grep -E -- "<pattern>"` 与“否定句二次过滤”策略，降低待办检查误报。
+- 下一步：后续 shell 检索脚本统一采用 `grep --` 防御式写法。
+
