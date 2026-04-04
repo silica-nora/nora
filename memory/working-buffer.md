@@ -5219,3 +5219,7 @@
   1) 指令（think/verbose/model/queue等）与命令分层：前者可内联提示或独立持久化，后者通常需独立消息触发；
   2) 命令授权优先级：若配置 `commands.allowFrom`，其为唯一授权源；
   3) 命令路由上“text/nativе/inline shortcut”三路径并存，排障需先确认触发面与会话归属。
+- 2026-04-04 19:18 学习 `docs/concepts/retry.md`：
+  1) 重试粒度是“单次HTTP请求”而非整条多步骤流程，避免已成功步骤被重复执行；
+  2) Discord仅对429限流重试，Telegram会覆盖更多瞬态错误（含超时/连接重置）；
+  3) Telegram Markdown 解析错误不重试，直接降级纯文本是更稳妥路径。
