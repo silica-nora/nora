@@ -5285,3 +5285,8 @@
 - 产出：固化 3 条规则（跨会话优先 sessions_send、history 按需最小读取、session_status 仅用于模型/用量核查）。
 - 下一步：遇到跨会话协作场景时先判定“是否必须跨会话”，再决定是否调用 sessions_send。
 
+## 2026-04-04 10:18 (Asia/Shanghai)
+- 动作：工作时段 heartbeat 在完成早报推送后，执行 1 项非股票自我强化（阅读 `concepts/model-providers.md`）。
+- 产出：沉淀 3 条模型提供方配置规则（限流才轮换、LIVE_KEY 应急覆盖、自定义provider显式边界）。
+- 下一步：若后续出现 provider 异常，先区分“限流 vs 非限流”，再决定是否做 key 轮换与模型回退。
+

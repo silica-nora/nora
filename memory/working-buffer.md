@@ -5150,3 +5150,7 @@
   1) 会话工具应优先用 sessions_send 做跨会话投递，避免误用外部消息通道；
   2) sessions_history 只在需要追溯上下文时按需拉取，控制读取范围；
   3) session_status 用于模型/用量核查，不与业务状态查询混用。
+- 2026-04-04 10:18 学习 `docs/concepts/model-providers.md`：
+  1) API Key 轮换只在限流类错误触发，非限流失败应立即暴露，不应“盲轮换掩盖真实故障”；
+  2) `OPENCLAW_LIVE_<PROVIDER>_KEY` 为最高优先级单键覆盖，适合紧急止血；
+  3) 自定义 provider 未显式声明能力与上下文上限时会走默认值，生产配置应显式写死模型边界。
