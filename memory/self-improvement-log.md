@@ -5440,3 +5440,8 @@
 - 产出：沉淀 3 条队列治理规则（双层lane语义、collect优先、调参顺序）。
 - 下一步：后续若出现“回复碎片/延迟堆积”，按 debounce→cap/drop→maxConcurrent 顺序排障。
 
+## 2026-04-05 03:18 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（复核 `concepts/messages.md`）。
+- 产出：沉淀 3 条消息处理规则（Body/CommandBody分层、pending-only历史语义、文本与媒体处理分流）。
+- 下一步：后续若出现“命令混入上下文或群聊上下文缺失”问题，优先核对 Body/CommandBody 与 historyLimit 配置。
+

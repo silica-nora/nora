@@ -5272,3 +5272,7 @@
   1) 会话级串行 + 全局lane并发上限共同保证“单会话一致性 + 全局吞吐”；
   2) 默认 `collect` 能减少碎片回复，`steer-backlog` 更易产生“看似重复”体感；
   3) 队列调优优先看 `debounceMs`（抖动）再看 `cap/drop`（拥塞），最后才动全局并发。
+- 2026-04-05 03:18 复核 `docs/concepts/messages.md`：
+  1) 入站链路分 Body/CommandBody，命令解析与模型提示应隔离，避免指令误污染上下文；
+  2) group history 是 pending-only 语义，定位“漏上下文”时需先确认是否已入 transcript；
+  3) 文本防抖与媒体即时flush是不同路径，体验抖动排障要先区分消息类型。
