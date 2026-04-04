@@ -5248,3 +5248,7 @@
   1) workspace 只是默认 cwd，不是硬沙箱；绝对路径仍可能越界，强隔离需启用 sandbox；
   2) `~/.openclaw/`（配置/凭证/会话）与 workspace（可版本化记忆）职责必须分离；
   3) 多工作区并存易造成状态漂移，建议保持单活跃 workspace 并显式配置指向。
+- 2026-04-05 00:18 学习 `docs/reference/token-use.md`：
+  1) token 成本由“系统提示+历史+工具结果+附件”共同构成，不能只盯正文长度；
+  2) `/status` 与 `/usage` 负责会话级可视化，`/context detail` 负责定位结构性开销大头；
+  3) 长会话控费应组合使用“compact + 工具输出裁剪 + 图片维度下调”。
