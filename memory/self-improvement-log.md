@@ -5405,3 +5405,8 @@
 - 产出：沉淀 3 条模型治理规则（主备链路顺序、allowlist拒绝边界、status优先诊断）。
 - 下一步：后续若出现“模型切换后无响应/被拒绝”，先核对 allowlist 与 provider auth 状态。
 
+## 2026-04-04 22:48 (Asia/Shanghai)
+- 动作：heartbeat 强制巡检后执行 1 项非股票自我强化（阅读 `concepts/agent-workspace.md`）。
+- 产出：沉淀 3 条工作区治理规则（workspace非硬沙箱、状态目录与工作区分层、单活跃workspace防漂移）。
+- 下一步：后续若出现“路径越界/状态混乱”，优先核对 sandbox 与 workspace 指向配置。
+

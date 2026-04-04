@@ -5244,3 +5244,7 @@
   2) 配置 `agents.defaults.models` 后会形成 allowlist，未入列模型会被 `/model` 拒绝；
   3) 诊断模型可用性应优先 `openclaw models status`（含 missing auth / OAuth 过期窗口）。
 - 2026-04-04 22:18 晚报执行：命中 `news-night.log`，全文复核并做48小时去重后，剔除已推送重复链路（PingWest同链接），保留2条可读样本（CSDN榜单观察、腾讯云周报）输出中文解读并发送飞书；已写入 news-push-history 并删除源日志。
+- 2026-04-04 22:48 学习 `docs/concepts/agent-workspace.md`：
+  1) workspace 只是默认 cwd，不是硬沙箱；绝对路径仍可能越界，强隔离需启用 sandbox；
+  2) `~/.openclaw/`（配置/凭证/会话）与 workspace（可版本化记忆）职责必须分离；
+  3) 多工作区并存易造成状态漂移，建议保持单活跃 workspace 并显式配置指向。
