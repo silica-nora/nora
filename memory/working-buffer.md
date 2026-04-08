@@ -5280,3 +5280,217 @@
   1) thinking 生效优先级是“单条内联 > 会话覆盖 > 全局默认 > 模型兜底”；
   2) 仅指令消息会持久化会话级 `/think`/`/verbose` 设置，内联指令只影响当条；
   3) `/reasoning` 与 `/verbose` 是独立维度（一个控制思维可见性，一个控制工具回显粒度）。
+
+## 2026-04-05 04:18 心跳学习（OpenClaw 状态审计）
+- `openclaw status` 可一次性查看 Gateway/会话/安全审计摘要，适合每周巡检。
+- 当前存在高优先级风险：`channels.feishu.groupPolicy=open` 且暴露 runtime/fs/elevated 工具，建议改为 `allowlist` 并收紧工具权限。
+- Gateway 本机可达且 systemd 正常运行；若反代暴露控制台需配置 `gateway.trustedProxies`。
+
+## 2026-04-05 04:50 心跳学习（Reactions 工具语义）
+- `message` 反应操作里：新增反应必须提供 `emoji`；删除可用 `remove:true`（仍需 emoji）或空 emoji（按渠道支持）。
+- Discord/Slack/Google Chat：空 `emoji` 可清掉机器人在该消息上的全部反应；`remove:true` 可精确删单个表情。
+- Telegram/WhatsApp 存在校验差异：即使删除动作最终映射为空 emoji，工具层通常仍要求传入非空 `emoji` 以通过校验。
+
+## 2026-04-05 05:20 心跳学习（skills-config）
+- `skills` 统一在 `~/.openclaw/openclaw.json` 配置，关键项：`allowBundled`、`load.extraDirs/watch`、`install.nodeManager`、`entries.<skill>`。
+- `entries.<skill>.env/apiKey` 只对宿主机运行生效；**sandbox 会话不继承 host env**。
+- 沙箱场景要在 `agents.defaults.sandbox.docker.env`（或每个 agent 的 sandbox.docker.env）显式注入密钥。
+
+## 2026-04-05 05:50 心跳学习（timezone 机制复盘）
+- 消息信封时间默认使用主机本地时区；可用 `envelopeTimezone` 切到 `utc/user/指定IANA`。
+- 工具层时间字段以 `timestampMs` + `timestampUtc` 作为统一真源，原始 provider 时间仅作参考。
+- 用户时区展示走 `agents.defaults.userTimezone`，未配置时回落主机时区；`timeFormat` 可控 12/24 小时。
+
+## 2026-04-05 06:20 心跳学习（tools/reply-tags）
+- 回复标签必须放在消息首 token，支持 `[[reply_to_current]]` 与 `[[reply_to:<id>]]`。
+- 标签仅在支持的渠道生效，会在发送前剥离；格式错误会导致无法命中引用回复。
+- 在 heartbeat 渠道通常无需显式标签，保持最小回复更稳。
+
+## 2026-04-05 06:20 心跳复盘（工具依赖故障）
+- 捕获系统失败：`bash: jq: command not found`（exit 127），属于脚本依赖缺失而非业务逻辑错误。
+- 兜底策略：心跳脚本中优先使用 `grep/sed/awk` 的无依赖路径；仅在检测到 `jq` 可用时启用 JSON 精处理分支。
+- 排障顺序：先 `command -v jq` 预检，再决定分支，避免同类故障重复打断心跳链路。
+
+## 2026-04-05 06:50 心跳学习（docs/tools/reply-tags.md）
+- reply tag 必须放在消息首 token；建议默认使用 `[[reply_to_current]]`，仅在明确给出目标消息 id 时才改用 `[[reply_to:<id>]]`。
+- 同一条消息只应携带一个回复标签，标签会在发送前剥离，不应在正文重复解释。
+- 先决定“是否需要原生引用回复”，再决定内容，避免先写正文后补标签导致格式错位。
+
+## 2026-04-05 07:20 心跳学习（工具化回复标签）
+- `docs/tools/reply-tags.md` 关键点：回复标签必须是消息首 token，且一条消息只放一个标签。
+- 默认优先 `[[reply_to_current]]`，仅在显式给出 message id 时用 `[[reply_to:<id>]]`。
+- 标签仅请求“原生回复/引用”行为，本身会被发送层剥离，不应在正文重复解释。
+
+## 2026-04-05 07:50 心跳学习（Markdown Formatting）
+- 出站格式应先 Markdown→IR，再做分片，再按渠道渲染；避免每渠道重复解析。
+- 分片基于 IR 文本进行，内联样式不能跨片断裂；Signal 样式偏移必须用 UTF-16。
+- 表格转换通过 `markdown.tables` 按渠道控制（code/bullets/off），Signal/WhatsApp 更适合 bullets。
+
+## 2026-04-05 08:20 心跳复盘（失败改进）
+- 失败现象：尝试读取 `docs/concepts/attachments.md` 报 ENOENT（路径不存在）。
+- 原因：文档路径假设过度，未先做目录探测。
+- 改进：后续先 `find docs -maxdepth 2 -type f | grep 关键词` 再 read，避免硬编码路径。
+- 本轮附带校验：news 三段日志均为空；clawdbot 日志未见 error/fail/warn；当前会话上下文 12%，低于 60% 阈值。
+
+## 2026-04-05 08:22 心跳学习（Presence机制）
+- Presence 是 Gateway+连接客户端的轻量可见性，主用于实例列表排障。
+- 关键去重键是稳定 `instanceId`；缺失会导致重连后重复实例。
+- 机制有 5 分钟 TTL + 200 条上限，属于短期观测，不做长期状态真源。
+
+## 2026-04-05 08:23 心跳学习（会话样本稀疏时的策略）
+- 用 `sessions_list(limit=5,messageLimit=1)` 先判断是否有“其他会话可学样本”。
+- 若仅主会话活跃（本轮即如此），不要硬做跨会话总结，改为记录“样本不足”并转向文档学习或流程优化。
+- 这样可以避免无依据复盘，提升心跳自我强化的可信度。
+
+## 2026-04-05 08:25 心跳学习（loop-detection）
+- OpenClaw 的 `tools.loopDetection` 默认关闭；仅在需要防止工具循环时启用。
+- 推荐先开总开关保留默认阈值（repeat=3, critical=6），若误杀再逐步放宽阈值或单独关闭某个 detector。
+- 可按 agent 细粒度覆盖，适合给“高风险轮询型 agent”单独加防护，避免全局误伤。
+
+## 2026-04-05 08:55 第一性原理拆解（Heartbeat执行质量）
+- 事实：heartbeat 任务每轮都要求“待办检查 + 安全扫描 + 日志检查 + 新闻门控 + 至少1项自我强化并落盘”。
+- 约束：夜间/清晨经常无外部新事件；不能空转；不能伪造进展；输出需可验证。
+- 假设：把“可验证门控”前置（先判断有没有待办/异常/新闻），可减少无效动作并降低误报。
+- 方案：固定顺序为【门控检查 → 选择最小充分自我强化 → 三处落盘（daily/working-buffer/self-improvement-log）→ 对外简报】。
+- 结论：该流程可在“无新事件”场景保持稳定产出，同时避免重复和噪声。
+
+## 2026-04-05 09:26 心跳学习（loop-detection）
+- OpenClaw 工具循环检测默认关闭；仅在需要防“重复空转/高频失败轮询”时开启。
+- 可调核心参数：`repeatThreshold`、`criticalThreshold`、`detectorCooldownMs`；先温和调阈值，再按需关闭单个 detector，避免误杀合法轮询。
+- 推荐落地方式：全局开保守值，针对高风险 agent 做更严格覆盖；出现误报时优先升阈值而不是全局关闭。
+
+## 2026-04-05 09:58 心跳学习（exec approvals）
+- Host 执行保护是“工具策略 + approvals +（可选）人工确认”的叠加最严模型；不是单一开关。
+- `askFallback` 在 UI 不可达时决定默认行为，生产建议 `deny`，避免静默放行。
+- `safeBins` 仅适合 stdin 过滤类二进制；解释器/运行时（python/node/bash 等）不应放进 safeBins。
+
+## 2026-04-05 10:59 心跳学习（openclaw agent）
+- `openclaw agent` 可在无入站消息时主动跑一轮 agent，默认走 Gateway，断连时会回退本地运行。
+- 会话路由优先级可用 `--to` / `--session-id` / `--agent` 控制，适合做隔离会话调试。
+- `--deliver` 可把结果直接投递到渠道；`--thinking`/`--verbose` 会持久化到会话配置，需谨慎使用避免长期增耗。
+
+## 2026-04-05 11:00 心跳学习（llm-task）
+- `llm-task` 是可选插件，定位为“JSON-only 的结构化推理步骤”，适合 Lobster 等工作流内嵌。
+- 安全边界：默认不暴露工具给模型；输出需视为不可信，建议配合 JSON Schema 强校验。
+- 工程实践：对有副作用的后续步骤（发送/执行）应放在审批之后，先做结构化解析再行动。
+
+## 2026-04-05 11:02 心跳学习（Firecrawl 回退）
+- `web_fetch` 抽取链路为：Readability → Firecrawl（若配置）→ 基础HTML清洗。
+- Firecrawl 主要价值在 JS 重站点与反爬场景，且支持缓存；OpenClaw 侧使用 `proxy:auto` + `storeInCache:true`。
+- 实践建议：默认先走本地抽取；遇到提取失败/反爬再启用 Firecrawl，并关注 credits 消耗。
+
+## 2026-04-05 11:03 心跳学习（browser-login）
+- 登录类站点应优先“人工在 host 浏览器登录”，避免自动化填密导致风控与账号锁定。
+- OpenClaw 推荐使用独立 `openclaw` Chrome profile（与日常浏览器隔离），降低会话污染与隐私混用风险。
+- 对 X/Twitter 等严风控站点，优先 host 浏览器而非 sandbox 浏览器。
+
+## 2026-04-05 11:05 心跳学习（plugins）
+- 插件是进程内扩展，默认应按“受信代码”对待：优先 `plugins.allow` 白名单，不可信插件不要装。
+- 发现与优先级有固定顺序（config paths → workspace → global → bundled），同 id 取先命中，便于排查“为何加载了这个版本”。
+- 配置变更需重启 gateway 生效；`entries/allow/deny/slots` 的未知 id 会直接报错，可用于防止静默错配。
+
+## 2026-04-05 11:06 心跳学习（subagents）
+- `sessions_spawn` 默认非阻塞，立即返回 accepted；完成后通过 announce 回传结果，适合长任务后台化。
+- 成本与治理要点：子代理有独立上下文/计费，建议为子代理单独设更省模型并限制 `maxConcurrent`。
+- 深度2编排模式可用（主会话→编排子代理→工人子代理），但需明确 `maxSpawnDepth/maxChildrenPerAgent` 防止扇出失控。
+
+## 2026-04-05 11:36 心跳学习（skills-config）
+- 技能配置主入口是 `skills`：`allowBundled/load.extraDirs/install/entries` 四层结构。
+- `skills.entries.<skill>.env/apiKey` 仅对 host 运行生效；sandbox 会话需走 `sandbox.docker.env`。
+- 运营建议：`allowBundled` 只限制内置技能，不影响 workspace/managed 技能，便于做最小暴露面控制。
+
+## 2026-04-05 12:06 心跳学习（elevated）
+- `/elevated on|ask` 只把执行位置切到 host 且保留审批；`/elevated full` 才会跳过 exec approvals。
+- elevated 只在“沙箱会话”对执行位置有实质影响；非沙箱主要影响状态/门控/日志。
+- 权限是双重门控：全局 `tools.elevated` + agent 级 `agents.*.tools.elevated`，两层都要放行。
+
+## 2026-04-05 12:36 心跳学习（web tools）
+- `web_search` 与 `web_fetch` 属于轻量检索/抓取，不等价浏览器自动化；登录或重 JS 页面应切 browser 工具。
+- `web_search` 可在 Brave / Perplexity / Gemini 间切换；未显式配置时按 key 自动探测 provider。
+- `web_fetch` 默认链路是 Readability 优先，失败后再 Firecrawl；对内网/私网与重定向有安全拦截。
+
+## 2026-04-05 13:06 心跳学习（exec）
+- `exec` 在 sandbox/gateway/node 三宿主模型下行为不同；沙箱关闭时显式 `host=sandbox` 现为 fail-closed，不会静默落到 host。
+- `safeBins` 是“stdin-only 窄白名单”，与 path allowlist 职责不同，解释器类二进制不应加入 safeBins。
+- `/exec` 仅改会话级默认值，不写全局配置；要彻底禁用 exec 必须走工具策略 deny。
+
+## 2026-04-05 13:36 心跳学习（apply_patch）
+- `apply_patch` 适合多文件/多hunk结构化改动，能替代脆弱的大段 `edit` 精确匹配。
+- 默认受 `tools.exec.applyPatch.workspaceOnly=true` 约束，避免误改工作区外文件。
+- 工具默认关闭且属实验特性；启用后仍可用 `allowModels` 继续收敛可调用模型范围。
+
+## 2026-04-05 14:06 心跳学习（browser）
+- `browser` 是独立受控浏览面，默认 profile 为 `chrome`（扩展接管系统浏览器）；需要隔离自动化时应切 `openclaw` profile。
+- 快照有两类：AI snapshot（数字ref）与 role snapshot（e12类ref）；跨导航 ref 不稳定，失败时应先重拍快照再动作。
+- `web_fetch` 与 browser 边界要分清：登录/重JS/交互任务直接用 browser，避免在轻量抓取链路反复重试。
+
+## 2026-04-05 14:36 心跳学习（multi-agent sandbox/tools）
+- 多代理工具策略是逐层收紧链路：profile → 全局allow/deny → agent级 → sandbox级 → subagent级，后层不能“放回”前层已拒绝工具。
+- `non-main` 判定基于 session.mainKey（通常是 main），不是 agent id；群聊/频道会话常被判为 non-main 并进入沙箱。
+- 高风险能力治理建议：对不可信代理直接 deny `exec`，并通过 `agents.list[].tools.elevated.enabled=false` 关闭该代理的 elevated。
+
+## 2026-04-05 15:06 心跳学习（slash-commands）
+- 指令分两类：standalone 命令与内联 directive；directive-only 会持久化会话设置，内联只作当次提示。
+- `/exec`、`/elevated`、`/model`、`/queue` 等都属于 directive，授权失败时应按普通文本处理或拒绝持久化。
+- 命令授权优先级关键：若设置 `commands.allowFrom`，它会成为唯一命令授权源（覆盖 channel allowlists/pairing 路径）。
+
+## 2026-04-05 16:06 心跳学习（chrome-extension relay）
+- Chrome 扩展接管是“接管现有标签页”的高权限路径，不具备 openclaw 独立 profile 那种天然隔离。
+- 远程网关场景应在浏览器所在机器启 node host；扩展与 relay 仍保持本地，网关走代理转发。
+- 自定义 gateway 端口时，扩展 relay 端口按“gateway+3”推导，扩展设置需同步。
+
+## 2026-04-05 16:36 心跳学习（ACP agents）
+- ACP 与 subagent 是两条路：外部 coding harness 一律走 `runtime:"acp"`，不要混用 subagent 语义。
+- `/acp spawn` 的 `--thread auto|here|off` 是线程绑定关键开关；`mode:session` 需 thread 绑定能力支持。
+- 故障排查首选 `/acp doctor`，可快速区分“后端未配置/策略禁用/agent未放行/线程能力缺失”四类问题。
+
+## 2026-04-05 17:06 心跳学习（agent-send 再校准）
+- `openclaw agent` 是无入站消息触发单轮会话的入口，默认走 Gateway；连通异常才回落 local。
+- `--to / --session-id / --agent` 决定会话复用与隔离边界，排障时优先显式指定其一。
+- `--thinking` 与 `--verbose` 会持久化到会话级，临时调试后应及时恢复默认，避免长期 token 成本上升。
+
+## 2026-04-05 17:36 心跳学习（reactions）
+- reaction 语义有统一规则：新增必须带 emoji；`emoji=""` 用于清空本机器人反应（渠道支持时）。
+- `remove:true` 是“删除指定emoji”语义，但大多渠道仍要求提供非空 emoji 才能通过参数校验。
+- 渠道差异主要在“空emoji是否删全部or删当前bot反应”的实现细节，跨渠道自动化前应先做能力映射。
+
+## 2026-04-05 18:06 心跳学习（creating-skills）
+- 自定义 skill 最小单元是“目录 + SKILL.md”，优先放在 workspace/skills 下，便于热加载与维护。
+- SKILL.md 应聚焦“做什么”而非泛化人格描述，减少提示词噪音。
+- 涉及 bash 的 skill 要把注入风险前置，避免把不可信输入直拼 shell 命令。
+
+## 2026-04-05 18:36 心跳学习（skills 主文档）
+- 技能优先级清晰：workspace > ~/.openclaw/skills > bundled；同名覆盖按此链路定位。
+- `skills.entries.*.env/apiKey` 作用域是“单次 agent run 注入并在结束后恢复”，不是全局 shell 持久环境。
+- skill 列表会进入系统提示词并带来固定 token 成本；会话中技能快照默认复用，变更通常在新会话或热刷新后生效。
+
+## 2026-04-05 19:06 心跳学习（lobster）
+- Lobster 价值在“多步工具编排外置化”：一次工具调用完成整条 pipeline，减少模型往返与编排token。
+- 审批/恢复是第一等能力：`needs_approval + resumeToken` 可在不重跑前序步骤的前提下继续执行。
+- 安全边界：Lobster 工具本身是本地子进程执行且受超时/输出上限约束；高风险副作用必须经显式 approve gate。
+
+## 2026-04-05 19:36 心跳学习（exec-approvals 深化）
+- 审批策略按“更严格者生效”：`tools.exec.*` 与 `exec-approvals.json` 同时存在时取更严，不会被宽松侧覆盖。
+- `askFallback` 是关键兜底面：无UI可审批时建议维持 `deny`，防止审批链断裂导致越权执行。
+- allowlist 是按“解析后的二进制路径”匹配，不是命令名匹配；多代理场景需分 agent 维护，避免权限串味。
+
+## 2026-04-05 20:06 危险区前置（context治理）
+- 当前 context=60%（阈值线），已进入“危险区前置关注”状态。
+- 控制策略：后续心跳优先“低注入动作”（只做必要巡检+最小学习摘要），避免长文档与重复回填。
+- 触发条件：若下一轮 >60%，优先执行 compact，并将自我强化切为“短规则复核”模式。
+
+## 2026-04-05 20:36 危险区协议执行（context>60%）
+- 现状：context 61%，超过阈值。
+- 立即策略：后续 heartbeat 仅做门控巡检，不再读取长文档；自我强化改为“短复盘+落盘”。
+- 处置建议：优先触发一次 compact 清理长会话历史，再继续常规巡检。
+
+## [2026-04-08 15:57 CST] Agent (OpenClaw能力学习-CLI状态巡检)
+
+### 今日新增认知（非股票类）
+- `openclaw status` 会直接给出**安全审计摘要**（critical/warn/info），可作为 heartbeat 的快速风险体检入口。
+- `openclaw help` 已覆盖完整命令族（如 `doctor`/`security`/`sessions`/`gateway`），后续排障可先走 CLI 自检再决定是否升级操作。
+- `session_status` 可快速确认上下文占用与模型状态；本轮上下文占用 0%，未进入危险区（<60%）。
+
+### 偏差修正
+- 上次偏差：日志自愈检查只盯 `/tmp/clawdbot/*.log`，目录缺失时会产生假阴性。
+- 修正方案：后续先检测目录是否存在，不存在时标记“无该日志源”，再补充 `openclaw status` 结果作为替代证据。

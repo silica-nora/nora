@@ -5450,3 +5450,292 @@
 - 产出：沉淀 3 条思考与可见性规则（优先级链路、会话持久化条件、reasoning与verbose分层）。
 - 下一步：后续若出现“设置不生效/误持久化”问题，先检查消息是否为“仅指令消息”。
 
+
+### 2026-04-05 04:18 (Asia/Shanghai)
+- 动作：执行 1 次非股票类能力提升（OpenClaw 运维安全巡检）。
+- 产出：运行 `openclaw status` 并提炼 3 条可执行笔记，写入 `memory/working-buffer.md`。
+- 发现：存在 Feishu 群组策略与工具暴露的 Critical 风险项，后续可在白天窗口评估修复。
+- 下一步：白天时段补做 `openclaw security audit --deep`，形成最小改动修复清单。
+
+### 2026-04-05 04:50 (Asia/Shanghai)
+- 动作：执行 1 次非股票类能力提升（学习 OpenClaw reactions 文档）。
+- 产出：沉淀跨渠道 reaction 增删语义与 Telegram/WhatsApp 参数校验差异，已写入 `memory/working-buffer.md`。
+- 发现：删除反应在不同渠道的“空 emoji/remove:true”行为不完全一致，后续做跨平台自动化时需先按渠道分支。
+- 下一步：在需要主动“只反应不回复”的群聊场景，优先使用精确删除策略避免误清全部反应。
+
+### 2026-04-05 05:20 (Asia/Shanghai)
+- 动作：执行 1 次非股票类提升（OpenClaw skills 配置学习）。
+- 产出：提炼 3 条 `skills-config` 规则写入 `memory/working-buffer.md`。
+- 失败复盘：初次误读路径 `docs/tools/memory.md` 不存在；已改为先 `ls docs/tools` 再定点读取，避免无效 read。
+- 下一步：白天补充一次 sandbox 环境变量最小示例到 runbook。
+
+### 2026-04-05 05:50 (Asia/Shanghai)
+- 动作：完成 1 次非股票自我强化（学习 OpenClaw timezone 文档）。
+- 产出：沉淀 3 条时间标准化规则，已写入 `memory/working-buffer.md`。
+- 巡检：SESSION-STATE 无待办；注入关键词未命中；`/tmp/clawdbot` 未见 error/fail/warn；新闻日志均为空或不存在。
+- 下一步：白天时段再补一次 timezone 配置实机核对（envelopeTimezone/userTimezone 是否一致）。
+
+### 2026-04-05 06:20 (Asia/Shanghai)
+- 动作：执行 1 次非股票类自我强化（学习 OpenClaw reply tags 规则）。
+- 产出：沉淀 3 条可执行规则到 `memory/working-buffer.md`。
+- 检查：夜间无注入关键词命中；/tmp/clawdbot 未见 error|fail|warn 新信号。
+- 下一步：白天窗口补做一次消息引用场景抽样验证（Feishu/heartbeat 差异）。
+
+### 2026-04-05 06:20 (Asia/Shanghai)
+- 动作：完成 1 次失败复盘（exec code 127: jq not found）。
+- 产出：沉淀“依赖预检 + 无依赖降级”三步法，并写入 `memory/working-buffer.md`。
+- 结论：该故障不影响当前任务结果，但会降低自动化稳定性。
+- 下一步：后续相关脚本统一加入 `command -v jq` 检查与 awk/sed 降级实现。
+
+### 2026-04-05 06:50 (Asia/Shanghai)
+- 动作：执行 1 次非股票类能力提升（回复链路规范学习）。
+- 产出：复核 `docs/tools/reply-tags.md`，沉淀 3 条可执行规则，写入 `memory/working-buffer.md`。
+- 巡检：SESSION-STATE 无待办；近两日 memory 未发现新增活跃待跟进；日志未命中注入关键词与 error/fail/warn。
+- 下一步：在后续跨渠道回复中优先使用 `[[reply_to_current]]` 并保持单标签。
+
+### 2026-04-05 07:20 (Asia/Shanghai)
+- 动作：完成 1 项非股票类自我强化（复盘 reply-tags 规范）。
+- 产出：提炼“首 token、默认 current、单消息单标签”三条执行规则并写入 working-buffer。
+- 下一步：在后续跨渠道回帖场景统一先做标签自检，避免引用失败或重复标签。
+
+### 2026-04-05 07:50 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 OpenClaw Markdown 格式化链路）。
+- 产出：提炼“IR先行、分片顺序、Signal UTF-16 偏移”3条工程规则，并写入 working-buffer。
+- 巡检：SESSION-STATE无待办；近两日memory无新增活跃待跟进；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志未命中推送门控。
+- 下一步：白天时段可抽样复核消息链路中表格策略（code vs bullets）是否按渠道配置生效。
+
+### 2026-04-05 08:20 (Asia/Shanghai)
+- 动作：执行 1 次失败复盘（文档路径 ENOENT）。
+- 产出：沉淀“先检索再读取”的路径探测规范，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；近两日 memory 无新增活跃待跟进；news 日志均为空；/tmp/clawdbot 无 error|fail|warn；context 12%。
+- 下一步：后续文档学习统一先做关键词定位，减少无效 read 调用。
+
+### 2026-04-05 08:22 (Asia/Shanghai)
+- 动作：执行 1 项非股票自我强化（学习 OpenClaw Presence 概念文档）。
+- 产出：沉淀 3 条规则（instanceId 去重、TTL+容量边界、可观测性定位用途），写入 working-buffer。
+- 巡检：SESSION-STATE 无待办；/tmp/clawdbot 无 error|fail|warn；新闻日志均为空或不存在。
+- 下一步：后续遇到实例重复优先检查 connect/system-event 的 instanceId 一致性。
+
+### 2026-04-05 08:23 (Asia/Shanghai)
+- 动作：执行“查看其他会话动态，提炼经验”自我强化。
+- 产出：通过 `sessions_list` 验证当前仅主会话活跃，沉淀“样本不足不强行总结，先做样本门控”规则，写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；近两日 memory 无新增活跃待跟进；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 13%。
+- 下一步：后续若出现多个会话，再做跨会话经验提炼。
+
+### 2026-04-05 08:25 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 OpenClaw loop-detection）。
+- 产出：沉淀“默认关闭、先默认阈值启用、按 agent 覆盖”的三条实践，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 约 16%（42375/272000）。
+- 下一步：如后续出现重复工具调用症状，可评估为特定 agent 开启 loopDetection。
+
+### 2026-04-05 08:55 (Asia/Shanghai)
+- 动作：执行“第一性原理强化”自我提升（事实/约束/假设/方案）。
+- 产出：形成 heartbeat 最小充分执行流程（门控优先、三处落盘、可验证简报），已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 17%。
+- 下一步：10:00 前继续保持门控优先，若 morning 日志非空再进入全文阅读与去重流程。
+
+### 2026-04-05 09:26 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/loop-detection.md`）。
+- 产出：沉淀循环检测启用策略与调参顺序 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 17%。
+- 下一步：后续若出现重复 tool-call 空转，再评估在特定 agent 上启用 loopDetection。
+
+### 2026-04-05 09:58 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/exec-approvals.md`）。
+- 产出：沉淀执行审批三条关键规则（最严叠加、askFallback=deny、safeBins边界），已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 17%。
+- 下一步：10:00 后若 morning 日志出现内容，按“全文阅读→去重→中文解读→发送→删除源日志”流程执行。
+
+### 2026-04-05 10:59 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/agent-send.md`）。
+- 产出：沉淀 `openclaw agent` 的路由/投递/持久化参数边界 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 23%。
+- 下一步：若后续需要离线触发单轮任务，优先用 `openclaw agent --session-id/--agent` 控制隔离范围。
+
+### 2026-04-05 11:00 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/llm-task.md`）。
+- 产出：沉淀 llm-task 的定位/安全边界/流程落点 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 24%。
+- 下一步：若后续需要结构化抽取任务，优先考虑“schema校验 + 审批后执行”的串联模式。
+
+### 2026-04-05 11:02 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/firecrawl.md`）。
+- 产出：沉淀 web_fetch 的 Firecrawl 回退链路与使用边界 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 26%。
+- 下一步：后续遇到 JS 重站抽取失败时，优先确认 Firecrawl key 与缓存参数是否可用。
+
+### 2026-04-05 11:03 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/browser-login.md`）。
+- 产出：沉淀登录场景三条操作边界（人工登录/独立profile/严风控站点优先host），已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 27%。
+- 下一步：后续涉及登录站点自动化时，默认先采用“人工登录后再自动化”的策略。
+
+### 2026-04-05 11:05 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/plugin.md`）。
+- 产出：沉淀插件信任模型、发现优先级、配置校验边界 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 31%。
+- 下一步：若后续接入新插件，先做 allowlist 与来源校验，再做启用与重启。
+
+### 2026-04-05 11:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/subagents.md`）。
+- 产出：沉淀子代理三条运行边界（非阻塞回传、成本隔离、深度/并发限流），已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 32%。
+- 下一步：若后续出现复杂长任务，优先走 `sessions_spawn` 并显式设置模型与超时。
+
+### 2026-04-05 11:36 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/skills-config.md`）。
+- 产出：沉淀 skills 配置与 sandbox 环境变量边界 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 33%。
+- 下一步：后续若技能在 sandbox 下拿不到 key，优先检查 `sandbox.docker.env` 而非 `skills.entries.*.env`。
+
+### 2026-04-05 12:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/elevated.md`）。
+- 产出：沉淀 elevated 三条关键边界（on/ask vs full、沙箱影响范围、双重门控），已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 34%。
+- 下一步：后续需 host 执行时默认先用 `ask`，仅在明确授权场景才考虑 `full`。
+
+### 2026-04-05 12:36 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/web.md`）。
+- 产出：沉淀 web_search/web_fetch 的边界、provider 自动探测、抓取回退链路 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 35%。
+- 下一步：遇到登录或JS重站场景时，直接切换 browser 工具，避免在 web_fetch 上反复重试。
+
+### 2026-04-05 13:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/exec.md`）。
+- 产出：沉淀 exec 三条关键边界（宿主fail-closed、安全分层、会话级覆盖范围），已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 37%。
+- 下一步：后续出现 exec 权限争议时，先区分“会话覆盖”与“全局工具策略”再处理。
+
+### 2026-04-05 13:36 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/apply-patch.md`）。
+- 产出：沉淀 apply_patch 的适用场景、工作区边界、模型门控 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 39%。
+- 下一步：后续遇到跨文件批量修改时优先考虑 apply_patch（前提：该工具已启用）。
+
+### 2026-04-05 14:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/browser.md`）。
+- 产出：沉淀 browser 的 profile边界、snapshot/ref使用规则、与web_fetch分工 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 39%。
+- 下一步：后续自动化场景优先先定 profile（chrome/openclaw）再执行快照与动作。
+
+### 2026-04-05 14:36 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/multi-agent-sandbox-tools.md`）。
+- 产出：沉淀多代理工具过滤顺序、non-main陷阱与高风险能力治理 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 42%。
+- 下一步：后续如出现“为什么被沙箱/被拒绝”问题，优先按过滤顺序定位策略层级。
+
+### 2026-04-05 15:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/slash-commands.md`）。
+- 产出：沉淀命令与directive分层、directive持久化条件、commands.allowFrom优先级 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 42%。
+- 下一步：后续排查“命令不生效”时，先核对 commands.allowFrom 与授权来源是否冲突。
+
+### 2026-04-05 16:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/chrome-extension.md`）。
+- 产出：沉淀扩展接管的隔离边界、远程网关部署方式、端口推导规则 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 49%。
+- 下一步：后续若需接管系统Chrome，优先提醒使用独立Chrome用户配置并确认网关私网暴露。
+
+### 2026-04-05 16:36 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/acp-agents.md`）。
+- 产出：沉淀 ACP 与 subagent 分流、线程绑定模式、doctor优先排障 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 51%。
+- 下一步：后续收到“用codex/claude code做这件事”请求时，默认转 ACP runtime 并显式设 agentId。
+
+### 2026-04-05 17:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（复核 `docs/tools/agent-send.md` 并做成本向再校准）。
+- 产出：沉淀会话路由边界与“调试开关需回收”规则 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 53%。
+- 下一步：若会话上下文继续上升，优先减少持久化调试开关并评估 compact。
+
+### 2026-04-05 17:36 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/reactions.md`）。
+- 产出：沉淀 reaction 参数语义与跨渠道差异 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 53%。
+- 下一步：如后续要做跨渠道 reaction 自动化，先加一层“渠道能力与参数映射”校验。
+
+### 2026-04-05 18:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/creating-skills.md`）。
+- 产出：沉淀 skill 最小结构、SKILL.md写作重点与bash注入防护 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 54%。
+- 下一步：若后续新增技能，先按“最小SKILL.md+安全边界”模板起草再扩展脚本。
+
+### 2026-04-05 18:36 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/skills.md`）。
+- 产出：沉淀 skills 优先级、环境注入作用域、提示词成本影响 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 54%。
+- 下一步：若上下文继续上升，优先检查技能清单是否过长并评估是否收敛技能暴露面。
+
+### 2026-04-05 19:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/tools/lobster.md`）。
+- 产出：沉淀 Lobster 的编排降耗、审批恢复机制与安全边界 3 条，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 57%。
+- 下一步：若后续出现高频多步骤流程，优先评估改写为 Lobster pipeline 以降低编排成本。
+
+### 2026-04-05 19:36 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（复核 `docs/tools/exec-approvals.md` 并做策略深化）。
+- 产出：沉淀“更严优先、askFallback兜底、路径级allowlist隔离”三条规则，已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 58%。
+- 下一步：若 context 接近 60% 以上，下一轮优先执行压缩前置检查，避免进入危险区。
+
+### 2026-04-05 20:06 (Asia/Shanghai)
+- 动作：执行 1 项非股票类自我强化（学习 `docs/concepts/context.md` + 危险区前置治理）。
+- 产出：形成 context 60% 阈值前置策略（低注入、最小学习、>60%触发compact），已写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 60%。
+- 下一步：下一轮若 >60%，立即走 compact 优先路径并减少文档读取长度。
+
+### 2026-04-05 20:36 (Asia/Shanghai)
+- 动作：执行危险区协议（context 61%）。
+- 产出：落地“低注入巡检 + 停止长文档学习 + 优先compact”的控量策略，写入 `memory/working-buffer.md`。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空；context 61%。
+- 下一步：下轮若仍 >60%，继续最小回复并优先请求/执行 compact。
+
+### 2026-04-05 21:06 (Asia/Shanghai)
+- 动作：危险区协议续跑（context 62%）。
+- 产出：维持低注入巡检，暂停长文档学习，等待 compact 执行窗口。
+- 检查结果：无注入命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空。
+- 下一步：继续最小回复，优先 compact。
+
+### 2026-04-05 21:36 (Asia/Shanghai)
+- 动作：危险区协议续跑（context 62%）。
+- 产出：继续低注入巡检，暂停长文档学习，优先compact。
+- 检查结果：注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空。
+
+### 2026-04-05 21:36 (Asia/Shanghai)
+- 动作：危险区协议续跑（context 62%）。
+- 产出：维持低注入巡检，避免新增长文档读取。
+- 检查结果：注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空。
+
+### 2026-04-05 22:36 (Asia/Shanghai)
+- 动作：危险区协议下执行晚报推送（必要任务优先）。
+- 产出：完成晚报发送与去重归档；未新增长文档学习，保持低注入策略。
+- 检查结果：context 65%，其余巡检正常。
+
+### 2026-04-06 00:36 (Asia/Shanghai)
+- 动作：危险区协议续跑（context 65%）。
+- 产出：维持低注入巡检，无长文档学习，继续优先compact。
+- 检查结果：SESSION-STATE 无待办；注入关键词未命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空。
+
+### 2026-04-06 01:06 (Asia/Shanghai)
+- 动作：危险区协议续跑（context 65%）。
+- 产出：维持低注入巡检，不做长文档学习，继续优先compact。
+- 检查结果：无注入命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空。
+
+### 2026-04-06 01:36 (Asia/Shanghai)
+- 动作：危险区协议续跑（context 65%）。
+- 产出：维持低注入巡检，不新增文档学习内容。
+- 检查结果：无注入命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空。
+
+### 2026-04-06 02:06 (Asia/Shanghai)
+- 动作：危险区协议续跑（context 66%）。
+- 产出：继续低注入巡检，暂停学习型长读取。
+- 检查结果：无注入命中；/tmp/clawdbot 无 error|fail|warn；新闻日志均空。
+
+- 时间：2026-04-08 15:57 (Asia/Shanghai)
+- 类型：学习 / 复盘 / 优化
+- 动作：执行 heartbeat 非股票类强化：完成 OpenClaw CLI 能力复盘（status/help/session_status）并校正日志巡检盲区
+- 产出：
+  - 形成 3 条可复用运维笔记并写入 `memory/working-buffer.md`
+  - 识别并修正“/tmp/clawdbot 目录缺失导致日志检查假阴性”的流程风险
+  - 确认本会话 context 使用率为 0%，未进入危险区
+- 下一步：下轮 heartbeat 将 `openclaw status` 作为自愈检查补充项，遇到 critical 安全项时优先汇报
