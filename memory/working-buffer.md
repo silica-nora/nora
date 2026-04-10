@@ -5703,3 +5703,9 @@
 - 新增认知1：OpenClaw 的 agent runtime 基于嵌入式 pi-mono，但会话管理/发现/工具接线由 OpenClaw 自主实现（不读 `~/.pi` 路径）。
 - 新增认知2：bootstrap 文件缺失时会注入“missing marker”而不中断会话，且 `openclaw setup` 可安全补齐默认模板。
 - 新增认知3：queue=steer 时会在每次 tool call 后检查新消息并可跳过后续工具链，降低“用户已改口但仍继续执行旧计划”的风险。
+
+## [2026-04-10 21:38 CST] Agent（OpenClaw文档学习：context）
+
+- 新增认知1：context 是“本轮发给模型的全部载荷”，与 memory 不同；memory在磁盘可长期沉淀，context只在当前窗口内生效。
+- 新增认知2：工具成本有两层：系统提示里的工具列表文本 + 隐式工具JSON schema；后者常是上下文大头但默认不可见。
+- 新增认知3：`/context list|detail` 优先显示最近真实 run 的 system prompt 报告（run-built），不是纯估算，适合做精准控噪排障。

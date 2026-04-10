@@ -6081,3 +6081,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（runtime归属、bootstrap缺失容错、steer后工具跳过）
   - 明确后续排查“为何未继续执行后续工具”时需先检查 queue mode 是否为 steer
 - 下一步：若后续出现执行链被截断现象，先核查 queued message 注入时点与工具边界。
+
+- 时间：2026-04-10 21:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/context.md`，梳理 context 构成与可观测诊断入口。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（context与memory边界、工具双层开销、run-built context报告）
+  - 明确后续若出现上下文超限，优先用 `/context detail` 定位“文件注入 vs tool schema”主耗项
+- 下一步：后续若context逼近阈值，先做注入裁剪与必要时 /compact，再考虑策略级调参。
