@@ -6057,3 +6057,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（能力版图、会话默认闭环、旧路径下线）
   - 明确后续做能力判断时应优先按“Gateway统一能力 + 现行代理路径”回答，避免引用历史路径
 - 下一步：后续如遇“能不能做X”类问题，先按 features 列表判定再落到具体配置项。
+
+- 时间：2026-04-10 19:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/oauth.md`，梳理 OAuth 存储、刷新与多账号路由策略。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（token sink、按agent隔离、profile定向）
+  - 明确后续遇到“频繁掉登录”时优先检查是否存在多端抢同一refresh token
+- 下一步：若后续需要多身份稳定并行，优先建议采用多agent隔离方案。

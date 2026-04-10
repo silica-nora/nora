@@ -5685,3 +5685,9 @@
 - 新增认知1：OpenClaw 能力面覆盖“多渠道接入 + 多代理路由 + 媒体双向 + 节点Canvas”，核心是一套统一Gateway控制面。
 - 新增认知2：会话默认策略仍是“私聊归并main、群聊隔离”，这和 `session` 概念文档中的安全配置形成闭环。
 - 新增认知3：旧的 Claude/Codex/Gemini/Opencode 直连路径已移除，当前 coding agent 主路径是 Pi（与ACP harness分流认知要保持一致）。
+
+## [2026-04-10 19:38 CST] Agent（OpenClaw文档学习：oauth）
+
+- 新增认知1：OpenClaw 将 `auth-profiles.json` 作为统一“token sink”，可降低多端并行登录导致 refresh token 互踢的随机失效风险。
+- 新增认知2：凭据按 agent 隔离存放在 `~/.openclaw/agents/<agentId>/agent/`，多账号最稳妥方案是“分agent隔离”而非同agent混用。
+- 新增认知3：同一agent内多profile可用 `auth.order` 全局排序，或通过 `/model ...@<profileId>` 做会话级定向绑定。
