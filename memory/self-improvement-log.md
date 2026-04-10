@@ -5969,3 +5969,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（collect默认、双层lane并发、steer-backlog副作用）
   - 明确心跳/消息高峰场景下优先 `collect` 以降低多次碎片回复
 - 下一步：后续若出现“同一轮多回复”迹象，优先检查队列模式与debounce配置。
+
+- 时间：2026-04-10 13:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/retry.md`，提炼跨渠道重试边界与降级策略。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（请求级重试、Discord/Telegram差异、Markdown失败降级）
+  - 明确消息发送排障时需先按“可重试错误”与“内容错误”分流处理
+- 下一步：后续遇到发送失败先判定是否 429/瞬时网络类，再决定重试或内容降级。

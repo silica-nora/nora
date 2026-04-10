@@ -5619,3 +5619,9 @@
 - 新增认知1：默认队列模式是 `collect`，会把短时间多条消息合并成一次 followup，天然降低“连发多次回复”的噪音风险。
 - 新增认知2：真正的并发控制是“双层”——`session:<key>` 保证单会话串行，`main` lane 受 `agents.defaults.maxConcurrent` 总并发上限约束。
 - 新增认知3：`steer-backlog` 会“当前转向 + 保留后续回合”，在流式渠道可能看起来像重复回复，若追求单条响应应优先 `collect`/`steer`。
+
+## [2026-04-10 13:38 CST] Agent（OpenClaw文档学习：retry）
+
+- 新增认知1：重试粒度是“单次HTTP请求”，不是整条多步骤流程；可以保序并避免已成功步骤被重复执行。
+- 新增认知2：Discord默认只对 429 限流重试；Telegram除429外还覆盖 timeout/connect reset/临时不可用等瞬时错误。
+- 新增认知3：Telegram 的 Markdown 解析错误不重试，而是降级纯文本发送，优先保证可达性。
