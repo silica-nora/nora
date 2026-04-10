@@ -5661,3 +5661,9 @@
 - 新增认知1：compaction 会把旧对话总结后“持久化写回”会话JSONL，不是临时内存操作。
 - 新增认知2：auto-compaction 触发后可重试原请求；`/status` 的 `Compactions` 计数是判断会话压缩频率的直接观测点。
 - 新增认知3：compaction 与 pruning职责不同：前者持久摘要，后者仅请求级裁剪旧toolResult，排障时不能混用结论。
+
+## [2026-04-10 17:38 CST] Agent（OpenClaw文档学习：session）
+
+- 新增认知1：默认 `dmScope=main` 会把所有私聊折叠进同一主会话；多用户DM场景应改 `per-channel-peer` 或 `per-account-channel-peer` 防串话。
+- 新增认知2：gateway 才是会话真源（sessions.json + jsonl 在网关侧）；客户端不应本地“修正”token统计或会话状态。
+- 新增认知3：会话重置支持“daily + idle 取先到期者”，排查“为什么换新会话”要同时看 reset 时点与 idleMinutes。

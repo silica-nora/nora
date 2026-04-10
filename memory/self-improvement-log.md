@@ -6025,3 +6025,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（持久摘要、重试语义、与pruning分工）
   - 明确后续长会话卡顿排查应先看 compactions 计数与上下文占用，再决定 /compact 或 pruning 调参
 - 下一步：若后续出现会话发散，优先使用 `/compact` 定向约束“决策与待办”。
+
+- 时间：2026-04-10 17:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/session.md`，梳理 DM 隔离安全、网关真源与会话重置判定。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（dmScope隔离、gateway真源、daily+idle先到期）
+  - 明确后续若出现“跨人上下文污染”风险，优先核查 dmScope 是否仍为 main
+- 下一步：后续遇到会话突变时，按“reset策略→idle窗口→手动触发(/new|/reset)”三步排查。
