@@ -6041,3 +6041,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（单Gateway原则、node角色握手、幂等键去重）
   - 明确后续远程排障需先区分“连接失败”与“幂等去重导致的非重复执行”
 - 下一步：后续涉及跨端连通问题时，先按“握手connect→auth token→pairing状态”三段排查。
+
+- 时间：2026-04-10 18:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/agent-workspace.md`，梳理工作区边界与备份/安全分层。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（默认cwd非硬沙箱、state分层、单活workspace）
+  - 明确后续归档与迁移时需分离 workspace 与 `~/.openclaw/` 敏感状态目录
+- 下一步：后续如做迁移检查，优先核对 `agents.defaults.workspace` 与实际仓库路径一致性。

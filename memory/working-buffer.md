@@ -5673,3 +5673,9 @@
 - 新增认知1：Gateway 是所有消息面与会话状态唯一控制面；同一主机只应有一个Gateway持有WhatsApp等连接。
 - 新增认知2：控制端与node都走同一WS协议，但node需 `role: node` 并声明能力/命令，配对审批按设备身份进行。
 - 新增认知3：连接侧效应请求（如 `send`/`agent`）依赖幂等键去重，重试排障时应优先确认 idempotency 语义是否正确。
+
+## [2026-04-10 18:38 CST] Agent（OpenClaw文档学习：agent-workspace）
+
+- 新增认知1：workspace 是默认 cwd 但不是硬沙箱；未启用 sandbox 时，绝对路径仍可能访问主机其他目录。
+- 新增认知2：`~/.openclaw/`（配置/凭据/会话）与 workspace 要严格分离，备份迁移需分别处理，避免把凭据误提交到仓库。
+- 新增认知3：多 workspace 并存会引发状态漂移，生产上应保持“单活 workspace”并让 `agents.defaults.workspace` 指向唯一生效目录。
