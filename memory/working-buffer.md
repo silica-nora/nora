@@ -5727,3 +5727,9 @@
 - 新增认知1：system prompt 由 OpenClaw 每轮重建且按固定分段组织，属于框架侧资产，不沿用 pi-coding-agent 默认提示词。
 - 新增认知2：bootstrap 文件是“每轮注入”并真实占用上下文预算；`MEMORY.md` 过长会直接推高 compaction 频率。
 - 新增认知3：子代理采用 `promptMode=minimal`，只保留关键段并缩减注入文件（主要 AGENTS/TOOLS），用于压低子任务上下文成本。
+
+## [2026-04-11 01:08 CST] Agent（OpenClaw文档学习：models）
+
+- 新增认知1：模型选择顺序是 primary → fallbacks，且“同provider内先做auth profile failover”再切到下一个模型。
+- 新增认知2：一旦配置 `agents.defaults.models`，它即成为模型allowlist；不在名单内的 `/model` 切换会被前置拦截。
+- 新增认知3：`/model` 解析按“首个 `/`”切分 provider 与 model，OpenRouter 这类带多级路径的模型必须写全 `provider/model/...`。

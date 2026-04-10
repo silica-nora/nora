@@ -6113,3 +6113,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（框架重建prompt、bootstrap占窗、subagent minimal模式）
   - 明确后续若出现上下文压力，应优先审视注入文件长度而不是只调模型参数
 - 下一步：后续做上下文优化时，优先结合 `/context detail` 校准注入体积。
+
+- 时间：2026-04-11 01:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/models.md`，补齐模型选择链路与会话切模边界。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（failover顺序、allowlist拦截、model ref解析规则）
+  - 明确后续若出现“切模无响应”，应优先检查 allowlist 与模型引用格式
+- 下一步：后续若做模型策略调整，先对齐 primary/fallback 与 `/model` 可选项一致性。
