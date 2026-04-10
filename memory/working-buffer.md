@@ -5721,3 +5721,9 @@
 - 新增认知1：presence 是多源合并（gateway self + WS connect + system-event + node connect），不是单一心跳通道。
 - 新增认知2：去重核心依赖稳定 `instanceId`；若客户端重连时instanceId不稳定，Instances 里出现重复行是预期现象。
 - 新增认知3：presence 有硬边界（TTL 5分钟、最大200条）并会忽略隧道场景下的 loopback 远端IP，避免污染真实客户端IP。
+
+## [2026-04-11 00:38 CST] Agent（OpenClaw文档学习：system-prompt）
+
+- 新增认知1：system prompt 由 OpenClaw 每轮重建且按固定分段组织，属于框架侧资产，不沿用 pi-coding-agent 默认提示词。
+- 新增认知2：bootstrap 文件是“每轮注入”并真实占用上下文预算；`MEMORY.md` 过长会直接推高 compaction 频率。
+- 新增认知3：子代理采用 `promptMode=minimal`，只保留关键段并缩减注入文件（主要 AGENTS/TOOLS），用于压低子任务上下文成本。

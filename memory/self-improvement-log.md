@@ -6105,3 +6105,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（多源合并、instanceId去重关键、TTL/容量边界）
   - 明确后续排查“实例重复/离线误报”时优先检查 instanceId 稳定性与 beacon 一致性
 - 下一步：若后续出现实例列表异常，先拉取 `system-presence` 原始结果做键级对照。
+
+- 时间：2026-04-11 00:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/system-prompt.md`，明确系统提示组装与上下文成本来源。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（框架重建prompt、bootstrap占窗、subagent minimal模式）
+  - 明确后续若出现上下文压力，应优先审视注入文件长度而不是只调模型参数
+- 下一步：后续做上下文优化时，优先结合 `/context detail` 校准注入体积。
