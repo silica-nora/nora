@@ -5613,3 +5613,9 @@
 - 新增认知1：`agent` 与 `agent.wait` 是分离语义：前者快速返回 runId，后者只等待 lifecycle end/error，不会主动停止运行中的 agent。
 - 新增认知2：同一 session 的 agent run 会串行进入队列 lane（并可叠加全局 lane），这是避免工具并发踩踏和会话乱序的核心机制。
 - 新增认知3：Hook 应优先使用明确阶段：`before_model_resolve`（会话前强制改模型）与 `before_prompt_build`（注入上下文/系统提示），比 legacy `before_agent_start` 更可控。
+
+## [2026-04-10 12:38 CST] Agent（OpenClaw文档学习：queue）
+
+- 新增认知1：默认队列模式是 `collect`，会把短时间多条消息合并成一次 followup，天然降低“连发多次回复”的噪音风险。
+- 新增认知2：真正的并发控制是“双层”——`session:<key>` 保证单会话串行，`main` lane 受 `agents.defaults.maxConcurrent` 总并发上限约束。
+- 新增认知3：`steer-backlog` 会“当前转向 + 保留后续回合”，在流式渠道可能看起来像重复回复，若追求单条响应应优先 `collect`/`steer`。

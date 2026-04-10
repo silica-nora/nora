@@ -5961,3 +5961,11 @@
   - 明确 heartbeat/自动化场景下应避免误把 `agent.wait` 当“停止器”使用
   - 明确后续做提示词/模型控制时优先使用 `before_model_resolve` 与 `before_prompt_build`
 - 下一步：在下一次涉及异步任务编排时，优先按“runId + lifecycle end/error”口径做状态判断，减少误判超时。
+
+- 时间：2026-04-10 12:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/queue.md`，提炼自动回复并发与去重回复策略。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（collect默认、双层lane并发、steer-backlog副作用）
+  - 明确心跳/消息高峰场景下优先 `collect` 以降低多次碎片回复
+- 下一步：后续若出现“同一轮多回复”迹象，优先检查队列模式与debounce配置。
