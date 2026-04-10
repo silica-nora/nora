@@ -5649,3 +5649,9 @@
 - 新增认知1：OpenClaw记忆以工作区Markdown为唯一真源，`memory_search` 只返回片段召回，`memory_get` 才是定点取证读取。
 - 新增认知2：会话接近compaction时可触发“静默memory flush”回合（通常应 NO_REPLY），用于在压缩前先落盘长期记忆。
 - 新增认知3：混合检索可叠加 vector+BM25，并可选 MMR 去重与 temporal decay 时效衰减，适合长周期 daily notes 降噪提准。
+
+## [2026-04-10 16:38 CST] Agent（OpenClaw文档学习：session-pruning）
+
+- 新增认知1：session pruning 只在“发给模型前”的内存上下文生效，不会改写磁盘 `*.jsonl` 历史。
+- 新增认知2：`cache-ttl` 模式是按“上次Anthropic调用距今是否超TTL”触发；触发后会重置TTL窗口，减少后续重复cache write。
+- 新增认知3：仅裁剪 `toolResult`，且含图片的toolResult永不裁剪；用户/助手消息始终不动，安全边界清晰。

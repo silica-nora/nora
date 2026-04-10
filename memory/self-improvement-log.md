@@ -6009,3 +6009,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（真源文件、pre-compaction flush、hybrid+MMR+时效衰减）
   - 明确后续若检索噪音升高，可优先从 MMR/temporalDecay 调参而非盲目加长上下文
 - 下一步：后续有长时段回顾任务时，优先采用“search召回→get取证→再输出”三段式。
+
+- 时间：2026-04-10 16:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/session-pruning.md`，梳理上下文裁剪触发条件与安全边界。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（内存级裁剪、TTL触发重置、toolResult专属）
+  - 明确后续若出现上下文膨胀，优先调 `contextPruning` 而非误删历史文件
+- 下一步：在后续排障口径中加入“先判定是否 pruning 未触发，再看 compaction”顺序。
