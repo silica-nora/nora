@@ -5697,3 +5697,9 @@
 - 新增认知1：模型引用统一用 `provider/model`；若配置 `agents.defaults.models` 则该集合会成为 allowlist 边界。
 - 新增认知2：API Key 轮换仅在限流类错误（429/quota/resource exhausted）才切下一把key，非限流错误不会轮换。
 - 新增认知3：内建provider与 `models.providers` 自定义provider要分开理解：前者开箱即用，后者用于代理/私有基座（如vLLM、LM Studio、企业网关）。
+
+## [2026-04-10 20:38 CST] Agent（OpenClaw文档学习：agent）
+
+- 新增认知1：OpenClaw 的 agent runtime 基于嵌入式 pi-mono，但会话管理/发现/工具接线由 OpenClaw 自主实现（不读 `~/.pi` 路径）。
+- 新增认知2：bootstrap 文件缺失时会注入“missing marker”而不中断会话，且 `openclaw setup` 可安全补齐默认模板。
+- 新增认知3：queue=steer 时会在每次 tool call 后检查新消息并可跳过后续工具链，降低“用户已改口但仍继续执行旧计划”的风险。

@@ -6073,3 +6073,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（model ref规范、限流才轮换、内建vs自定义provider）
   - 明确后续排查“为什么没自动换key”时先判定错误类型是否属于限流族
 - 下一步：后续模型配置变更时，先核对 allowlist 与 primary/fallback 链是否一致。
+
+- 时间：2026-04-10 20:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/agent.md`，补齐 runtime 边界、bootstrap容错与 steer中断语义。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（runtime归属、bootstrap缺失容错、steer后工具跳过）
+  - 明确后续排查“为何未继续执行后续工具”时需先检查 queue mode 是否为 steer
+- 下一步：若后续出现执行链被截断现象，先核查 queued message 注入时点与工具边界。
