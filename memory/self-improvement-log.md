@@ -6001,3 +6001,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（双层流式、message_end多块语义、非Telegram显式开关）
   - 明确后续排查“为什么没流式/为什么多条消息”时优先检查 blockStreamingBreak 与 channel.blockStreaming
 - 下一步：若后续出现多泡沫回复，先对照 chunk 上限与 coalesce 参数做收敛。
+
+- 时间：2026-04-10 16:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/memory.md`，提炼记忆工具边界、压缩前落盘机制与混合检索增强策略。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（真源文件、pre-compaction flush、hybrid+MMR+时效衰减）
+  - 明确后续若检索噪音升高，可优先从 MMR/temporalDecay 调参而非盲目加长上下文
+- 下一步：后续有长时段回顾任务时，优先采用“search召回→get取证→再输出”三段式。

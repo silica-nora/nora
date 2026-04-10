@@ -5643,3 +5643,9 @@
 - 新增认知1：OpenClaw“流式”分两层：block streaming（正式消息分块）与preview streaming（临时草稿更新），目前没有直接token-delta上屏。
 - 新增认知2：`blockStreamingBreak=message_end` 不是“绝对单条”，若正文超 `maxChars` 仍会在结束时切成多块发送。
 - 新增认知3：非 Telegram 渠道要启用块流式，除了默认项外还需显式 `channels.<channel>.blockStreaming=true`，否则只有最终回复。
+
+## [2026-04-10 16:08 CST] Agent（OpenClaw文档学习：memory）
+
+- 新增认知1：OpenClaw记忆以工作区Markdown为唯一真源，`memory_search` 只返回片段召回，`memory_get` 才是定点取证读取。
+- 新增认知2：会话接近compaction时可触发“静默memory flush”回合（通常应 NO_REPLY），用于在压缩前先落盘长期记忆。
+- 新增认知3：混合检索可叠加 vector+BM25，并可选 MMR 去重与 temporal decay 时效衰减，适合长周期 daily notes 降噪提准。
