@@ -5745,3 +5745,9 @@
 - 新增认知1：信封时间默认 host-local，可用 `envelopeTimezone` 切到 `utc`/`user`/指定IANA时区，且可独立关闭绝对时间与elapsed后缀。
 - 新增认知2：工具返回保留 provider 原始时间，同时补标准化 `timestampMs` 与 `timestampUtc`，跨源对齐应以标准字段为锚。
 - 新增认知3：`userTimezone` 主要服务系统提示的人类语义对齐；若未配置会在运行时解析宿主时区（非强制写配置）。
+
+## [2026-04-11 03:08 CST] Agent（OpenClaw文档学习：usage-tracking）
+
+- 新增认知1：usage 面板优先展示 provider 官方usage/quota窗口数据，不走推测成本替代。
+- 新增认知2：聊天 `/status` 与 CLI `openclaw status --usage` / `channels list` 共享 usage 快照语义，便于跨端对账。
+- 新增认知3：usage 可见性受凭据门控：无对应 OAuth/API 凭据时应隐藏而非报错，排障先查 credential presence。

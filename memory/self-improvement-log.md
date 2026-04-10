@@ -6137,3 +6137,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（envelopeTimezone切换、标准化时间锚点、userTimezone语义层用途）
   - 明确后续跨渠道时间对齐优先使用 `timestampUtc`，展示层再按 user/local 转换
 - 下一步：后续如出现时间歧义，先检查 envelope 配置是否被切到 user/fixed timezone。
+
+- 时间：2026-04-11 03:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/usage-tracking.md`，补齐 usage 展示入口与凭据依赖边界。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（官方usage优先、跨端口径一致、凭据门控）
+  - 明确后续若用户问“为何看不到用量”，优先检查 provider 凭据而不是前端展示
+- 下一步：后续涉及用量问题时，优先引导使用 `/status` 与 `openclaw status --usage` 交叉验证。
