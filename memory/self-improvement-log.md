@@ -6033,3 +6033,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（dmScope隔离、gateway真源、daily+idle先到期）
   - 明确后续若出现“跨人上下文污染”风险，优先核查 dmScope 是否仍为 main
 - 下一步：后续遇到会话突变时，按“reset策略→idle窗口→手动触发(/new|/reset)”三步排查。
+
+- 时间：2026-04-10 18:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/architecture.md`，提炼网关单点控制、node接入语义与幂等请求边界。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（单Gateway原则、node角色握手、幂等键去重）
+  - 明确后续远程排障需先区分“连接失败”与“幂等去重导致的非重复执行”
+- 下一步：后续涉及跨端连通问题时，先按“握手connect→auth token→pairing状态”三段排查。
