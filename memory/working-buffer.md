@@ -5679,3 +5679,9 @@
 - 新增认知1：workspace 是默认 cwd 但不是硬沙箱；未启用 sandbox 时，绝对路径仍可能访问主机其他目录。
 - 新增认知2：`~/.openclaw/`（配置/凭据/会话）与 workspace 要严格分离，备份迁移需分别处理，避免把凭据误提交到仓库。
 - 新增认知3：多 workspace 并存会引发状态漂移，生产上应保持“单活 workspace”并让 `agents.defaults.workspace` 指向唯一生效目录。
+
+## [2026-04-10 19:08 CST] Agent（OpenClaw文档学习：features）
+
+- 新增认知1：OpenClaw 能力面覆盖“多渠道接入 + 多代理路由 + 媒体双向 + 节点Canvas”，核心是一套统一Gateway控制面。
+- 新增认知2：会话默认策略仍是“私聊归并main、群聊隔离”，这和 `session` 概念文档中的安全配置形成闭环。
+- 新增认知3：旧的 Claude/Codex/Gemini/Opencode 直连路径已移除，当前 coding agent 主路径是 Pi（与ACP harness分流认知要保持一致）。

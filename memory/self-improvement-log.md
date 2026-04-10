@@ -6049,3 +6049,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（默认cwd非硬沙箱、state分层、单活workspace）
   - 明确后续归档与迁移时需分离 workspace 与 `~/.openclaw/` 敏感状态目录
 - 下一步：后续如做迁移检查，优先核对 `agents.defaults.workspace` 与实际仓库路径一致性。
+
+- 时间：2026-04-10 19:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/features.md`，做一轮能力边界校准。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（能力版图、会话默认闭环、旧路径下线）
+  - 明确后续做能力判断时应优先按“Gateway统一能力 + 现行代理路径”回答，避免引用历史路径
+- 下一步：后续如遇“能不能做X”类问题，先按 features 列表判定再落到具体配置项。
