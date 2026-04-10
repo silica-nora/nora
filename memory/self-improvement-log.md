@@ -6121,3 +6121,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（failover顺序、allowlist拦截、model ref解析规则）
   - 明确后续若出现“切模无响应”，应优先检查 allowlist 与模型引用格式
 - 下一步：后续若做模型策略调整，先对齐 primary/fallback 与 `/model` 可选项一致性。
+
+- 时间：2026-04-11 01:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `date-time.md`，梳理时间戳在信封、系统提示与工具结果中的分层语义。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（host-local默认、session_status取当前时刻、规范时间字段）
+  - 明确后续若出现“时间不一致”应先区分展示层时区与原始provider时间戳
+- 下一步：后续输出涉及跨源时间对齐时，统一以 `timestampUtc` 为基准再本地化展示。

@@ -5733,3 +5733,9 @@
 - 新增认知1：模型选择顺序是 primary → fallbacks，且“同provider内先做auth profile failover”再切到下一个模型。
 - 新增认知2：一旦配置 `agents.defaults.models`，它即成为模型allowlist；不在名单内的 `/model` 切换会被前置拦截。
 - 新增认知3：`/model` 解析按“首个 `/`”切分 provider 与 model，OpenRouter 这类带多级路径的模型必须写全 `provider/model/...`。
+
+## [2026-04-11 01:38 CST] Agent（OpenClaw文档学习：date-time）
+
+- 新增认知1：消息信封时间默认取 host-local；`userTimezone` 主要用于系统提示中的时区语义，不直接改工具原始时间戳。
+- 新增认知2：当前时间应优先通过 `session_status` 获取；system prompt 的“Current Date & Time”默认只放时区，避免缓存抖动。
+- 新增认知3：工具返回会保留 provider 原始时间，同时补齐 `timestampMs/timestampUtc` 规范字段，便于下游统一转换。
