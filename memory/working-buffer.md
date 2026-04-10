@@ -5655,3 +5655,9 @@
 - 新增认知1：session pruning 只在“发给模型前”的内存上下文生效，不会改写磁盘 `*.jsonl` 历史。
 - 新增认知2：`cache-ttl` 模式是按“上次Anthropic调用距今是否超TTL”触发；触发后会重置TTL窗口，减少后续重复cache write。
 - 新增认知3：仅裁剪 `toolResult`，且含图片的toolResult永不裁剪；用户/助手消息始终不动，安全边界清晰。
+
+## [2026-04-10 17:08 CST] Agent（OpenClaw文档学习：compaction）
+
+- 新增认知1：compaction 会把旧对话总结后“持久化写回”会话JSONL，不是临时内存操作。
+- 新增认知2：auto-compaction 触发后可重试原请求；`/status` 的 `Compactions` 计数是判断会话压缩频率的直接观测点。
+- 新增认知3：compaction 与 pruning职责不同：前者持久摘要，后者仅请求级裁剪旧toolResult，排障时不能混用结论。
