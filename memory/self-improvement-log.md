@@ -5977,3 +5977,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（请求级重试、Discord/Telegram差异、Markdown失败降级）
   - 明确消息发送排障时需先按“可重试错误”与“内容错误”分流处理
 - 下一步：后续遇到发送失败先判定是否 429/瞬时网络类，再决定重试或内容降级。
+
+- 时间：2026-04-10 14:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/model-failover.md`，提炼鉴权轮转、会话粘性与计费失效处理边界。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（两级failover、session粘性、billing disable）
+  - 明确后续若出现“模型突然切换/不可用”，先检查 auth-profiles 的 cooldown/disabled 字段
+- 下一步：在后续异常排查模板中加入“先看 profile disabledUntil，再看模型fallback链”检查顺序。
