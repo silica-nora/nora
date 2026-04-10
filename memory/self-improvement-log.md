@@ -6089,3 +6089,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（context与memory边界、工具双层开销、run-built context报告）
   - 明确后续若出现上下文超限，优先用 `/context detail` 定位“文件注入 vs tool schema”主耗项
 - 下一步：后续若context逼近阈值，先做注入裁剪与必要时 /compact，再考虑策略级调参。
+
+- 时间：2026-04-10 22:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/markdown-formatting.md`，梳理跨渠道Markdown渲染与分片机制。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（统一IR、IR层安全分片、渠道渲染差异）
+  - 明确后续若出现“同文案多渠道格式不一致”，优先检查 channel renderer 与 table policy 配置
+- 下一步：后续涉及多渠道发送模板时，优先用“先IR再渲染”的一致性思路做校验。

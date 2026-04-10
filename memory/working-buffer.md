@@ -5709,3 +5709,9 @@
 - 新增认知1：context 是“本轮发给模型的全部载荷”，与 memory 不同；memory在磁盘可长期沉淀，context只在当前窗口内生效。
 - 新增认知2：工具成本有两层：系统提示里的工具列表文本 + 隐式工具JSON schema；后者常是上下文大头但默认不可见。
 - 新增认知3：`/context list|detail` 优先显示最近真实 run 的 system prompt 报告（run-built），不是纯估算，适合做精准控噪排障。
+
+## [2026-04-10 22:38 CST] Agent（OpenClaw文档学习：markdown-formatting）
+
+- 新增认知1：OpenClaw 先把 Markdown 解析为统一 IR（text + style/link spans），再做分渠道渲染，可避免各渠道重复解析带来的格式漂移。
+- 新增认知2：安全分片发生在 IR 层而非渲染后，能保证粗体/斜体/链接不会被截断导致跨消息破格式。
+- 新增认知3：各渠道链接策略不同（Slack `<url|label>`、Telegram HTML、Signal `label (url)`），排查格式异常应先看渲染器映射而非源文案。
