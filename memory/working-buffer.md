@@ -5607,3 +5607,9 @@
   1) 可用 diagnostics.flags 做子系统定向调试（如 telegram.http、gateway.*），无需全局开 verbose。
   2) 可用环境变量 OPENCLAW_DIAGNOSTICS 临时覆盖（逗号分隔；设为0可一键关闭）。
   3) 诊断日志默认在 /tmp/openclaw/openclaw-YYYY-MM-DD.log（JSONL），便于 grep/追踪复现问题。
+
+## [2026-04-10 09:38 CST] Agent（OpenClaw文档学习：agent-loop）
+
+- 新增认知1：`agent` 与 `agent.wait` 是分离语义：前者快速返回 runId，后者只等待 lifecycle end/error，不会主动停止运行中的 agent。
+- 新增认知2：同一 session 的 agent run 会串行进入队列 lane（并可叠加全局 lane），这是避免工具并发踩踏和会话乱序的核心机制。
+- 新增认知3：Hook 应优先使用明确阶段：`before_model_resolve`（会话前强制改模型）与 `before_prompt_build`（注入上下文/系统提示），比 legacy `before_agent_start` 更可控。
