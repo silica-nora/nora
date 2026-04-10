@@ -6065,3 +6065,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（token sink、按agent隔离、profile定向）
   - 明确后续遇到“频繁掉登录”时优先检查是否存在多端抢同一refresh token
 - 下一步：若后续需要多身份稳定并行，优先建议采用多agent隔离方案。
+
+- 时间：2026-04-10 20:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/model-providers.md`，补齐provider选择与key轮换边界。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（model ref规范、限流才轮换、内建vs自定义provider）
+  - 明确后续排查“为什么没自动换key”时先判定错误类型是否属于限流族
+- 下一步：后续模型配置变更时，先核对 allowlist 与 primary/fallback 链是否一致。

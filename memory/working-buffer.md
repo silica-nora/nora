@@ -5691,3 +5691,9 @@
 - 新增认知1：OpenClaw 将 `auth-profiles.json` 作为统一“token sink”，可降低多端并行登录导致 refresh token 互踢的随机失效风险。
 - 新增认知2：凭据按 agent 隔离存放在 `~/.openclaw/agents/<agentId>/agent/`，多账号最稳妥方案是“分agent隔离”而非同agent混用。
 - 新增认知3：同一agent内多profile可用 `auth.order` 全局排序，或通过 `/model ...@<profileId>` 做会话级定向绑定。
+
+## [2026-04-10 20:08 CST] Agent（OpenClaw文档学习：model-providers）
+
+- 新增认知1：模型引用统一用 `provider/model`；若配置 `agents.defaults.models` 则该集合会成为 allowlist 边界。
+- 新增认知2：API Key 轮换仅在限流类错误（429/quota/resource exhausted）才切下一把key，非限流错误不会轮换。
+- 新增认知3：内建provider与 `models.providers` 自定义provider要分开理解：前者开箱即用，后者用于代理/私有基座（如vLLM、LM Studio、企业网关）。
