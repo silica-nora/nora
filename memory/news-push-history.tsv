@@ -140,3 +140,10 @@
 2026-04-09 10:28:00 +0800	morning	俄乌战况评估：俄军北段推进放缓但远程打击仍强（ISW 2026-03-29）	https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-march-29-2026/	e088bd0cc77d3687216170e70daea0971f917755	understandingwar
 2026-04-09 15:29:00 +0800	afternoon	A股午盘快照：三大指数同跌、成交额维持高位（东财实时）	https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f12,f14,f2,f3,f4,f6&secids=1.000001,0.399001,0.399006	2b46a824a05e06f22e814d0892337db32cb7a4a2	eastmoney-api
 2026-04-09 15:29:00 +0800	afternoon	北向资金日内口径分化（东财北向接口）	https://push2.eastmoney.com/api/qt/kamt/get?fields1=f1,f2,f3,f4&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63	279ecc65cb777c2124069699aa37a109cde20486	eastmoney-api
+2026-04-09 22:12:00 +0800	night	OpenAI广告化试探：对话内赞助内容进入原型阶段（36氪）	https://m.36kr.com/p/3610402296497153	4409c9fd60b01a6ee3904c48986cd39dfe221316	36kr
+2026-04-09 22:12:00 +0800	night	微软研究院2026前沿观察：系统智能与Agent协作并进	https://www.microsoft.com/en-us/research/articles/whats-next-in-ai/	582bd9342b275c9df36da9c7668d44cc33fc5d04	microsoft-research
+2026-04-09 22:12:00 +0800	night	Meta收购Manus：AI Agent平台卡位加速（财联社）	https://www.cls.cn/detail/2243572	37a87b35d24a8da3dd22bffa7cbd9f0b2bb507ff	cls
+2026-04-10 10:10:33 +0800	morning	新华网：美伊同意两周停火谈判，但核心分歧仍大	https://www.news.cn/world/20260409/787a4b602a4d489685c8a26e9fe67795/c.html	df51b38edd1dec6b765a97e534a87d29516ca7f4	news-cn
+2026-04-10 10:10:33 +0800	morning	ISW战况评估：俄军推进效率受限，夏季攻势准备不足	https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-march-25-2026/	0dafe0d238b5f92a31971b227ed16754a4dd67f7	understandingwar
+2026-04-10 15:41:15 +0800	afternoon	A股午后快照：上证约3986点，日内小幅上涨（东方财富）	https://quote.eastmoney.com/zs000001.html	792192f9fddbdb7339ef25c1edcc7d13762a1515	eastmoney
+2026-04-10 15:41:15 +0800	afternoon	北向资金口径：沪深港通净买入转弱（东财KAMT接口）	https://push2.eastmoney.com/api/qt/kamt/get?fields1=f1,f2,f3,f4&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63	5476554544e022684454e7a99ace7f76f640aecf	eastmoney-api
