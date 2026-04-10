@@ -5993,3 +5993,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（去重key、防抖边界、pending-only历史）
   - 明确后续排查“重复回复/上下文暴涨”时应优先检查 dedupe 与 historyLimit 配置
 - 下一步：如再出现群聊噪音，优先收紧 `messages.inbound` 与 `messages.groupChat.historyLimit`。
+
+- 时间：2026-04-10 15:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/streaming.md`，沉淀流式输出分层与配置边界。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（双层流式、message_end多块语义、非Telegram显式开关）
+  - 明确后续排查“为什么没流式/为什么多条消息”时优先检查 blockStreamingBreak 与 channel.blockStreaming
+- 下一步：若后续出现多泡沫回复，先对照 chunk 上限与 coalesce 参数做收敛。

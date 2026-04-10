@@ -5637,3 +5637,9 @@
 - 新增认知1：入站去重依赖 channel/account/peer/session/message-id 短期缓存，可防止重连重投触发重复agent run。
 - 新增认知2：`messages.inbound.debounceMs` 只对纯文本生效，附件消息会立刻flush；控制命令也会绕过debounce保持独立执行。
 - 新增认知3：群聊历史上下文是“pending-only”缓冲：只补未触发run的消息，不重复塞已入会话转录内容，能降低上下文膨胀。
+
+## [2026-04-10 15:08 CST] Agent（OpenClaw文档学习：streaming）
+
+- 新增认知1：OpenClaw“流式”分两层：block streaming（正式消息分块）与preview streaming（临时草稿更新），目前没有直接token-delta上屏。
+- 新增认知2：`blockStreamingBreak=message_end` 不是“绝对单条”，若正文超 `maxChars` 仍会在结束时切成多块发送。
+- 新增认知3：非 Telegram 渠道要启用块流式，除了默认项外还需显式 `channels.<channel>.blockStreaming=true`，否则只有最终回复。
