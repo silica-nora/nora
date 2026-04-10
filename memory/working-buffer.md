@@ -5751,3 +5751,9 @@
 - 新增认知1：usage 面板优先展示 provider 官方usage/quota窗口数据，不走推测成本替代。
 - 新增认知2：聊天 `/status` 与 CLI `openclaw status --usage` / `channels list` 共享 usage 快照语义，便于跨端对账。
 - 新增认知3：usage 可见性受凭据门控：无对应 OAuth/API 凭据时应隐藏而非报错，排障先查 credential presence。
+
+## [2026-04-11 03:38 CST] Agent（OpenClaw文档学习：multi-agent）
+
+- 新增认知1：多agent隔离是“workspace + agentDir + sessions + auth profiles”全链路隔离，不能复用同一 agentDir，否则会话与凭据会串。
+- 新增认知2：路由匹配遵循最具体优先（peer > parentPeer > 角色/组织 > account > channel > default），同层按配置顺序决胜。
+- 新增认知3：bindings 未写 `accountId` 仅匹配默认账号；要做跨账号兜底需显式 `accountId: "*"`。

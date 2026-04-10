@@ -6145,3 +6145,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（官方usage优先、跨端口径一致、凭据门控）
   - 明确后续若用户问“为何看不到用量”，优先检查 provider 凭据而不是前端展示
 - 下一步：后续涉及用量问题时，优先引导使用 `/status` 与 `openclaw status --usage` 交叉验证。
+
+- 时间：2026-04-11 03:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/multi-agent.md`，补齐多代理隔离边界与绑定匹配优先级。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（全链路隔离、最具体匹配、accountId默认陷阱）
+  - 明确后续若出现“消息进错agent”，应优先核查 bindings 的 specificity 与 accountId 覆盖
+- 下一步：后续做多账号路由调整时，先画出绑定优先级表再落配置。
