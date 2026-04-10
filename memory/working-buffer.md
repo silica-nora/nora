@@ -5715,3 +5715,9 @@
 - 新增认知1：OpenClaw 先把 Markdown 解析为统一 IR（text + style/link spans），再做分渠道渲染，可避免各渠道重复解析带来的格式漂移。
 - 新增认知2：安全分片发生在 IR 层而非渲染后，能保证粗体/斜体/链接不会被截断导致跨消息破格式。
 - 新增认知3：各渠道链接策略不同（Slack `<url|label>`、Telegram HTML、Signal `label (url)`），排查格式异常应先看渲染器映射而非源文案。
+
+## [2026-04-11 00:08 CST] Agent（OpenClaw文档学习：presence）
+
+- 新增认知1：presence 是多源合并（gateway self + WS connect + system-event + node connect），不是单一心跳通道。
+- 新增认知2：去重核心依赖稳定 `instanceId`；若客户端重连时instanceId不稳定，Instances 里出现重复行是预期现象。
+- 新增认知3：presence 有硬边界（TTL 5分钟、最大200条）并会忽略隧道场景下的 loopback 远端IP，避免污染真实客户端IP。

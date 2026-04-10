@@ -6097,3 +6097,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（统一IR、IR层安全分片、渠道渲染差异）
   - 明确后续若出现“同文案多渠道格式不一致”，优先检查 channel renderer 与 table policy 配置
 - 下一步：后续涉及多渠道发送模板时，优先用“先IR再渲染”的一致性思路做校验。
+
+- 时间：2026-04-11 00:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/presence.md`，梳理实例在线状态来源、去重与时效边界。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（多源合并、instanceId去重关键、TTL/容量边界）
+  - 明确后续排查“实例重复/离线误报”时优先检查 instanceId 稳定性与 beacon 一致性
+- 下一步：若后续出现实例列表异常，先拉取 `system-presence` 原始结果做键级对照。
