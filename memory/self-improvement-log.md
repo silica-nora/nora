@@ -6129,3 +6129,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（host-local默认、session_status取当前时刻、规范时间字段）
   - 明确后续若出现“时间不一致”应先区分展示层时区与原始provider时间戳
 - 下一步：后续输出涉及跨源时间对齐时，统一以 `timestampUtc` 为基准再本地化展示。
+
+- 时间：2026-04-11 02:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/timezone.md`，补齐信封时区策略与标准化时间字段使用规范。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（envelopeTimezone切换、标准化时间锚点、userTimezone语义层用途）
+  - 明确后续跨渠道时间对齐优先使用 `timestampUtc`，展示层再按 user/local 转换
+- 下一步：后续如出现时间歧义，先检查 envelope 配置是否被切到 user/fixed timezone。

@@ -5739,3 +5739,9 @@
 - 新增认知1：消息信封时间默认取 host-local；`userTimezone` 主要用于系统提示中的时区语义，不直接改工具原始时间戳。
 - 新增认知2：当前时间应优先通过 `session_status` 获取；system prompt 的“Current Date & Time”默认只放时区，避免缓存抖动。
 - 新增认知3：工具返回会保留 provider 原始时间，同时补齐 `timestampMs/timestampUtc` 规范字段，便于下游统一转换。
+
+## [2026-04-11 02:38 CST] Agent（OpenClaw文档学习：timezone）
+
+- 新增认知1：信封时间默认 host-local，可用 `envelopeTimezone` 切到 `utc`/`user`/指定IANA时区，且可独立关闭绝对时间与elapsed后缀。
+- 新增认知2：工具返回保留 provider 原始时间，同时补标准化 `timestampMs` 与 `timestampUtc`，跨源对齐应以标准字段为锚。
+- 新增认知3：`userTimezone` 主要服务系统提示的人类语义对齐；若未配置会在运行时解析宿主时区（非强制写配置）。
