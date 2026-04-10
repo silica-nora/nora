@@ -5631,3 +5631,9 @@
 - 新增认知1：失败切换是两级机制：先在同provider内做 auth profile rotation，再跨 `agents.defaults.model.fallbacks` 做模型回退。
 - 新增认知2：会话有 profile 粘性（session pin），不会每次请求都轮转；仅在 reset/compaction/配置失效时重选，利于缓存命中与稳定性。
 - 新增认知3：计费失败不是短冷却，而是 `disabledUntil` 长退避（默认5小时起、指数增到24小时），排障应优先看 billing disable 状态。
+
+## [2026-04-10 14:38 CST] Agent（OpenClaw文档学习：messages）
+
+- 新增认知1：入站去重依赖 channel/account/peer/session/message-id 短期缓存，可防止重连重投触发重复agent run。
+- 新增认知2：`messages.inbound.debounceMs` 只对纯文本生效，附件消息会立刻flush；控制命令也会绕过debounce保持独立执行。
+- 新增认知3：群聊历史上下文是“pending-only”缓冲：只补未触发run的消息，不重复塞已入会话转录内容，能降低上下文膨胀。

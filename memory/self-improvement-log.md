@@ -5985,3 +5985,11 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（两级failover、session粘性、billing disable）
   - 明确后续若出现“模型突然切换/不可用”，先检查 auth-profiles 的 cooldown/disabled 字段
 - 下一步：在后续异常排查模板中加入“先看 profile disabledUntil，再看模型fallback链”检查顺序。
+
+- 时间：2026-04-10 14:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：学习 OpenClaw `concepts/messages.md`，提炼消息去重、入站防抖与群聊历史注入边界。
+- 产出：
+  - 已写入 `memory/working-buffer.md` 三条笔记（去重key、防抖边界、pending-only历史）
+  - 明确后续排查“重复回复/上下文暴涨”时应优先检查 dedupe 与 historyLimit 配置
+- 下一步：如再出现群聊噪音，优先收紧 `messages.inbound` 与 `messages.groupChat.historyLimit`。
