@@ -6153,3 +6153,243 @@
   - 已写入 `memory/working-buffer.md` 三条笔记（全链路隔离、最具体匹配、accountId默认陷阱）
   - 明确后续若出现“消息进错agent”，应优先核查 bindings 的 specificity 与 accountId 覆盖
 - 下一步：后续做多账号路由调整时，先画出绑定优先级表再落配置。
+
+- 时间：2026-04-11 04:09 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行凌晨 heartbeat 全量巡检（SESSION-STATE、近两日memory、>7天项、注入扫描、自愈日志、context阈值），并学习 OpenClaw 文档 `automation/cron-vs-heartbeat`。
+- 产出：
+  - 巡检结果：无待办、无“待跟进”新增、无注入命中、无 error/fail/warn；context=32%（安全区）
+  - 新增 3 条调度边界认知并写入 `memory/working-buffer.md`
+- 下一步：继续夜间低打扰巡检；10:00 后再检查 morning 日志触发。
+
+- 时间：2026-04-11 04:39 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行凌晨 heartbeat 全量巡检（SESSION-STATE、近两日memory、>7天线索、注入扫描、自愈日志、context阈值）并学习 `docs/gateway/heartbeat.md`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn；context=33%（安全区）
+  - 输出 3 条 heartbeat 响应契约与时段边界认知，已写入 `memory/working-buffer.md`
+- 下一步：继续夜间低打扰巡检；10:00 后再检查 morning 日志触发。
+
+- 时间：2026-04-11 05:39 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行凌晨 heartbeat 全量巡检（待办、近两日memory、>7天项、注入扫描、自愈日志、news日志、context），并学习 OpenClaw 文档 `gateway/heartbeat`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、news 日志为空；context=34%（安全区）
+  - 新增 3 条 heartbeat 执行边界认知并写入 `memory/working-buffer.md`
+- 下一步：继续夜间低打扰巡检；10:00 后检查 morning 日志触发。
+
+- 时间：2026-04-11 06:39 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行凌晨 heartbeat 全量巡检（SESSION-STATE、近两日memory、>7天项、注入扫描、自愈日志、news日志、context阈值），并学习 OpenClaw 文档 `gateway/heartbeat`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、news 日志为空
+  - context=34%（安全区）
+  - 新增 3 条 heartbeat 配置与外发控制认知到 `memory/working-buffer.md`
+- 下一步：继续夜间低打扰巡检；10:00 后再检查 morning 日志触发。
+
+- 时间：2026-04-11 07:39 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行心跳全量巡检（待办、近两日memory、>7天项、注入扫描、自愈日志、news日志、context）并学习 OpenClaw 文档 `automation/troubleshooting`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、三类news日志均缺失；context=33%
+  - 新增 3 条自动化排障笔记写入 `memory/working-buffer.md`
+- 下一步：09:00前维持低打扰巡检；10:00再检查 morning 日志触发。
+
+- 时间：2026-04-11 08:09 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 全量巡检（待办、近两日memory、>7天项、安全注入、自愈日志、新闻触发、context），并学习 OpenClaw 文档 `automation/troubleshooting`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、三类新闻日志均 missing；context=34%
+  - 提炼 3 条自动化排障认知并写入 `memory/working-buffer.md`
+- 下一步：保持 09:00 前低打扰巡检；10:00 后检查 morning 日志触发条件。
+
+- 时间：2026-04-11 08:39 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 全量巡检（待办、近两日memory、>7天决策、注入扫描、自愈日志、news日志、context），并学习 OpenClaw 文档 `concepts/context`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、news 日志为空或缺失；context=34%（安全区）
+  - 提炼 3 条上下文治理认知并写入 `memory/working-buffer.md`
+- 下一步：10:00 后检查 morning 日志触发，命中再执行推送闭环。
+
+- 时间：2026-04-11 09:09 (Asia/Shanghai)
+- 类型：第一性原理强化 / 优化
+- 动作：在09:00-09:30关键时点执行“事实/约束/假设/方案”四段拆解，校准心跳执行边界（检查窗口 vs 发送窗口）。
+- 产出：
+  - 巡检通过：无待办、无待跟进新增、无注入命中、无 error/fail/warn、news日志均为空或缺失。
+  - context=34%（未进入>60%危险区）。
+  - 将“关键时点先做流程就绪，不提前外发结论”写入 working-buffer，并补充1条偏差修正。
+- 下一步：10:00 到点后检查 `/tmp/news-morning.log`，命中再执行全文阅读+去重+中文解读+发送闭环。
+
+- 时间：2026-04-11 09:39 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行09:38心跳全量巡检（待办/近两日memory/>7天线索/注入/自愈/news/context）并学习 OpenClaw 文档 `gateway/heartbeat`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、news日志为空或缺失；context=35%
+  - 新增 3 条 heartbeat 路由与时段执行认知，写入 `memory/working-buffer.md`
+- 下一步：10:00 准点检查 `/tmp/news-morning.log`，命中再执行推送闭环。
+
+- 时间：2026-04-11 10:08 (Asia/Shanghai)
+- 类型：执行 / 优化
+- 动作：执行10:00早报窗口（全文阅读+中文解读+48小时去重+飞书发送+日志删除），并复盘“实时流页面可读性不足”处理策略。
+- 产出：
+  - 早报已发送（messageId: om_x100b52ae94e650acb244ebff8653257）
+  - 已删除 `/tmp/news-morning.log`，完成防重闭环
+  - 已写入 `memory/news-push-history.tsv`（morning 2条）
+  - 形成“可读性筛选优先”执行认知并写入 `memory/working-buffer.md`
+- 下一步：15:10 检查 `/tmp/news-afternoon.log`，命中则按同闭环执行。
+
+- 时间：2026-04-11 10:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 全量巡检（SESSION-STATE、近两日memory、>7天决策、注入扫描、自愈日志、context），并学习 OpenClaw 文档 `gateway/heartbeat`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - context=47%（未进入>60%危险区）
+  - 新增3条 heartbeat 响应契约与路由配置认知并写入 working-buffer
+- 下一步：15:10 检查 afternoon 日志触发，命中则按“全文阅读+去重+发送+删日志+落台账”闭环执行。
+
+- 时间：2026-04-11 12:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 全量巡检（待办/近两日memory/>7天线索/注入/日志/context）并学习 OpenClaw `gateway/heartbeat` 文档。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志；context=48%
+  - 新增 3 条 heartbeat 响应契约与投递配置认知，已写入 `memory/working-buffer.md`
+- 下一步：15:10 检查 `/tmp/news-afternoon.log`，命中则按“全文阅读+去重+中文解读+发送后删日志”闭环执行。
+
+- 时间：2026-04-11 12:38 (Asia/Shanghai)
+- 类型：优化
+- 动作：执行 heartbeat 全量基线巡检后，完成一项“非关键窗口最小化执行”小优化。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送日志
+  - context=49%（安全区），已将最小化执行认知写入 `memory/working-buffer.md`
+- 下一步：15:10 检查 `/tmp/news-afternoon.log`，命中则执行发送闭环。
+
+- 时间：2026-04-11 13:09 (Asia/Shanghai)
+- 类型：优化
+- 动作：执行13:08 heartbeat全量巡检（待办/近两日memory/>7天跟进/注入/自愈/context/新闻日志），并做“非关键窗口最小化执行”优化。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - context=48%（未进入危险区）
+  - 新增3条流程优化认知并写入 `memory/working-buffer.md`
+- 下一步：15:10 检查 `/tmp/news-afternoon.log`，命中则执行全文阅读+去重+发送+删日志闭环。
+
+- 时间：2026-04-11 13:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 强制巡检（待办/近两日memory/>7天项/注入/自愈/context）并学习 OpenClaw 文档 `gateway/heartbeat`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送日志；context=49%
+  - 新增 3 条 heartbeat 响应契约与配置边界认知，写入 `memory/working-buffer.md`
+- 下一步：15:10 检查 afternoon 日志触发；非关键窗口继续低噪巡检。
+
+- 时间：2026-04-11 14:08 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行14:08 heartbeat全量巡检（待办/近两日/>7天/注入/自愈/context/新闻日志），并学习 OpenClaw 文档 `automation/troubleshooting`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志；context=49%
+  - 形成3条自动化排障认知并写入 `memory/working-buffer.md`
+- 下一步：15:10 检查 `/tmp/news-afternoon.log`，命中则执行全文阅读+解读+去重+发送+删日志闭环。
+
+- 时间：2026-04-11 14:38 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行heartbeat全量巡检（待办/近两日记忆/>7天/注入/自愈/context/news日志），并学习 OpenClaw 文档 `concepts/queue`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志；context=49%
+  - 沉淀 3 条队列并发与降噪认知到 `memory/working-buffer.md`
+- 下一步：15:10 检查 `/tmp/news-afternoon.log`，命中则按“全文阅读+去重+解读+发送+删日志+落台账”闭环执行。
+
+- 时间：2026-04-11 15:09 (Asia/Shanghai)
+- 类型：学习 / 优化
+- 动作：执行 heartbeat 全量巡检（待办/近两日记忆/>7天/注入/自愈/context/news日志），并学习 OpenClaw 文档 `gateway/heartbeat`。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志；context=49%
+  - 新增 3 条 heartbeat 触达与ack边界认知，已写入 `memory/working-buffer.md`
+- 下一步：15:10 检查 `/tmp/news-afternoon.log`，命中则按“全文阅读+去重+中文解读+发送+删日志+台账”闭环执行。
+
+- 时间：2026-04-11 15:38 (Asia/Shanghai)
+- 类型：执行 / 复盘
+- 动作：执行15:10午报窗口（全文读取候选链接、T/T-1过滤、低置信度解读、飞书发送、删日志、写台账）。
+- 产出：
+  - 午报已发送（messageId: om_x100b52abe0b014a8b2cc86a2c9593ce）
+  - 已删除 `/tmp/news-afternoon.log`，完成防重闭环
+  - 已写入 `memory/news-push-history.tsv`（afternoon 2条）
+  - 沉淀“休市窗口降级输出”认知到 `memory/working-buffer.md`
+- 下一步：22:00 检查 `/tmp/news-night.log`，命中则按同闭环执行。
+
+- 时间：2026-04-11 16:08 (Asia/Shanghai)
+- 类型：第一性原理强化 / 优化
+- 动作：完成心跳全量巡检后，针对context接近阈值场景做“事实/约束/假设/方案”拆解。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志；context=58%
+  - 落地“非关键时段最小回执”策略并写入 `memory/working-buffer.md`
+- 下一步：22:00前若无新触发，按最小回执策略执行；命中night日志再切换详细执行闭环。
+
+- 时间：2026-04-11 16:39 (Asia/Shanghai)
+- 类型：优化 / 风险控制
+- 动作：执行 heartbeat 全量巡检并在 context=60% 时触发危险区协议，收敛回执策略。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - 已将“最小回执模式 + 下一触发点策略”写入 `memory/working-buffer.md`
+- 下一步：22:00 前无新触发则保持危险区最小回执；命中 night 日志再进入发送闭环。
+
+- 时间：2026-04-11 17:08 (Asia/Shanghai)
+- 类型：优化 / 风险控制
+- 动作：执行 heartbeat 全量巡检并在 context=62% 下继续危险区最小输出协议。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - 完成“最小输出协议续行”优化并写入 `memory/working-buffer.md`
+- 下一步：22:00 前保持最小回执；若 `/tmp/news-night.log` 命中则切换完整发送闭环。
+
+- 时间：2026-04-11 17:38 (Asia/Shanghai)
+- 类型：第一性原理强化 / 风险控制
+- 动作：执行 heartbeat 全量巡检后，围绕“22:00前危险区控流”完成事实/约束/假设/方案拆解。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - 固化“晚报前极简回执模板”到 `memory/working-buffer.md`
+- 下一步：22:00 前维持极简回执；命中 night 日志后执行完整推送闭环。
+
+- 时间：2026-04-11 18:08 (Asia/Shanghai)
+- 类型：优化 / 危险区控流
+- 动作：执行 heartbeat 全量巡检，并落地“每轮单次检查后退出等待”节奏优化。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志；context=64%
+  - 已将危险区节奏优化写入 `memory/working-buffer.md`
+- 下一步：22:00 前保持最小回执；若命中 night 日志再切换完整推送闭环。
+
+- 时间：2026-04-11 18:38 (Asia/Shanghai)
+- 类型：优化 / 危险区控流
+- 动作：执行 heartbeat 全量巡检并在 context=66% 下继续“单轮单检”最小化策略。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - 固化“18:30-22:00单轮单检”规则到 `memory/working-buffer.md`
+- 下一步：22:00 前保持最小回执；night 日志命中后切换完整推送闭环。
+
+- 时间：2026-04-11 19:08 (Asia/Shanghai)
+- 类型：优化 / 危险区控流
+- 动作：执行 heartbeat 全量巡检并在 context=66% 下落实“22:00前触发守候”策略。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - 固化“19:00-22:00四字段最小回执”规则到 `memory/working-buffer.md`
+- 下一步：22:00 前继续最小回执；night 日志命中后执行完整推送闭环。
+
+- 时间：2026-04-11 19:38 (Asia/Shanghai)
+- 类型：优化 / 危险区控流
+- 动作：执行 heartbeat 全量巡检并在 context=67% 下继续“晚报前稳定守候段”最小化策略。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - 固化“19:30-22:00检查后即退出等待”规则到 `memory/working-buffer.md`
+- 下一步：22:00 前继续最小回执；night 日志命中后执行完整推送闭环。
+
+- 时间：2026-04-11 20:08 (Asia/Shanghai)
+- 类型：优化 / 危险区控流
+- 动作：执行 heartbeat 全量巡检并在 context=68% 下继续“22:00前守候”最小化策略。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - 固化“状态四项+下一触发点”回执模板到 `memory/working-buffer.md`
+- 下一步：22:00 前继续最小回执；night 日志命中后执行完整推送闭环。
+
+- 时间：2026-04-11 20:39 (Asia/Shanghai)
+- 类型：优化 / 危险区控流
+- 动作：执行 heartbeat 全量巡检并在 context=68% 下继续“晚报前最后稳态段”最小策略。
+- 产出：
+  - 巡检结果：无待办、无待跟进新增、无注入命中、无 error/fail/warn、无待推送新闻日志
+  - 固化“20:30后单轮单检”规则到 `memory/working-buffer.md`
+- 下一步：22:00 前继续最小回执；night 日志命中后执行完整推送闭环。
