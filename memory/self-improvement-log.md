@@ -6691,3 +6691,4 @@
 
 - 2026-04-14 23:34 CST | 动作：23:33 心跳完成五检并执行1项自我强化（夜间静默模板固化）；结果无待办/无注入命中/无error-fail-warn/无待推送日志。
 - 2026-04-15 06:33 CST｜心跳自我强化：完成 1 次 OpenClaw 文档学习（`docs/cli/doctor.md`）；产出 3 条可执行笔记（配置备份/非TTY限制/健康基线入口）。下一步：在白天窗口补充 `openclaw status + doctor --deep` 的最小巡检脚本草案。
+- 2026-04-15 07:03 CST｜心跳自我强化：学习 `docs/cli/health.md`，产出 3 条巡检可执行笔记（json输出/verbose耗时/多agent store 状态）。下一步：10:00 前补一版“health+doctor”组合巡检清单。

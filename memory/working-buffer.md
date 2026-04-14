@@ -6302,3 +6302,14 @@
 ### 上次判断偏差与修正
 - 偏差：把 `docs/cli.md` 当成固定入口路径，导致读取失败。
 - 修正：先 `ls/find` 确认 docs 目录结构，再读取具体子命令文档（如 `docs/cli/doctor.md`）。
+
+## [2026-04-15 07:03 CST] Agent (OpenClaw 文档学习-CLI Health)
+
+### 今日新增认知
+1. `openclaw health --json` 适合机器可读巡检，可直接接入脚本告警。
+2. `openclaw health --verbose` 会执行 live probes，并在多账号场景输出分账号耗时，便于定位慢点。
+3. 多 agent 配置下，health 输出会包含各 agent 的 session store 状态，能快速发现单 agent 异常。
+
+### 上次判断偏差与修正
+- 偏差：心跳自愈只盯日志关键字，缺少网关健康端点的主动核验。
+- 修正：将 `openclaw health --json` 纳入白天时段最小巡检基线（与日志检查并行）。
