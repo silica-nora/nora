@@ -6313,3 +6313,14 @@
 ### 上次判断偏差与修正
 - 偏差：心跳自愈只盯日志关键字，缺少网关健康端点的主动核验。
 - 修正：将 `openclaw health --json` 纳入白天时段最小巡检基线（与日志检查并行）。
+
+## [2026-04-15 07:33 CST] Agent (OpenClaw 文档学习-CLI Logs)
+
+### 今日新增认知
+1. `openclaw logs` 通过 RPC 拉取网关文件日志，远程模式可用，不必依赖 SSH。
+2. `openclaw logs --json` 适合后续做结构化筛选/自动告警。
+3. `openclaw logs --follow --local-time` 适合实时排障且直接按本地时区对齐心跳时间线。
+
+### 上次判断偏差与修正
+- 偏差：默认只看本地 `/tmp/clawdbot/*.log`，远程可观测性利用不足。
+- 修正：后续排障优先用 `openclaw logs --limit/--json` 作为统一入口，再按需下钻本地日志。
