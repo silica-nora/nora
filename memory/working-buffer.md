@@ -6419,3 +6419,14 @@
 ### 上次判断偏差与修正
 - 偏差：默认把 doctor 信息视为常规提示，未区分“能力降级类告警”。
 - 修正：将“memory-search readiness 失败”升级为需向 tk 显式汇报的注意事项。
+
+## [2026-04-15 11:35 CST] Agent (非股票类提升-memory status 深挖验证)
+
+### 今日新增认知
+1. `openclaw memory status --deep` 已确认当前 memory search provider=none，84 个记忆文件尚未建立向量索引（0 chunks）。
+2. FTS（全文检索）状态为 ready，但 embeddings unavailable，说明“关键词检索可用、语义检索不可用”。
+3. doctor 告警已被二次验证，不是偶发噪声，而是稳定配置缺口。
+
+### 上次判断偏差与修正
+- 偏差：此前只知道“readiness 降级”，但未量化影响范围。
+- 修正：本轮补充了量化结论（0/84 索引、0 chunks），后续可据此评估修复优先级。
