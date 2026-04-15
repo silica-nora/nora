@@ -175,3 +175,6 @@
 2026-04-14 15:36:22 +0800	afternoon	深交所-市场数据入口	https://www.szse.cn/market/trend/index.html	549274b6a370cb4d5ae8fcfb2df62b1a1f4f7c4e	szse
 2026-04-14 22:06:54 +0800	night	2025年最值得尝试的60多种AI工具（AKOOL）	https://akool.com/zh/blog-posts/top-ai-tools	657e1119c39f2584f12df9020eceed2351069f6f	akool
 2026-04-15 10:03:00 +0800	morning	早报简讯：高频源去重后以金银汇率与风险解读为主	N/A	e2f7c736f45a705dc89c5b6bc001f475e22ebd19	nora-summary
+2026-04-15 15:35:00 +0800	afternoon	A股午报：沪强深弱延续（东财三大指数接口）	https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f12,f14,f2,f3,f4,f6&secids=1.000001,0.399001,0.399006	1f0ec2794fbf3011413d95029b3f36696b630097	eastmoney-api
+2026-04-15 15:35:00 +0800	afternoon	A股午报：沪深港通净买入弱（东财KAMT接口）	https://push2.eastmoney.com/api/qt/kamt/get?fields1=f1,f2,f3,f4&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63	02b7b64d675534a252b651f5b6b83a1f04735b1e	eastmoney-api
+2026-04-15 15:35:00 +0800	afternoon	A股午报：上证日K核验（新浪API）	https://quotes.sina.cn/cn/api/openapi.php/CN_MarketDataService.getKLineData?symbol=sh000001&scale=240&ma=no&datalen=2	9acc92cc6458de0f966e919db0adefcee7e130e9	sina-api
