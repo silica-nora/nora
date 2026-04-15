@@ -178,3 +178,7 @@
 2026-04-15 15:35:00 +0800	afternoon	A股午报：沪强深弱延续（东财三大指数接口）	https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f12,f14,f2,f3,f4,f6&secids=1.000001,0.399001,0.399006	1f0ec2794fbf3011413d95029b3f36696b630097	eastmoney-api
 2026-04-15 15:35:00 +0800	afternoon	A股午报：沪深港通净买入弱（东财KAMT接口）	https://push2.eastmoney.com/api/qt/kamt/get?fields1=f1,f2,f3,f4&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63	02b7b64d675534a252b651f5b6b83a1f04735b1e	eastmoney-api
 2026-04-15 15:35:00 +0800	afternoon	A股午报：上证日K核验（新浪API）	https://quotes.sina.cn/cn/api/openapi.php/CN_MarketDataService.getKLineData?symbol=sh000001&scale=240&ma=no&datalen=2	9acc92cc6458de0f966e919db0adefcee7e130e9	sina-api
+2026-04-15 22:05:00 +0800	night	Anthropic新一轮融资或超200亿美元（证券时报）	https://www.stcn.com/article/detail/3607282.html	00df304adb72a43e38eda2bc46cdb6206d347443	stcn
+2026-04-15 22:05:00 +0800	night	Meta收购Manus：AI智能体并购进入规模化阶段（财联社）	https://www.cls.cn/detail/2243572	5964b63b1eca9c3bb250c41ccc5c557eb2a97b5e	cls
+2026-04-15 22:05:00 +0800	night	2026科技进展汇编：AI能力扩张与安全风险并行（Coaio）	https://coaio.com/zh/news/2026/04/tech-breakthroughs-in-2026-ai-space-and-innovation-shaping-our-future-2lsc/	b270eaa5aa9b3752c593755aa80de0d0611c42ad	coaio
+2026-04-15 22:05:00 +0800	night	精选AI工具清单（GitHub awesome-ai-tools）	https://github.com/alecm20/awesome-ai-tools	7315e534cd5bf465a4f0706ccd505fac61d6259d	github
