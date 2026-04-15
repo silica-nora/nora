@@ -6612,7 +6612,7 @@
 ## [2026-04-15 19:35 CST] Agent (流程验证-一键存证脚本 deep 模式)
 
 ### 今日新增认知
-1.  在  下可正常执行并落盘。
+1. `heartbeat-check-save.sh` 在 `MODE=deep` 下可正常执行并落盘。
 2. 当前已验证 light/deep 双模式都可用，关键窗口可直接单命令存证。
 3. 本轮 deep 样本：/tmp/heartbeat-check-deep-20260415-193528.log
 
